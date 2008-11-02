@@ -1,105 +1,62 @@
+/*
+ * Copyright 2008 Claudius Hauptmann
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
-import com.extjs.gxt.ui.client.widget.tips.Tip;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MarkerClickHandler;
 import com.google.gwt.maps.client.event.MarkerDragStartHandler;
 import com.google.gwt.maps.client.event.MarkerMouseOutHandler;
 import com.google.gwt.maps.client.event.MarkerMouseOverHandler;
-import com.google.gwt.maps.client.geom.LatLng;
+import com.google.gwt.maps.client.event.MarkerRemoveHandler;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Marker;
 
-/*
- *  Marker and Polylines could have one common base class that handles
- *  updateContent and Properties for data to display
- */
-public class MarkerTip extends Tip implements MarkerMouseOverHandler,
-			MarkerMouseOutHandler, MarkerClickHandler, MarkerDragStartHandler {
+public class MarkerTip extends OverlayTip implements MarkerMouseOverHandler,
+			MarkerMouseOutHandler, MarkerClickHandler, MarkerDragStartHandler,
+			MarkerRemoveHandler {
 
 	private Marker marker;
-	//private SummitbookMap map;
 	private MapWidget mapWidget;
 	
 	public MarkerTip(MapWidget mapWidget, Marker marker) {
 		this.mapWidget = mapWidget;
 		this.marker = marker;
-		addMarkerListeners();
+
+		marker.addMarkerMouseOverHandler(this);
+		marker.addMarkerMouseOutHandler(this);
+		marker.addMarkerClickHandler(this);
+		marker.addMarkerDragStartHandler(this);
+		marker.addMarkerRemoveHandler(this);
+	}
+	
+	public MapWidget getMapWidget() {
+		return mapWidget;
 	}
 
 	public Marker getMarker() {
 		return marker;
 	}
-
-	public void setMarker(Marker marker) {
-		removeMarkerListeners();
 		
-		this.marker = marker;
-		
-		addMarkerListeners();
-	}
-	
-	protected void addMarkerListeners() {
-		if (this.marker != null) {
-			marker.addMarkerMouseOverHandler(this);
-			marker.addMarkerMouseOutHandler(this);
-			marker.addMarkerClickHandler(this);
-			marker.addMarkerDragStartHandler(this);
-		}
-	}
-	
-	protected void removeMarkerListeners() {
-		marker.removeMarkerMouseOverHandler(this);
-		marker.removeMarkerMouseOutHandler(this);
-		marker.removeMarkerClickHandler(this);
-		marker.removeMarkerDragStartHandler(this);
-	}
-	
-	protected Point LatLng2Point(LatLng ll) {
-		double n = mapWidget.getBounds().getNorthEast().getLatitude();
-		double s = mapWidget.getBounds().getSouthWest().getLatitude();
-		double e = mapWidget.getBounds().getNorthEast().getLongitude();
-		double w = mapWidget.getBounds().getSouthWest().getLongitude();
-		double lat = ll.getLatitude();
-		double lng = ll.getLongitude();
-		int height = mapWidget.getSize().getHeight();
-		int width = mapWidget.getSize().getWidth();
-		int offy = mapWidget.getAbsoluteTop();
-		int offx = mapWidget.getAbsoluteLeft();
-		
-		long fx = Math.round((lng-w)/(e-w)*width);
-		String sx = String.valueOf(fx);
-		int x = Integer.valueOf(sx);
-		x += offx;
-	
-		long fy = Math.round((lat-n)/(s-n)*height);
-		String sy = String.valueOf(fy);
-		int y = Integer.valueOf(sy);
-		y += offy;
-			
-		return Point.newInstance(x, y);
-	}
-
-	@Override
-	protected void updateContent() {
-	      String title = "Watzmann";
-	      String text = "H&ouml;he: 2717m";
-	      text += "<br/>Bergsteiger: 237";
-	      text += "<br/>Berichte: 23";
-	      getHeader().setText(title == null ? "" : title);
-	      if (text != null) {
-	        getBody().update(text);
-	      }
-	}
 
 	public void onMouseOut(MarkerMouseOutEvent event) {
 		hide();
 	}
 
 	public void onMouseOver(MarkerMouseOverEvent event) {
-		Point p = LatLng2Point(marker.getLatLng());
-		//Point p = mapWidget.convertLatLngToDivPixel(marker.getLatLng());
+		Point p = LatLng2Point(mapWidget, marker.getLatLng());
 		showAt(p.getX()+20, p.getY()-20);
 	}
 
@@ -111,4 +68,11 @@ public class MarkerTip extends Tip implements MarkerMouseOverHandler,
 		hide();
 	}
 
+	public void onRemove(MarkerRemoveEvent event) {
+		marker.removeMarkerMouseOverHandler(this);
+		marker.removeMarkerMouseOutHandler(this);
+		marker.removeMarkerClickHandler(this);
+		marker.removeMarkerDragStartHandler(this);
+		marker.removeMarkerRemoveHandler(this);
+	}
 }
