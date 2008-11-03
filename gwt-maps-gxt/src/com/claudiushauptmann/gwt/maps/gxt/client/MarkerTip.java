@@ -30,10 +30,14 @@ public class MarkerTip extends OverlayTip implements MarkerMouseOverHandler,
 
 	private Marker marker;
 	private MapWidget mapWidget;
+	private int xOffset;
+	private int yOffset;
 	
 	public MarkerTip(MapWidget mapWidget, Marker marker) {
 		this.mapWidget = mapWidget;
 		this.marker = marker;
+		this.xOffset = 20;
+		this.yOffset = -20;
 
 		marker.addMarkerMouseOverHandler(this);
 		marker.addMarkerMouseOutHandler(this);
@@ -51,13 +55,29 @@ public class MarkerTip extends OverlayTip implements MarkerMouseOverHandler,
 	}
 		
 
+	public int getXOffset() {
+		return xOffset;
+	}
+
+	public void setXOffset(int offset) {
+		xOffset = offset;
+	}
+
+	public int getYOffset() {
+		return yOffset;
+	}
+
+	public void setYOffset(int offset) {
+		yOffset = offset;
+	}
+
 	public void onMouseOut(MarkerMouseOutEvent event) {
 		hide();
 	}
 
 	public void onMouseOver(MarkerMouseOverEvent event) {
 		Point p = LatLng2Point(mapWidget, marker.getLatLng());
-		showAt(p.getX()+20, p.getY()-20);
+		showAt(p.getX()+xOffset, p.getY()+yOffset);
 	}
 
 	public void onClick(MarkerClickEvent event) {
@@ -69,6 +89,8 @@ public class MarkerTip extends OverlayTip implements MarkerMouseOverHandler,
 	}
 
 	public void onRemove(MarkerRemoveEvent event) {
+		hide();
+		
 		marker.removeMarkerMouseOverHandler(this);
 		marker.removeMarkerMouseOutHandler(this);
 		marker.removeMarkerClickHandler(this);
