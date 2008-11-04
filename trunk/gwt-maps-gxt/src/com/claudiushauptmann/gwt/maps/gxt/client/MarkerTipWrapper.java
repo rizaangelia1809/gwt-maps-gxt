@@ -24,20 +24,23 @@ import com.google.gwt.maps.client.event.MarkerRemoveHandler;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Marker;
 
-public class MarkerTip extends OverlayTip implements MarkerMouseOverHandler,
-			MarkerMouseOutHandler, MarkerClickHandler, MarkerDragStartHandler,
+public class MarkerTipWrapper implements
+			MarkerMouseOverHandler,
+			MarkerMouseOutHandler,
+			MarkerClickHandler,
+			MarkerDragStartHandler,
 			MarkerRemoveHandler {
 
 	private Marker marker;
 	private MapWidget mapWidget;
-	private int xOffset;
-	private int yOffset;
+	private OverlayTip overlayTip;
+	private Point offset;
 	
-	public MarkerTip(MapWidget mapWidget, Marker marker) {
+	public MarkerTipWrapper(MapWidget mapWidget, Marker marker, OverlayTip overlayTip) {
 		this.mapWidget = mapWidget;
 		this.marker = marker;
-		this.xOffset = 20;
-		this.yOffset = -20;
+		this.overlayTip = overlayTip;
+		offset = Point.newInstance(0, 0);
 
 		marker.addMarkerMouseOverHandler(this);
 		marker.addMarkerMouseOutHandler(this);
@@ -53,43 +56,43 @@ public class MarkerTip extends OverlayTip implements MarkerMouseOverHandler,
 	public Marker getMarker() {
 		return marker;
 	}
-		
 
-	public int getXOffset() {
-		return xOffset;
+	public OverlayTip getOverlayTip() {
+		return overlayTip;
 	}
 
-	public void setXOffset(int offset) {
-		xOffset = offset;
+	public void setOverlayTip(OverlayTip overlayTip) {
+		this.overlayTip = overlayTip;
 	}
 
-	public int getYOffset() {
-		return yOffset;
+	public Point getOffset() {
+		return offset;
 	}
 
-	public void setYOffset(int offset) {
-		yOffset = offset;
+	public void setOffset(Point offset) {
+		this.offset = offset;
 	}
 
+	
 	public void onMouseOut(MarkerMouseOutEvent event) {
-		hide();
+		overlayTip.hide();
 	}
 
 	public void onMouseOver(MarkerMouseOverEvent event) {
-		Point p = LatLng2Point(mapWidget, marker.getLatLng());
-		showAt(p.getX()+xOffset, p.getY()+yOffset);
+		Point p = Utility.LatLng2Point(mapWidget, marker.getLatLng());
+		overlayTip.showAt(p.getX()+offset.getX(), p.getY()+offset.getY());
 	}
 
 	public void onClick(MarkerClickEvent event) {
-		hide();
+		overlayTip.hide();
 	}
 
 	public void onDragStart(MarkerDragStartEvent event) {
-		hide();
+		overlayTip.hide();
 	}
 
 	public void onRemove(MarkerRemoveEvent event) {
-		hide();
+		overlayTip.hide();
 		
 		marker.removeMarkerMouseOverHandler(this);
 		marker.removeMarkerMouseOutHandler(this);

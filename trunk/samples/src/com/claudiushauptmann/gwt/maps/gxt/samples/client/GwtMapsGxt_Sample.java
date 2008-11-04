@@ -15,7 +15,8 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.samples.client;
 
-import com.claudiushauptmann.gwt.maps.gxt.client.MarkerTip;
+import com.claudiushauptmann.gwt.maps.gxt.client.MarkerTipWrapper;
+import com.claudiushauptmann.gwt.maps.gxt.client.OverlayTip;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
@@ -26,7 +27,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 public class GwtMapsGxt_Sample implements EntryPoint {
 	private MapWidget mapWidget;
 	private Marker  marker;
-	private MarkerTip markerTip;
+	private OverlayTip overlayTip;
+	private MarkerTipWrapper markerTipWrapper;
 
 	public void onModuleLoad() {
 		mapWidget = new MapWidget();
@@ -41,12 +43,14 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		marker = new Marker(mapWidget.getCenter());
 		mapWidget.addOverlay(marker);
 		
-		markerTip = new MarkerTip(mapWidget, marker);
-		markerTip.setTitle("Marienplatz");
-		markerTip.setDescription("Marienplatz is a central square in the"
+		overlayTip = new OverlayTip();
+		overlayTip.setTitle("Marienplatz");
+		overlayTip.setDescription("Marienplatz is a central square in the"
 				+ " city center of Munich, Germany since 1158.<br/>"
 				+ " In the Middle Ages markets and tournaments were held in this"
 				+ " city square. The Glockenspiel in the new city hall was inspired"
 				+ " by these tournaments, and draws millions of tourists a year.");
+		
+		markerTipWrapper = new MarkerTipWrapper(mapWidget, marker, overlayTip);
 	}
 }
