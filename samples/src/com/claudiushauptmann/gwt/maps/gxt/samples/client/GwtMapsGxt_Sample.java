@@ -15,20 +15,26 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.samples.client;
 
-import com.claudiushauptmann.gwt.maps.gxt.client.MarkerTipWrapper;
+import com.claudiushauptmann.gwt.maps.gxt.client.MarkerMenuController;
+import com.claudiushauptmann.gwt.maps.gxt.client.MarkerTipController;
 import com.claudiushauptmann.gwt.maps.gxt.client.OverlayTip;
+import com.extjs.gxt.ui.client.widget.menu.Menu;
+import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
 import com.google.gwt.maps.client.geom.LatLng;
+import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Marker;
+import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class GwtMapsGxt_Sample implements EntryPoint {
 	private MapWidget mapWidget;
 	private Marker  marker;
 	private OverlayTip overlayTip;
-	private MarkerTipWrapper markerTipWrapper;
+	private MarkerTipController markerTipController;
+	private MarkerMenuController markerMenuController;
 
 	public void onModuleLoad() {
 		mapWidget = new MapWidget();
@@ -40,7 +46,10 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		mapWidget.setScrollWheelZoomEnabled(true);
 		RootPanel.get().add(mapWidget);
 		
-		marker = new Marker(mapWidget.getCenter());
+		MarkerOptions mo = MarkerOptions.newInstance();
+		mo.setClickable(true);
+		mo.setDraggable(true);
+		marker = new Marker(mapWidget.getCenter(), mo);
 		mapWidget.addOverlay(marker);
 		
 		overlayTip = new OverlayTip();
@@ -51,6 +60,16 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				+ " city square. The Glockenspiel in the new city hall was inspired"
 				+ " by these tournaments, and draws millions of tourists a year.");
 		
-		markerTipWrapper = new MarkerTipWrapper(mapWidget, marker, overlayTip);
+		Point p = Point.newInstance(20, -20);
+		
+		markerTipController = new MarkerTipController(mapWidget, marker, overlayTip, p);
+		
+		Menu popupMenu = new Menu();		
+		MenuItem item1 = new MenuItem();
+		item1.setText("Item 1");
+		popupMenu.add(item1);		
+		Point menuOffset = Point.newInstance(-20, -40);
+		markerMenuController = new MarkerMenuController(mapWidget,
+				marker, popupMenu, menuOffset);
 	}
 }
