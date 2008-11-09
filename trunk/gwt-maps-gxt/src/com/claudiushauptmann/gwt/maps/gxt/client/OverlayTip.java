@@ -17,22 +17,37 @@ package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.tips.Tip;
 
+/**
+ * Inherits {@link Tip} and stores title and description to display.
+ */
 public class OverlayTip extends Tip  {
 	private String title;
 	private String description;
 	
+	/**
+	 * @return returns the title.
+	 */
 	public String getTitle() {
 		return title;
 	}
 
+	/**
+	 * @param title the new title.
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
+	
+	/**
+	 * @return the current description.
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * @param description the new description.
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
