@@ -16,11 +16,13 @@
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.event.MapMouseMoveHandler;
 import com.google.gwt.maps.client.event.MarkerClickHandler;
 import com.google.gwt.maps.client.event.MarkerDragStartHandler;
 import com.google.gwt.maps.client.event.MarkerMouseOutHandler;
 import com.google.gwt.maps.client.event.MarkerMouseOverHandler;
 import com.google.gwt.maps.client.event.MarkerRemoveHandler;
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Marker;
 
@@ -32,9 +34,11 @@ public class MarkerTipController{
 	private Marker marker;
 	private MapWidget mapWidget;
 	private OverlayTip overlayTip;
-	private Point offset;
+
+	private LatLng currentMousePosition;
 
 	private MarkerEventHandler markerEventHandler;
+	private MapEventHandler mapEventHandler;
 	
 	/**
 	 * Creates a {@link MarkerTipController}
@@ -45,13 +49,13 @@ public class MarkerTipController{
 	 * @param offset
 	 */
 	public MarkerTipController(MapWidget mapWidget, Marker marker,
-			OverlayTip overlayTip, Point offset) {
+			OverlayTip overlayTip) {
 		this.mapWidget = mapWidget;
 		this.marker = marker;
 		this.overlayTip = overlayTip;
-		this.offset = offset;
 
 		markerEventHandler = new MarkerEventHandler();
+		mapEventHandler = new MapEventHandler();
 
 		attach();
 	}
@@ -87,22 +91,6 @@ public class MarkerTipController{
 	public void setOverlayTip(OverlayTip overlayTip) {
 		this.overlayTip = overlayTip;
 	}
-
-	/**
-	 * Gets the offset from the marker where the Overlay will be displayed.
-	 * 
-	 * @return the offset.
-	 */
-	public Point getOffset() {
-		return offset;
-	}
-
-	/**
-	 * Sets the offset from the marker where the Overlay will be displayed.
-	 */
-	public void setOffset(Point offset) {
-		this.offset = offset;
-	}
 	
 	/**
 	 * attaches the event handlers to the marker
@@ -113,6 +101,7 @@ public class MarkerTipController{
 		marker.addMarkerClickHandler(markerEventHandler);
 		marker.addMarkerDragStartHandler(markerEventHandler);
 		marker.addMarkerRemoveHandler(markerEventHandler);
+		mapWidget.addMapMouseMoveHandler(mapEventHandler);
 	}
 	
 	/**
@@ -124,14 +113,15 @@ public class MarkerTipController{
 		marker.removeMarkerClickHandler(markerEventHandler);
 		marker.removeMarkerDragStartHandler(markerEventHandler);
 		marker.removeMarkerRemoveHandler(markerEventHandler);
+		mapWidget.removeMapMouseMoveHandler(mapEventHandler);
 	}
 	
 	/**
 	 * Shows the OverlayTip.
 	 */
 	protected void showTip() {
-		Point p = Utility.LatLng2Point(mapWidget, marker.getLatLng());
-		overlayTip.showAt(p.getX()+offset.getX(), p.getY()+offset.getY());
+		Point p = Utility.LatLng2Point(mapWidget, currentMousePosition);
+		overlayTip.showAt(p.getX()+15, p.getY());
 	}
 	
 	/**
@@ -139,6 +129,16 @@ public class MarkerTipController{
 	 */
 	protected void hideTip() {
 		overlayTip.hide();
+	}
+
+	/**
+	 * Moves the Tip to the current mouse position
+	 */
+	protected void updateTip() {
+		if (overlayTip.isVisible()) {
+			Point p = Utility.LatLng2Point(mapWidget, currentMousePosition);
+			overlayTip.setPosition(p.getX()+15, p.getY());
+		}
 	}
 
 	
@@ -165,6 +165,13 @@ public class MarkerTipController{
 		public void onRemove(MarkerRemoveEvent event) {
 			hideTip();
 			detach();
+		}
+	}
+	
+	private class MapEventHandler implements MapMouseMoveHandler {
+		public void onMouseMove(MapMouseMoveEvent event) {
+			currentMousePosition = event.getLatLng();
+			updateTip();
 		}
 	}
 }

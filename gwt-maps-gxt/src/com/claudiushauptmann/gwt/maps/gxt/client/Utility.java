@@ -1,8 +1,10 @@
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
+import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.geom.Point;
+import com.google.gwt.user.client.Timer;
 
 /**
  * Utility class
@@ -43,4 +45,5 @@ public abstract class Utility {
 		return Point.newInstance(x, y);
 	}
 
+	
 }
