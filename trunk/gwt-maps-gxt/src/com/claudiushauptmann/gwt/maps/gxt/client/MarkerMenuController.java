@@ -17,8 +17,10 @@ package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.google.gwt.maps.client.MapWidget;
+import com.google.gwt.maps.client.event.MapMouseMoveHandler;
 import com.google.gwt.maps.client.event.MarkerClickHandler;
 import com.google.gwt.maps.client.event.MarkerRemoveHandler;
+import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.user.client.Timer;
@@ -31,19 +33,20 @@ public class MarkerMenuController {
 	private Marker marker;
 	private MapWidget mapWidget;
 	private Menu menu;
-	private Point offset;
+
+	private LatLng currentMousePosition;
 
 	private MarkerEventHandler markerEventHandler;
+	private MapEventHandler mapEventHandler;
 
-	public MarkerMenuController(MapWidget mapWidget, Marker marker,
-			Menu menu, Point offset) {
+	public MarkerMenuController(MapWidget mapWidget, Marker marker, Menu menu) {
 
 		this.mapWidget = mapWidget;
 		this.marker = marker;
 		this.menu = menu;
-		this.offset = offset;
 
 		markerEventHandler = new MarkerEventHandler();
+		mapEventHandler = new MapEventHandler();
 
 		attach();		
 	}
@@ -79,37 +82,23 @@ public class MarkerMenuController {
 	public void setMenu(Menu menu) {
 		this.menu = menu;
 	}
-
-	/**
-	 * Gets the offset from the marker where the Overlay will be displayed.
-	 * 
-	 * @return the offset.
-	 */
-	public Point getOffset() {
-		return offset;
-	}
-
-	/**
-	 * Sets the offset from the marker where the Overlay will be displayed.
-	 */
-	public void setOffset(Point offset) {
-		this.offset = offset;
-	}
 	
 	
 	protected void attach() {
 		marker.addMarkerClickHandler(markerEventHandler);
 		marker.addMarkerRemoveHandler(markerEventHandler);
+		mapWidget.addMapMouseMoveHandler(mapEventHandler);
 	}
 	
 	protected void detach() {
 		marker.removeMarkerClickHandler(markerEventHandler);
 		marker.removeMarkerRemoveHandler(markerEventHandler);
+		mapWidget.removeMapMouseMoveHandler(mapEventHandler);
 	}
 	
 	protected void showMenu() {
-		Point point = Utility.LatLng2Point(mapWidget, marker.getLatLng());
-		point = Point.newInstance(point.getX()+offset.getX(), point.getY()+offset.getY());
+		Point point = Utility.LatLng2Point(mapWidget, currentMousePosition);
+		point = Point.newInstance(point.getX(), point.getY());
 		MenuTimer.showMenu(menu, point);
 	}
 	
@@ -140,6 +129,12 @@ public class MarkerMenuController {
 		
 		public static void showMenu(Menu menu, Point point) {
 			new MenuTimer(menu, point).schedule(50);
+		}
+	}
+	
+	private class MapEventHandler implements MapMouseMoveHandler {
+		public void onMouseMove(MapMouseMoveEvent event) {
+			currentMousePosition = event.getLatLng();
 		}
 	}
 }
