@@ -22,20 +22,16 @@ import com.google.gwt.maps.client.event.PolylineClickHandler;
 import com.google.gwt.maps.client.event.PolylineMouseOutHandler;
 import com.google.gwt.maps.client.event.PolylineMouseOverHandler;
 import com.google.gwt.maps.client.event.PolylineRemoveHandler;
+import com.google.gwt.maps.client.event.MapMouseMoveHandler.MapMouseMoveEvent;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Polyline;
-import com.google.gwt.user.client.Timer;
 
 public class PolylineGXTController {
 	private Polyline polyline;
 	private MapWidget mapWidget;
 	
 	private OverlayTip overlayTip;
-	private OverlayTip vertexOverlayTip;
-	private OverlayTip startOverlayTip;
-	private OverlayTip endOverlayTip;
-	private OverlayTip currentOverlayTip;
 	
 	private Menu menu;
 	private Menu vertexMenu;
@@ -60,9 +56,10 @@ public class PolylineGXTController {
 		
 		eventHandler = new EventHandler();
 		
-		attach();
+		subscribe();
 	}
 	
+	/* GXT specific */
 	
 	public OverlayTip getOverlayTip() {
 		return overlayTip;
@@ -70,30 +67,6 @@ public class PolylineGXTController {
 
 	public void setOverlayTip(OverlayTip overlayTip) {
 		this.overlayTip = overlayTip;
-	}
-
-	public OverlayTip getVertexOverlayTip() {
-		return vertexOverlayTip;
-	}
-
-	public void setVertexOverlayTip(OverlayTip pointOverlayTip) {
-		this.vertexOverlayTip = pointOverlayTip;
-	}
-
-	public OverlayTip getStartOverlayTip() {
-		return startOverlayTip;
-	}
-
-	public void setStartOverlayTip(OverlayTip startOverlayTip) {
-		this.startOverlayTip = startOverlayTip;
-	}
-
-	public OverlayTip getEndOverlayTip() {
-		return endOverlayTip;
-	}
-
-	public void setEndOverlayTip(OverlayTip endOverlayTip) {
-		this.endOverlayTip = endOverlayTip;
 	}
 	
 	public Menu getMenu() {
@@ -127,9 +100,60 @@ public class PolylineGXTController {
 	public void setEndMenu(Menu endMenu) {
 		this.endMenu = endMenu;
 	}
+	
+	protected void showOverlayTip() {
+		overlayTip.showAt(currentMousePosition.getX()-overlayTip.getWidth()-20, currentMousePosition.getY());
+	}
+	
+	protected void updateOverlayTip() {
+		overlayTip.setPosition(currentMousePosition.getX()-overlayTip.getWidth()-20, currentMousePosition.getY());
+	}
+	
+	protected void hideOverlayTip() {
+		overlayTip.hide();
+	}
+	
+	protected void showPolylineMenu(Point position) {
+		if (menu != null) {
+			menu.showAt(position.getX(), position.getY());
+			currentMenu = menu;
+		}
+	}
+	
+	protected void showVertexMenu(Point position) {
+		if (vertexMenu != null) {
+			vertexMenu.showAt(position.getX(), position.getY());
+			currentMenu = vertexMenu;
+		} else {
+			showPolylineMenu(position);
+		}
+	}
+	
+	protected void showStartMenu(Point position) {
+		if (startMenu != null) {
+			startMenu.showAt(position.getX(), position.getY());
+			currentMenu = startMenu;
+		} else {
+			showVertexMenu(position);
+		}
+	}
+	
+	protected void showEndMenu(Point position) {
+		if (endMenu != null) {
+			endMenu.showAt(position.getX(), position.getY());
+			currentMenu = endMenu;
+		} else {
+			showVertexMenu(position);
+		}
+	}
+	
+	protected boolean isMenuVisible() {
+		return (currentMenu == null) || (!currentMenu.isVisible());
+	}
 
-
-	protected void attach() {
+	/* non GXT specific */
+	
+	protected void subscribe() {
 		polyline.addPolylineClickHandler(eventHandler);
 		polyline.addPolylineMouseOverHandler(eventHandler);
 		polyline.addPolylineMouseOutHandler(eventHandler);
@@ -137,66 +161,15 @@ public class PolylineGXTController {
 		mapWidget.addMapMouseMoveHandler(eventHandler);
 	}
 	
-	protected void detach() {
+	protected void unsubscribe() {
 		polyline.removePolylineClickHandler(eventHandler);
 		polyline.removePolylineMouseOverHandler(eventHandler);
 		polyline.removePolylineMouseOutHandler(eventHandler);
 		polyline.removePolylineRemoveHandler(eventHandler);
 		mapWidget.removeMapMouseMoveHandler(eventHandler);
 	}
-	
-	protected void updateOverlayTip() {
-		//Show only if the menu is not visible
-		if (mouseOver && ((currentMenu == null) || (!currentMenu.isVisible()))) {
-			//Which is the right OverlayTip?
-			OverlayTip newOverlayTip = overlayTip;
-			if ((currentVertex != -1) && (vertexOverlayTip != null)) {
-				newOverlayTip = vertexOverlayTip;
-			}
-			if ((currentVertex == 0) && (startOverlayTip != null)) {
-				newOverlayTip = startOverlayTip;
-			}
-			if ((currentVertex == polyline.getVertexCount()-1) && (endOverlayTip != null)) {
-				newOverlayTip = endOverlayTip;
-			}
-			
-			//Update the OverlayTip
-			if (newOverlayTip == currentOverlayTip) {
-				currentOverlayTip.setPosition(currentMousePosition.getX()+15, currentMousePosition.getY());
-			} else {
-				if (currentOverlayTip != null) {
-					currentOverlayTip.hide();
-					currentOverlayTip = null;
-				}
-				if (newOverlayTip != null) {
-					currentOverlayTip = newOverlayTip;
-					currentOverlayTip.showAt(currentMousePosition.getX()+15, currentMousePosition.getY());
-				}
-			}
-		} else {
-			if (currentOverlayTip != null) {
-				currentOverlayTip.hide();
-				currentOverlayTip = null;
-			}
-		}
-	}
 
 	protected void showMenu() {
-		currentMenu = menu;
-		if ((currentVertex != -1) && (vertexMenu != null)) {
-			currentMenu = vertexMenu;
-		}
-		if ((currentVertex == 0) && (startMenu != null)) {
-			currentMenu = startMenu;
-		}
-		if ((currentVertex == polyline.getVertexCount()-1) && (endMenu!= null)) {
-			currentMenu = endMenu;
-		}
-		
-		if (currentMenu != null) {
-			currentMenu.showAt(currentMousePosition.getX(), currentMousePosition.getY());
-			updateOverlayTip();
-		}
 	}
 	
 	private class EventHandler implements PolylineClickHandler,	PolylineMouseOverHandler,
@@ -204,40 +177,58 @@ public class PolylineGXTController {
 
 		public void onMouseOver(PolylineMouseOverEvent event) {
 			mouseOver = true;
-			updateOverlayTip();
-		}
-
-		public void onMouseOut(PolylineMouseOutEvent event) {
-			mouseOver = false;
-			updateOverlayTip();
+			
+			if (mouseOver && isMenuVisible()) {
+				showOverlayTip();
+			}
 		}
 
 		public void onMouseMove(MapMouseMoveEvent event) {
 			currentLatLng = event.getLatLng();
 			currentMousePosition = Utility.LatLng2Point(mapWidget, currentLatLng);
-
+		
 			currentVertex = -1;
-			if (mouseOver) {
+//			if (mouseOver) {
 				for (int i = 0; i < polyline.getVertexCount(); i++) {
 					Point vp = Utility.LatLng2Point(mapWidget, polyline.getVertex(i));
-					if ((Math.abs(vp.getX()-currentMousePosition.getX())<6)
-								&& (Math.abs(vp.getY()-currentMousePosition.getY())<6)) {
+					if ((Math.abs(vp.getX()-currentMousePosition.getX())<7)
+								&& (Math.abs(vp.getY()-currentMousePosition.getY())<7)) {
 						currentVertex = i;
 						break;
 					}
 				}
+//			}
+		
+			if (mouseOver && isMenuVisible()) {
+				updateOverlayTip();
 			}
+		}
 
-			updateOverlayTip();
+		public void onMouseOut(PolylineMouseOutEvent event) {
+			mouseOver = false;
+			hideOverlayTip() ;
 		}
 
 		public void onClick(PolylineClickEvent event) {
-			showMenu();
+			hideOverlayTip();
+
+			if (currentVertex == -1) {
+				showPolylineMenu(currentMousePosition);
+			}
+			if ((currentVertex > 0) && (currentVertex < polyline.getVertexCount()-1)) {
+				showVertexMenu(currentMousePosition);
+			}
+			if (currentVertex == 0) {
+				showStartMenu(currentMousePosition);
+			}
+			if (currentVertex == polyline.getVertexCount()-1) {
+				showEndMenu(currentMousePosition);
+			}
 		}
 
 		public void onRemove(PolylineRemoveEvent event) {
-			updateOverlayTip();
-			detach();
+			hideOverlayTip();
+			unsubscribe();
 		}
 	}
 }

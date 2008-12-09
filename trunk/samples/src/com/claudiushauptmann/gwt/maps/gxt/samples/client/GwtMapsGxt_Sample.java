@@ -24,8 +24,8 @@ import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
+import com.google.gwt.maps.client.event.MapClickHandler;
 import com.google.gwt.maps.client.geom.LatLng;
-import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
 import com.google.gwt.maps.client.overlay.Polyline;
@@ -123,12 +123,16 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		
 		PolylineGXTController ptc = new PolylineGXTController(mapWidget,
 				line, polylineOverlayTip);
-		ptc.setVertexOverlayTip(polylineVertexOverlayTip);
-		ptc.setStartOverlayTip(polylineStartOverlayTip);
-		ptc.setEndOverlayTip(polylineEndOverlayTip);
+
 		ptc.setMenu(lineMenu);
 		ptc.setVertexMenu(lineMenuVertex);
 		ptc.setStartMenu(lineMenuStart);
 		ptc.setEndMenu(lineMenuEnd);
+		
+		mapWidget.addMapClickHandler(new MapClickHandler() {
+			public void onClick(MapClickEvent event) {
+				System.out.println("click");
+			}
+		});
 	}
 }
