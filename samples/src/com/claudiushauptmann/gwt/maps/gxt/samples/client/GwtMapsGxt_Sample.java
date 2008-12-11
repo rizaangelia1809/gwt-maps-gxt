@@ -15,29 +15,26 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.samples.client;
 
-import com.claudiushauptmann.gwt.maps.gxt.client.MarkerMenuController;
-import com.claudiushauptmann.gwt.maps.gxt.client.MarkerTipController;
+import com.claudiushauptmann.gwt.maps.gxt.client.MarkerGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.OverlayTip;
+import com.claudiushauptmann.gwt.maps.gxt.client.PolygonGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.PolylineGXTController;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
-import com.google.gwt.maps.client.event.MapClickHandler;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.maps.client.overlay.MarkerOptions;
+import com.google.gwt.maps.client.overlay.Polygon;
+import com.google.gwt.maps.client.overlay.PolygonOptions;
 import com.google.gwt.maps.client.overlay.Polyline;
 import com.google.gwt.maps.client.overlay.PolylineOptions;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class GwtMapsGxt_Sample implements EntryPoint {
 	private MapWidget mapWidget;
-	private Marker  marker;
-	private OverlayTip overlayTip;
-	private MarkerTipController markerTipController;
-	private MarkerMenuController markerMenuController;
 
 	public void onModuleLoad() {
 		// Map
@@ -55,10 +52,10 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		MarkerOptions mo = MarkerOptions.newInstance();
 		mo.setClickable(true);
 		mo.setDraggable(true);
-		marker = new Marker(mapWidget.getCenter(), mo);
+		Marker marker = new Marker(mapWidget.getCenter(), mo);
 		mapWidget.addOverlay(marker);
 		
-		overlayTip = new OverlayTip();
+		OverlayTip overlayTip = new OverlayTip();
 		overlayTip.setTitle("Marienplatz");
 		overlayTip.setDescription("Marienplatz is a central square in the"
 				+ " city center of Munich, Germany since 1158.<br/>"
@@ -66,22 +63,21 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				+ " city square. The Glockenspiel in the new city hall was inspired"
 				+ " by these tournaments, and draws millions of tourists a year.");
 		
-		markerTipController = new MarkerTipController(mapWidget,
-				marker, overlayTip);
-		
 		Menu popupMenu = new Menu();		
 		MenuItem item1 = new MenuItem();
-		item1.setText("Item 1");
+		item1.setText("Marker");
 		popupMenu.add(item1);		
-		markerMenuController = new MarkerMenuController(mapWidget,
-				marker, popupMenu);
+		
+		MarkerGXTController markerGXTController = new MarkerGXTController(mapWidget, marker);
+		markerGXTController.setOverlayTip(overlayTip);
+		markerGXTController.setMenu(popupMenu);
 		
 		//Polyline
-		LatLng[] ll = new LatLng[2];
-		ll[0] = mapWidget.getBounds().getNorthEast();
-		ll[1] = mapWidget.getBounds().getSouthWest();
+		LatLng[] llline = new LatLng[2];
+		llline[0] = mapWidget.getBounds().getNorthEast();
+		llline[1] = mapWidget.getBounds().getSouthWest();
 		PolylineOptions plo = PolylineOptions.newInstance(true, false);
-		Polyline line = new Polyline(ll, "#FF0000", 2, 1.0, plo);
+		Polyline line = new Polyline(llline, "#FF0000", 2, 1.0, plo);
 		line.setEditingEnabled(true);
 		mapWidget.addOverlay(line);
 		
@@ -89,50 +85,63 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		polylineOverlayTip.setTitle("Polyline");
 		polylineOverlayTip.setDescription("This is the description");
 
-		OverlayTip polylineVertexOverlayTip = new OverlayTip();
-		polylineVertexOverlayTip.setTitle("Vertex");
-		polylineVertexOverlayTip.setDescription("This is the description");
-
-		OverlayTip polylineStartOverlayTip = new OverlayTip();
-		polylineStartOverlayTip.setTitle("Start");
-		polylineStartOverlayTip.setDescription("This is the description");
-
-		OverlayTip polylineEndOverlayTip = new OverlayTip();
-		polylineEndOverlayTip.setTitle("End");
-		polylineEndOverlayTip.setDescription("This is the description");
-
-		Menu lineMenu = new Menu();		
+		Menu lineStandardMenu = new Menu();		
 		MenuItem lineMenuItem = new MenuItem();
 		lineMenuItem.setText("Polyline");
-		lineMenu.add(lineMenuItem);		
+		lineStandardMenu.add(lineMenuItem);		
 
 		Menu lineMenuVertex = new Menu();		
 		MenuItem lineMenuItemVertex = new MenuItem();
-		lineMenuItemVertex.setText("Vertex");
+		lineMenuItemVertex.setText("PolylineVertex");
 		lineMenuVertex.add(lineMenuItemVertex);		
 
 		Menu lineMenuStart = new Menu();		
 		MenuItem lineMenuItemStart = new MenuItem();
-		lineMenuItemStart.setText("Start");
+		lineMenuItemStart.setText("PolylineStart");
 		lineMenuStart.add(lineMenuItemStart);		
 
 		Menu lineMenuEnd = new Menu();		
 		MenuItem lineMenuItemEnd = new MenuItem();
-		lineMenuItemEnd.setText("End");
+		lineMenuItemEnd.setText("PolylineEnd");
 		lineMenuEnd.add(lineMenuItemEnd);		
 		
-		PolylineGXTController ptc = new PolylineGXTController(mapWidget,
-				line, polylineOverlayTip);
-
-		ptc.setMenu(lineMenu);
+		PolylineGXTController ptc = new PolylineGXTController(mapWidget, line);
+		ptc.setOverlayTip(polylineOverlayTip);
+		ptc.setStandardMenu(lineStandardMenu);
 		ptc.setVertexMenu(lineMenuVertex);
 		ptc.setStartMenu(lineMenuStart);
 		ptc.setEndMenu(lineMenuEnd);
+
+	
+		//Polygon
+		LatLng[] llpolygon = new LatLng[4];
+		llpolygon[0] = mapWidget.getBounds().getNorthEast();
+		llpolygon[1] = mapWidget.getBounds().getSouthWest();
+		llpolygon[2] = LatLng.newInstance(mapWidget.getBounds().getNorthEast().getLatitude(),
+					mapWidget.getBounds().getSouthWest().getLongitude());
+		llpolygon[3] = llpolygon[0];
+		PolygonOptions pgo = PolygonOptions.newInstance(true);
+		Polygon polygon = new Polygon(llpolygon, "#0000FF", 2, 1.0, "#0000FF", 0.3, pgo);
+		polygon.setEditingEnabled(true);
+		mapWidget.addOverlay(polygon);
 		
-		mapWidget.addMapClickHandler(new MapClickHandler() {
-			public void onClick(MapClickEvent event) {
-				System.out.println("click");
-			}
-		});
+		OverlayTip polygonOverlayTip = new OverlayTip();
+		polygonOverlayTip.setTitle("Polygon");
+		polygonOverlayTip.setDescription("This is the description");
+
+		Menu polygonStandardMenu = new Menu();		
+		MenuItem polygonMenuItem = new MenuItem();
+		polygonMenuItem.setText("Polygon");
+		polygonStandardMenu.add(polygonMenuItem);		
+
+		Menu polygonMenuVertex = new Menu();		
+		MenuItem polylineMenuItemVertex = new MenuItem();
+		polylineMenuItemVertex.setText("PolygonVertex");
+		polygonMenuVertex.add(polylineMenuItemVertex);		
+		
+		PolygonGXTController pgc = new PolygonGXTController(mapWidget, polygon);
+		pgc.setOverlayTip(polygonOverlayTip);
+		pgc.setStandardMenu(polygonStandardMenu);
+		pgc.setVertexMenu(polygonMenuVertex);
 	}
 }
