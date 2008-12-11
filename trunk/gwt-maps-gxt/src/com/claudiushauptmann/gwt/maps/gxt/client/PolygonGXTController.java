@@ -18,18 +18,16 @@ package com.claudiushauptmann.gwt.maps.gxt.client;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.geom.Point;
-import com.google.gwt.maps.client.overlay.Polyline;
+import com.google.gwt.maps.client.overlay.Polygon;
 
-public class PolylineGXTController extends PolylineMenuTipController {
+public class PolygonGXTController extends PolygonMenuTipController {
 	private OverlayTip overlayTip;
 	private Menu standardMenu;
 	private Menu vertexMenu;
-	private Menu startMenu;
-	private Menu endMenu;
 	private Menu currentMenu;
 	
-	public PolylineGXTController(MapWidget mapWidget, Polyline polyline) {
-		super(mapWidget, polyline);
+	public PolygonGXTController(MapWidget mapWidget, Polygon polygon) {
+		super(mapWidget, polygon);
 	}
 	
 	public OverlayTip getOverlayTip() {
@@ -54,22 +52,6 @@ public class PolylineGXTController extends PolylineMenuTipController {
 
 	public void setVertexMenu(Menu vertexMenu) {
 		this.vertexMenu = vertexMenu;
-	}
-
-	public Menu getStartMenu() {
-		return startMenu;
-	}
-
-	public void setStartMenu(Menu startMenu) {
-		this.startMenu = startMenu;
-	}
-
-	public Menu getEndMenu() {
-		return endMenu;
-	}
-
-	public void setEndMenu(Menu endMenu) {
-		this.endMenu = endMenu;
 	}
 
 	@Override
@@ -103,24 +85,6 @@ public class PolylineGXTController extends PolylineMenuTipController {
 		}
 	}
 	
-	protected void showStartMenu(Point position) {
-		if (startMenu != null) {
-			startMenu.showAt(position.getX(), position.getY());
-			currentMenu = startMenu;
-		} else {
-			showVertexMenu(position);
-		}
-	}
-	
-	protected void showEndMenu(Point position) {
-		if (endMenu != null) {
-			endMenu.showAt(position.getX(), position.getY());
-			currentMenu = endMenu;
-		} else {
-			showVertexMenu(position);
-		}
-	}
-	
 	@Override
 	protected boolean isMenuVisible() {
 		return (currentMenu != null) && (currentMenu.isVisible());
@@ -132,15 +96,8 @@ public class PolylineGXTController extends PolylineMenuTipController {
 
 		if (currentVertex == -1) {
 			showStandardMenu(currentMousePosition);
-		}
-		if ((currentVertex > 0) && (currentVertex < polyline.getVertexCount()-1)) {
+		} else {
 			showVertexMenu(currentMousePosition);
-		}
-		if (currentVertex == 0) {
-			showStartMenu(currentMousePosition);
-		}
-		if (currentVertex == polyline.getVertexCount()-1) {
-			showEndMenu(currentMousePosition);
 		}
 	}
 }
