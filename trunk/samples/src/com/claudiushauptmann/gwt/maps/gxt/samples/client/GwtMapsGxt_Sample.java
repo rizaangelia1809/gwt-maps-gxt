@@ -72,10 +72,12 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		markerGXTController.setOverlayTip(overlayTip);
 		markerGXTController.setMenu(popupMenu);
 		
+		
 		//Polyline
-		LatLng[] llline = new LatLng[2];
-		llline[0] = mapWidget.getBounds().getNorthEast();
-		llline[1] = mapWidget.getBounds().getSouthWest();
+		LatLng[] llline = new LatLng[3];		
+		llline[0] = LatLng.newInstance(48.131955, 11.527061);
+		llline[1] = LatLng.newInstance(48.11809, 11.579247);
+		llline[2] = LatLng.newInstance(48.127143, 11.638298);
 		PolylineOptions plo = PolylineOptions.newInstance(true, false);
 		Polyline line = new Polyline(llline, "#FF0000", 2, 1.0, plo);
 		line.setEditingEnabled(true);
@@ -112,13 +114,12 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		ptc.setStartMenu(lineMenuStart);
 		ptc.setEndMenu(lineMenuEnd);
 
-	
+		
 		//Polygon
 		LatLng[] llpolygon = new LatLng[4];
-		llpolygon[0] = mapWidget.getBounds().getNorthEast();
-		llpolygon[1] = mapWidget.getBounds().getSouthWest();
-		llpolygon[2] = LatLng.newInstance(mapWidget.getBounds().getNorthEast().getLatitude(),
-					mapWidget.getBounds().getSouthWest().getLongitude());
+		llpolygon[0] = LatLng.newInstance(48.119809, 11.539936);
+		llpolygon[1] = LatLng.newInstance(48.158185, 11.541138);
+		llpolygon[2] = LatLng.newInstance(48.155894, 11.569118);
 		llpolygon[3] = llpolygon[0];
 		PolygonOptions pgo = PolygonOptions.newInstance(true);
 		Polygon polygon = new Polygon(llpolygon, "#0000FF", 2, 1.0, "#0000FF", 0.3, pgo);
