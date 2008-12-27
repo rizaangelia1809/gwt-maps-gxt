@@ -28,6 +28,7 @@ public abstract class OverlayMenuTipController {
 	protected MapWidget mapWidget;
 	protected LatLng currentLatLng;
 	protected Point currentMousePosition;
+	protected Point currentMouseDivPosition;
 	protected MapEventHandler mapEventHandler;
 
 	public OverlayMenuTipController(MapWidget mapWidget) {
@@ -71,7 +72,7 @@ public abstract class OverlayMenuTipController {
 		
 		int mapAbsoluteLeft = mapWidget.getAbsoluteLeft();
 		int mapAbsoluteTop = mapWidget.getAbsoluteTop();
-		Point currentMouseDivPosition = mapWidget.convertLatLngToContainerPixel(currentLatLng);
+		currentMouseDivPosition = mapWidget.convertLatLngToContainerPixel(currentLatLng);
 		currentMousePosition =  Point.newInstance(currentMouseDivPosition.getX() + mapAbsoluteLeft,
 				currentMouseDivPosition.getY() + mapAbsoluteTop);
 			
