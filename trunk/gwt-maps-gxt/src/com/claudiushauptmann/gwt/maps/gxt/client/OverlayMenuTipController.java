@@ -68,7 +68,12 @@ public abstract class OverlayMenuTipController {
 
 	protected void mouseMove(LatLng latlng) {
 		currentLatLng = latlng;
-		currentMousePosition = mapWidget.convertLatLngToContainerPixel(currentLatLng);
+		
+		int mapAbsoluteLeft = mapWidget.getAbsoluteLeft();
+		int mapAbsoluteTop = mapWidget.getAbsoluteTop();
+		Point currentMouseDivPosition = mapWidget.convertLatLngToContainerPixel(currentLatLng);
+		currentMousePosition =  Point.newInstance(currentMouseDivPosition.getX() + mapAbsoluteLeft,
+				currentMouseDivPosition.getY() + mapAbsoluteTop);
 			
 		if (mouseOver && !isMenuVisible()) {
 			updateOverlayTip();
