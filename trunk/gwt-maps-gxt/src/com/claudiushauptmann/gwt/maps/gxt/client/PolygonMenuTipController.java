@@ -47,8 +47,8 @@ public abstract class PolygonMenuTipController extends PolyOverlayMenuTipControl
 		int temp = -1;
 		for (int i = 0; i < polygon.getVertexCount(); i++) {
 			Point vp = mapWidget.convertLatLngToContainerPixel(polygon.getVertex(i));
-			if ((Math.abs(vp.getX()-currentMousePosition.getX())<7)
-						&& (Math.abs(vp.getY()-currentMousePosition.getY())<7)) {
+			if ((Math.abs(vp.getX()-currentMouseDivPosition.getX())<7)
+						&& (Math.abs(vp.getY()-currentMouseDivPosition.getY())<7)) {
 				temp = i;
 				break;
 			}
