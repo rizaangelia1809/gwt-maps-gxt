@@ -40,8 +40,8 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		// Map
 		mapWidget = new MapWidget();
 		mapWidget.setCenter(LatLng.newInstance(48.136559, 11.576318), 13);
-		mapWidget.setWidth("80%");
-		mapWidget.setHeight("80%");
+		mapWidget.setWidth("500px");
+		mapWidget.setHeight("300px");
 		mapWidget.addControl(new LargeMapControl());
 		mapWidget.setContinuousZoom(true);
 		mapWidget.setScrollWheelZoomEnabled(true);

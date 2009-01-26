@@ -19,6 +19,7 @@ import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Polyline;
+import com.google.gwt.user.client.Window;
 
 public class PolylineGXTController extends PolylineMenuTipController {
 	private OverlayTip overlayTip;
@@ -75,11 +76,25 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	@Override
 	protected void showOverlayTip() {
 		overlayTip.showAt(currentMousePosition.getX() + 20, currentMousePosition.getY()+20);
+		updateOverlayTip();
 	}
 	
 	@Override
 	protected void updateOverlayTip() {
-		overlayTip.setPosition(currentMousePosition.getX()+20, currentMousePosition.getY()+20);
+		int x = currentMousePosition.getX() + 20;
+		int y = currentMousePosition.getY() + 20;
+		
+		int width = overlayTip.getWidth();
+		int height = overlayTip.getHeight();
+
+		if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
+			x = currentMousePosition.getX() - 20 - width;
+		}
+		if ((y + height) > Window.getClientHeight() + Window.getScrollTop() - 10) {
+			y = currentMousePosition.getY() - 20 - height;
+		}
+
+		overlayTip.setPosition(x, y);
 	}
 	
 	@Override
@@ -89,14 +104,14 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showStandardMenu(Point position) {
 		if (standardMenu != null) {
-			standardMenu.showAt(position.getX(), position.getY());
+			MarkerGXTController.MenuTimer.showMenu(standardMenu, position);
 			currentMenu = standardMenu;
 		}
 	}
 	
 	protected void showVertexMenu(Point position) {
 		if (vertexMenu != null) {
-			vertexMenu.showAt(position.getX(), position.getY());
+			MarkerGXTController.MenuTimer.showMenu(vertexMenu, position);
 			currentMenu = vertexMenu;
 		} else {
 			showStandardMenu(position);
@@ -105,7 +120,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showStartMenu(Point position) {
 		if (startMenu != null) {
-			startMenu.showAt(position.getX(), position.getY());
+			MarkerGXTController.MenuTimer.showMenu(startMenu, position);
 			currentMenu = startMenu;
 		} else {
 			showVertexMenu(position);
@@ -114,7 +129,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showEndMenu(Point position) {
 		if (endMenu != null) {
-			endMenu.showAt(position.getX(), position.getY());
+			MarkerGXTController.MenuTimer.showMenu(endMenu, position);
 			currentMenu = endMenu;
 		} else {
 			showVertexMenu(position);

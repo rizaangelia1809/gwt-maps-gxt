@@ -19,6 +19,8 @@ import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MapDragEndHandler;
 import com.google.gwt.maps.client.event.MapDragStartHandler;
 import com.google.gwt.maps.client.event.MapMouseMoveHandler;
+import com.google.gwt.maps.client.event.MapMouseOutHandler;
+import com.google.gwt.maps.client.event.MapMouseOutHandler.MapMouseOutEvent;
 import com.google.gwt.maps.client.geom.LatLng;
 import com.google.gwt.maps.client.geom.Point;
 
@@ -40,6 +42,7 @@ public abstract class OverlayMenuTipController {
 		mapWidget.addMapMouseMoveHandler(mapEventHandler);
 		mapWidget.addMapDragStartHandler(mapEventHandler);
 		mapWidget.addMapDragEndHandler(mapEventHandler);
+		mapWidget.addMapMouseOutHandler(mapEventHandler);
 	}
 
 	protected abstract void showOverlayTip();
@@ -108,15 +111,22 @@ public abstract class OverlayMenuTipController {
 			showOverlayTip();
 		}
 	}
+	
+	protected void mapMouseOut() {
+		hideOverlayTip();
+	}
 
 	protected void detach() {
 		mapWidget.removeMapMouseMoveHandler(mapEventHandler);
 		mapWidget.removeMapDragStartHandler(mapEventHandler);
 		mapWidget.removeMapDragEndHandler(mapEventHandler);
+		mapWidget.removeMapMouseOutHandler(mapEventHandler);
 	}
 
 	private class MapEventHandler implements MapMouseMoveHandler,
-				MapDragStartHandler, MapDragEndHandler {
+				MapDragStartHandler, MapDragEndHandler,
+				MapMouseOutHandler {
+
 		public void onMouseMove(MapMouseMoveEvent event) {
 			mouseMove(event.getLatLng());
 		}
@@ -127,6 +137,10 @@ public abstract class OverlayMenuTipController {
 
 		public void onDragEnd(MapDragEndEvent event) {
 			mapDragEnd();
+		}
+
+		public void onMouseOut(MapMouseOutEvent event) {
+			mapMouseOut();
 		}
 	}
 }
