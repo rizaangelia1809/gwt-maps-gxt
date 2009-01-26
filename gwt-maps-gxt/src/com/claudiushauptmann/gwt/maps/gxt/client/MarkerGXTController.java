@@ -5,6 +5,7 @@ import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 
 public class MarkerGXTController extends MarkerMenuTipController {
 	private OverlayTip overlayTip;
@@ -29,15 +30,29 @@ public class MarkerGXTController extends MarkerMenuTipController {
 	public void setMenu(Menu menu) {
 		this.menu = menu;
 	}
-
+	
 	@Override
 	protected void showOverlayTip() {
 		overlayTip.showAt(currentMousePosition.getX() + 20, currentMousePosition.getY()+20);
+		updateOverlayTip();
 	}
 	
 	@Override
 	protected void updateOverlayTip() {
-		overlayTip.setPosition(currentMousePosition.getX()+20, currentMousePosition.getY()+20);
+		int x = currentMousePosition.getX() + 20;
+		int y = currentMousePosition.getY() + 20;
+		
+		int width = overlayTip.getWidth();
+		int height = overlayTip.getHeight();
+
+		if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
+			x = currentMousePosition.getX() - 20 - width;
+		}
+		if ((y + height) > Window.getClientHeight() + Window.getScrollTop() - 10) {
+			y = currentMousePosition.getY() - 20 - height;
+		}
+
+		overlayTip.setPosition(x, y);
 	}
 	
 	@Override
@@ -55,7 +70,7 @@ public class MarkerGXTController extends MarkerMenuTipController {
 		return menu.isVisible();
 	}
 
-	private static class MenuTimer extends Timer{
+	public static class MenuTimer extends Timer{
 		private Menu menu;
 		private Point point;
 		
@@ -63,10 +78,25 @@ public class MarkerGXTController extends MarkerMenuTipController {
 			this.menu = menu;
 			this.point = point;
 		}
-
+		
 		@Override
 		public void run() {
-			menu.showAt(point.getX(), point.getY());
+			int x = point.getX();
+			int y = point.getY();
+
+			menu.showAt(x, y);
+
+			int width = menu.getWidth();
+			int height = menu.getHeight();
+
+			if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
+				x = Window.getClientWidth() + Window.getScrollLeft() - width -10;
+			}
+			if ((y + height) > Window.getClientHeight() + Window.getScrollTop() - 10) {
+				y = Window.getClientHeight() + Window.getScrollTop() - height - 10;
+			}
+			
+			menu.setPosition(x, y);
 		}
 		
 		public static void showMenu(Menu menu, Point point) {
