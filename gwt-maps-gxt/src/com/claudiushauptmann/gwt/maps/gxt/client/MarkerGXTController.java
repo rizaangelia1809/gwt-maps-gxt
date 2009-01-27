@@ -70,6 +70,13 @@ public class MarkerGXTController extends MarkerMenuTipController {
 		return menu.isVisible();
 	}
 
+	@Override
+	protected void hideMenu() {
+		if ((menu != null) && (menu.isVisible())) {
+			menu.hide();
+		}
+	}	
+
 	public static class MenuTimer extends Timer{
 		private Menu menu;
 		private Point point;

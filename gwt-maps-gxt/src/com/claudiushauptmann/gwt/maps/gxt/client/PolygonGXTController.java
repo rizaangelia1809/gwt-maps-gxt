@@ -15,7 +15,6 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
-import com.claudiushauptmann.gwt.maps.gxt.client.MarkerGXTController.MenuTimer;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.geom.Point;
@@ -100,11 +99,6 @@ public class PolygonGXTController extends PolygonMenuTipController {
 			showStandardMenu(position);
 		}
 	}
-	
-	@Override
-	protected boolean isMenuVisible() {
-		return (currentMenu != null) && (currentMenu.isVisible());
-	}
 
 	@Override
 	protected void showMenu() {
@@ -116,4 +110,16 @@ public class PolygonGXTController extends PolygonMenuTipController {
 			showVertexMenu(currentMousePosition);
 		}
 	}
+	
+	@Override
+	protected boolean isMenuVisible() {
+		return (currentMenu != null) && (currentMenu.isVisible());
+	}
+
+	@Override
+	protected void hideMenu() {
+		if ((currentMenu != null) && (currentMenu.isVisible())) {
+			currentMenu.hide();
+		}
+	}	
 }

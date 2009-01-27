@@ -158,4 +158,11 @@ public class PolylineGXTController extends PolylineMenuTipController {
 			showEndMenu(currentMousePosition);
 		}
 	}
+
+	@Override
+	protected void hideMenu() {
+		if ((currentMenu != null) && (currentMenu.isVisible())) {
+			currentMenu.hide();
+		}
+	}	
 }

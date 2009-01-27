@@ -1,7 +1,6 @@
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.google.gwt.maps.client.MapWidget;
-import com.google.gwt.maps.client.geom.Point;
 
 public abstract class PolyOverlayMenuTipController extends
 		OverlayMenuTipController {
@@ -25,10 +24,10 @@ public abstract class PolyOverlayMenuTipController extends
 	protected abstract int getCurrentVertex();
 
 	@Override
-	protected void click() {
-		setLastClickedVertex(getCurrentVertex());
-		
-		super.click();
+	protected void overlayClick() {
+		super.overlayClick();
+
+		setLastClickedVertex(getCurrentVertex());		
 	}
 
 }
