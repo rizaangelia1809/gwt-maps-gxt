@@ -69,25 +69,25 @@ public abstract class PolygonMenuTipController extends PolyOverlayMenuTipControl
 	
 	private class PolygonEventHandler implements PolygonClickHandler,	PolygonMouseOverHandler,
 				PolygonMouseOutHandler, PolygonRemoveHandler, PolygonLineUpdatedHandler {
-		
+
 		public void onMouseOver(PolygonMouseOverEvent event) {
-			mouseOver();
+			overlayMouseOver();
 		}
 		
 		public void onMouseOut(PolygonMouseOutEvent event) {
-			mouseOut();
+			overlayMouseOut();
 		}
 		
 		public void onClick(PolygonClickEvent event) {
-			click();
+			overlayClick();
 		}
 		
 		public void onRemove(PolygonRemoveEvent event) {
-			remove();
+			overlayRemove();
 		}
 
 		public void onUpdate(PolygonLineUpdatedEvent event) {
-			endUpdate();
+			overlayEndUpdate();
 		}
 	}
 }

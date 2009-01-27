@@ -70,23 +70,23 @@ public abstract class PolylineMenuTipController extends PolyOverlayMenuTipContro
 				PolylineMouseOutHandler, PolylineRemoveHandler, PolylineLineUpdatedHandler {
 		
 		public void onMouseOver(PolylineMouseOverEvent event) {
-			mouseOver();
+			overlayMouseOver();
 		}
 		
 		public void onMouseOut(PolylineMouseOutEvent event) {
-			mouseOut();
+			overlayMouseOut();
 		}
 		
 		public void onClick(PolylineClickEvent event) {
-			click();
+			overlayClick();
 		}
 		
 		public void onRemove(PolylineRemoveEvent event) {
-			remove();
+			overlayRemove();
 		}
 
 		public void onUpdate(PolylineLineUpdatedEvent event) {
-			endUpdate();
+			overlayEndUpdate();
 		}
 	}
 }

@@ -7,7 +7,6 @@ import com.google.gwt.maps.client.event.MarkerDragStartHandler;
 import com.google.gwt.maps.client.event.MarkerMouseOutHandler;
 import com.google.gwt.maps.client.event.MarkerMouseOverHandler;
 import com.google.gwt.maps.client.event.MarkerRemoveHandler;
-import com.google.gwt.maps.client.event.MarkerDragStartHandler.MarkerDragStartEvent;
 import com.google.gwt.maps.client.overlay.Marker;
 
 public abstract class MarkerMenuTipController extends OverlayMenuTipController {
@@ -44,27 +43,27 @@ public abstract class MarkerMenuTipController extends OverlayMenuTipController {
 				MarkerDragEndHandler {
 
 		public void onMouseOver(MarkerMouseOverEvent event) {
-			mouseOver();
+			overlayMouseOver();
 		}
 		
 		public void onMouseOut(MarkerMouseOutEvent event) {
-			mouseOut();
+			overlayMouseOut();
 		}
 
 		public void onClick(MarkerClickEvent event) {
-			click();
+			overlayClick();
 		}
 
 		public void onRemove(MarkerRemoveEvent event) {
-			remove();
+			overlayRemove();
 		}
 
 		public void onDragStart(MarkerDragStartEvent event) {
-			startUpdate();
+			overlayStartUpdate();
 		}
 		
 		public void onDragEnd(MarkerDragEndEvent event) {
-			endUpdate();
+			overlayEndUpdate();
 		}
 	}
 }
