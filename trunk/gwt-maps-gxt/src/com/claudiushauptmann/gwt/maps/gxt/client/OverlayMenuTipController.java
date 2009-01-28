@@ -131,6 +131,7 @@ public abstract class OverlayMenuTipController {
 	
 	protected void mapDragStart() {
 		hideOverlayTip();
+		hideMenu();
 	}
 	
 	protected void mapDragEnd() {
