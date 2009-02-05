@@ -15,6 +15,7 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.samples.client;
 
+import com.claudiushauptmann.gwt.maps.gxt.client.MapGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.MarkerGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.OverlayTip;
 import com.claudiushauptmann.gwt.maps.gxt.client.PolygonGXTController;
@@ -46,6 +47,14 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		mapWidget.setContinuousZoom(true);
 		mapWidget.setScrollWheelZoomEnabled(true);
 		RootPanel.get("map").add(mapWidget);
+		
+		Menu mapMenu = new Menu();		
+		MenuItem mapMenuItem = new MenuItem();
+		mapMenuItem.setText("Map");
+		mapMenu.add(mapMenuItem);
+		
+		MapGXTController mapGxtController = new MapGXTController(mapWidget);
+		mapGxtController.setMenu(mapMenu);		
 		
 		
 		//Marker
