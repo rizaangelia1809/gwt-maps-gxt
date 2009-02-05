@@ -74,7 +74,7 @@ public abstract class OverlayMenuTipController {
 	protected void overlayMouseOver() {
 		mouseOver = true;
 		
-		if (mouseOver && !isMenuVisible()) {
+		if (mouseOver && !GwtMapsGxt.get().isMenuVisible()) {
 			showOverlayTip();
 		}
 	}
@@ -112,7 +112,7 @@ public abstract class OverlayMenuTipController {
 		currentMousePosition =  Point.newInstance(currentMouseDivPosition.getX() + mapAbsoluteLeft,
 				currentMouseDivPosition.getY() + mapAbsoluteTop);
 			
-		if (mouseOver && !isMenuVisible()) {
+		if (mouseOver && !GwtMapsGxt.get().isMenuVisible()) {
 			updateOverlayTip();
 		}
 	}
@@ -135,7 +135,7 @@ public abstract class OverlayMenuTipController {
 	}
 	
 	protected void mapDragEnd() {
-		if (mouseOver && !isMenuVisible()) {
+		if (mouseOver && !GwtMapsGxt.get().isMenuVisible()) {
 			showOverlayTip();
 		}
 	}

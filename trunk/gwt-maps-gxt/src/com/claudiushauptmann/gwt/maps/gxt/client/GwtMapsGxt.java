@@ -15,34 +15,33 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
-import com.google.gwt.maps.client.MapWidget;
+import com.extjs.gxt.ui.client.widget.menu.Menu;
 
-public abstract class PolyOverlayMenuTipController extends
-		OverlayMenuTipController {
+public class GwtMapsGxt {
+	private static GwtMapsGxt instance;
+	private Menu currentMenu;
 
-	private int lastClickedVertex;
+	
+	public Menu getCurrentMenu() {
+		return currentMenu;
+	}
 
-	public PolyOverlayMenuTipController(MapWidget mapWidget) {
-		super(mapWidget);
+	
+	public void setCurrentMenu(Menu currentMenu) {
+		this.currentMenu = currentMenu;
+	}
+	
+	
+	public boolean isMenuVisible() {
+		return (currentMenu != null) && (currentMenu.isVisible());
+	}
+	
+	
+	public static GwtMapsGxt get() {
+		if (instance == null) {
+			instance = new GwtMapsGxt();
+		}
 		
-		lastClickedVertex = -1;
+		return instance;
 	}
-
-	public int getLastClickedVertex() {
-		return lastClickedVertex;
-	}
-
-	protected void setLastClickedVertex(int lastClickedVertex) {
-		this.lastClickedVertex = lastClickedVertex;
-	}
-
-	protected abstract int getCurrentVertex();
-
-	@Override
-	protected void overlayClick() {
-		super.overlayClick();
-
-		setLastClickedVertex(getCurrentVertex());		
-	}
-
 }
