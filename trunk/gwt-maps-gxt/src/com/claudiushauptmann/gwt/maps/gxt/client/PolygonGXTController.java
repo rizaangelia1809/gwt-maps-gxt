@@ -95,14 +95,14 @@ public class PolygonGXTController extends PolygonMenuTipController {
 	
 	protected void showStandardMenu(Point position) {
 		if (standardMenu != null) {
-			MarkerGXTController.MenuTimer.showMenu(standardMenu, position);
+			GwtMapsGxt.MenuTimer.showMenu(standardMenu, position);
 			setCurrentMenu(standardMenu);
 		}
 	}
 	
 	protected void showVertexMenu(Point position) {
 		if (vertexMenu != null) {
-			MarkerGXTController.MenuTimer.showMenu(vertexMenu, position);
+			GwtMapsGxt.MenuTimer.showMenu(vertexMenu, position);
 			setCurrentMenu(vertexMenu);
 		} else {
 			showStandardMenu(position);
