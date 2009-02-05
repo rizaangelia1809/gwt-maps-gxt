@@ -16,6 +16,9 @@
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.menu.Menu;
+import com.google.gwt.maps.client.geom.Point;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.Window;
 
 public class GwtMapsGxt {
 	private static GwtMapsGxt instance;
@@ -43,5 +46,39 @@ public class GwtMapsGxt {
 		}
 		
 		return instance;
+	}
+
+	public static class MenuTimer extends Timer{
+		private Menu menu;
+		private Point point;
+		
+		MenuTimer(Menu menu, Point point) {
+			this.menu = menu;
+			this.point = point;
+		}
+		
+		@Override
+		public void run() {
+			int x = point.getX();
+			int y = point.getY();
+
+			menu.showAt(x, y);
+
+			int width = menu.getWidth();
+			int height = menu.getHeight();
+
+			if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
+				x = Window.getClientWidth() + Window.getScrollLeft() - width -10;
+			}
+			if ((y + height) > Window.getClientHeight() + Window.getScrollTop() - 10) {
+				y = Window.getClientHeight() + Window.getScrollTop() - height - 10;
+			}
+			
+			menu.setPosition(x, y);
+		}
+		
+		public static void showMenu(Menu menu, Point point) {
+			new MenuTimer(menu, point).schedule(50);
+		}
 	}
 }

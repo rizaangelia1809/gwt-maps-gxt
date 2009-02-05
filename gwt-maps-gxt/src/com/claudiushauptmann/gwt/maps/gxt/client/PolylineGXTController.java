@@ -113,14 +113,14 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showStandardMenu(Point position) {
 		if (standardMenu != null) {
-			MarkerGXTController.MenuTimer.showMenu(standardMenu, position);
+			GwtMapsGxt.MenuTimer.showMenu(standardMenu, position);
 			setCurrentMenu(standardMenu);
 		}
 	}
 	
 	protected void showVertexMenu(Point position) {
 		if (vertexMenu != null) {
-			MarkerGXTController.MenuTimer.showMenu(vertexMenu, position);
+			GwtMapsGxt.MenuTimer.showMenu(vertexMenu, position);
 			setCurrentMenu(vertexMenu);
 		} else {
 			showStandardMenu(position);
@@ -129,7 +129,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showStartMenu(Point position) {
 		if (startMenu != null) {
-			MarkerGXTController.MenuTimer.showMenu(startMenu, position);
+			GwtMapsGxt.MenuTimer.showMenu(startMenu, position);
 			setCurrentMenu(startMenu);
 		} else {
 			showVertexMenu(position);
@@ -138,7 +138,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showEndMenu(Point position) {
 		if (endMenu != null) {
-			MarkerGXTController.MenuTimer.showMenu(endMenu, position);
+			GwtMapsGxt.MenuTimer.showMenu(endMenu, position);
 			setCurrentMenu(endMenu);
 		} else {
 			showVertexMenu(position);
