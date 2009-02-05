@@ -28,9 +28,18 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	private Menu startMenu;
 	private Menu endMenu;
 	private Menu currentMenu;
-	
+
 	public PolylineGXTController(MapWidget mapWidget, Polyline polyline) {
 		super(mapWidget, polyline);
+	}
+	
+	public Menu getCurrentMenu() {
+		return currentMenu;
+	}
+
+	public void setCurrentMenu(Menu currentMenu) {
+		this.currentMenu = currentMenu;
+		GwtMapsGxt.get().setCurrentMenu(currentMenu);
 	}
 	
 	public OverlayTip getOverlayTip() {
@@ -105,14 +114,14 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	protected void showStandardMenu(Point position) {
 		if (standardMenu != null) {
 			MarkerGXTController.MenuTimer.showMenu(standardMenu, position);
-			currentMenu = standardMenu;
+			setCurrentMenu(standardMenu);
 		}
 	}
 	
 	protected void showVertexMenu(Point position) {
 		if (vertexMenu != null) {
 			MarkerGXTController.MenuTimer.showMenu(vertexMenu, position);
-			currentMenu = vertexMenu;
+			setCurrentMenu(vertexMenu);
 		} else {
 			showStandardMenu(position);
 		}
@@ -121,7 +130,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	protected void showStartMenu(Point position) {
 		if (startMenu != null) {
 			MarkerGXTController.MenuTimer.showMenu(startMenu, position);
-			currentMenu = startMenu;
+			setCurrentMenu(startMenu);
 		} else {
 			showVertexMenu(position);
 		}
@@ -130,7 +139,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	protected void showEndMenu(Point position) {
 		if (endMenu != null) {
 			MarkerGXTController.MenuTimer.showMenu(endMenu, position);
-			currentMenu = endMenu;
+			setCurrentMenu(endMenu);
 		} else {
 			showVertexMenu(position);
 		}
