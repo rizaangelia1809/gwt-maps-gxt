@@ -45,6 +45,8 @@ public abstract class MarkerMenuTipController extends OverlayMenuTipController {
 
 	@Override
 	protected void detach() {
+		super.detach();
+		
 		marker.removeMarkerClickHandler(markerEventHandler);
 		marker.removeMarkerMouseOverHandler(markerEventHandler);
 		marker.removeMarkerMouseOutHandler(markerEventHandler);
