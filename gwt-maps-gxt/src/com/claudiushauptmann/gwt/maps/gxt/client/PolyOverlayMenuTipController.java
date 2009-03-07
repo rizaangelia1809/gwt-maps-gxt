@@ -15,15 +15,14 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
-import com.google.gwt.maps.client.MapWidget;
 
 public abstract class PolyOverlayMenuTipController extends
 		OverlayMenuTipController {
 
 	private int lastClickedVertex;
 
-	public PolyOverlayMenuTipController(MapWidget mapWidget) {
-		super(mapWidget);
+	public PolyOverlayMenuTipController(MapMenuController mapMenuController) {
+		super(mapMenuController);
 		
 		lastClickedVertex = -1;
 	}

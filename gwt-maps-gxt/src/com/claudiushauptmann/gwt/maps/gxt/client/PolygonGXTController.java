@@ -16,7 +16,6 @@
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.menu.Menu;
-import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Polygon;
 import com.google.gwt.user.client.Window;
@@ -27,8 +26,8 @@ public class PolygonGXTController extends PolygonMenuTipController {
 	private Menu vertexMenu;
 	private Menu currentMenu;
 	
-	public PolygonGXTController(MapWidget mapWidget, Polygon polygon) {
-		super(mapWidget, polygon);
+	public PolygonGXTController(MapMenuController mapMenuController, Polygon polygon) {
+		super(mapMenuController, polygon);
 	}
 	
 	public Menu getCurrentMenu() {
@@ -66,23 +65,24 @@ public class PolygonGXTController extends PolygonMenuTipController {
 
 	@Override
 	protected void showOverlayTip() {
-		overlayTip.showAt(currentMousePosition.getX() + 20, currentMousePosition.getY()+20);
+		overlayTip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
+				mapMenuController.getCurrentMousePosition().getY()+20);
 		updateOverlayTip();
 	}
 	
 	@Override
 	protected void updateOverlayTip() {
-		int x = currentMousePosition.getX() + 20;
-		int y = currentMousePosition.getY() + 20;
+		int x = mapMenuController.getCurrentMousePosition().getX() + 20;
+		int y = mapMenuController.getCurrentMousePosition().getY() + 20;
 		
 		int width = overlayTip.getWidth();
 		int height = overlayTip.getHeight();
 
 		if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
-			x = currentMousePosition.getX() - 20 - width;
+			x = mapMenuController.getCurrentMousePosition().getX() - 20 - width;
 		}
 		if ((y + height) > Window.getClientHeight() + Window.getScrollTop() - 10) {
-			y = currentMousePosition.getY() - 20 - height;
+			y = mapMenuController.getCurrentMousePosition().getY() - 20 - height;
 		}
 
 		overlayTip.setPosition(x, y);
@@ -114,9 +114,9 @@ public class PolygonGXTController extends PolygonMenuTipController {
 		int currentVertex = getCurrentVertex();
 
 		if (currentVertex == -1) {
-			showStandardMenu(currentMousePosition);
+			showStandardMenu(mapMenuController.getCurrentMousePosition());
 		} else {
-			showVertexMenu(currentMousePosition);
+			showVertexMenu(mapMenuController.getCurrentMousePosition());
 		}
 	}
 	

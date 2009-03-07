@@ -48,13 +48,12 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		mapWidget.setScrollWheelZoomEnabled(true);
 		RootPanel.get("map").add(mapWidget);
 		
-		Menu mapMenu = new Menu();		
-		MenuItem mapMenuItem = new MenuItem();
-		mapMenuItem.setText("Map");
-		mapMenu.add(mapMenuItem);
-		
+//		Menu mapMenu = new Menu();		
+//		MenuItem mapMenuItem = new MenuItem();
+//		mapMenuItem.setText("Map");
+//		mapMenu.add(mapMenuItem);		
 		MapGXTController mapGxtController = new MapGXTController(mapWidget);
-		mapGxtController.setMenu(mapMenu);		
+//		mapGxtController.setMenu(mapMenu);		
 		
 		
 		//Marker
@@ -77,7 +76,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		item1.setText("Marker");
 		popupMenu.add(item1);		
 		
-		MarkerGXTController markerGXTController = new MarkerGXTController(mapWidget, marker);
+		MarkerGXTController markerGXTController = new MarkerGXTController(mapGxtController, marker);
 		markerGXTController.setOverlayTip(overlayTip);
 		markerGXTController.setMenu(popupMenu);
 		
@@ -116,7 +115,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		lineMenuItemEnd.setText("PolylineEnd");
 		lineMenuEnd.add(lineMenuItemEnd);		
 		
-		PolylineGXTController ptc = new PolylineGXTController(mapWidget, line);
+		PolylineGXTController ptc = new PolylineGXTController(mapGxtController, line);
 		ptc.setOverlayTip(polylineOverlayTip);
 		ptc.setStandardMenu(lineStandardMenu);
 		ptc.setVertexMenu(lineMenuVertex);
@@ -149,7 +148,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		polylineMenuItemVertex.setText("PolygonVertex");
 		polygonMenuVertex.add(polylineMenuItemVertex);		
 		
-		PolygonGXTController pgc = new PolygonGXTController(mapWidget, polygon);
+		PolygonGXTController pgc = new PolygonGXTController(mapGxtController, polygon);
 		pgc.setOverlayTip(polygonOverlayTip);
 		pgc.setStandardMenu(polygonStandardMenu);
 		pgc.setVertexMenu(polygonMenuVertex);

@@ -15,38 +15,13 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
-import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.google.gwt.maps.client.MapWidget;
 
 
 public class MapGXTController extends MapMenuController {
-	private Menu menu;
 
 	public MapGXTController(MapWidget mapWidget) {
 		super(mapWidget);
 	}
 	
-	public Menu getMenu() {
-		return menu;
-	}
-
-	public void setMenu(Menu menu) {
-		this.menu = menu;
-	}
-
-	@Override
-	protected void hideMenu() {
-		menu.hide();
-	}
-
-	@Override
-	protected boolean isMenuVisible() {
-		return menu.isVisible();
-	}
-
-	@Override
-	protected void showMenu() {
-		GwtMapsGxt.MenuTimer.showMenu(menu, currentMousePosition);
-		GwtMapsGxt.get().setCurrentMenu(menu);
-	}
 }

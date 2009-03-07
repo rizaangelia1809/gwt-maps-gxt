@@ -15,7 +15,6 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
-import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MarkerClickHandler;
 import com.google.gwt.maps.client.event.MarkerDragEndHandler;
 import com.google.gwt.maps.client.event.MarkerDragStartHandler;
@@ -29,8 +28,8 @@ public abstract class MarkerMenuTipController extends OverlayMenuTipController {
 	protected Marker marker;
 	private MarkerEventHandler markerEventHandler;
 	
-	public MarkerMenuTipController(MapWidget mapWidget, Marker marker) {
-		super(mapWidget);
+	public MarkerMenuTipController(MapMenuController mapMenuController, Marker marker) {
+		super(mapMenuController);
 		
 		this.marker = marker;
 		

@@ -29,8 +29,8 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	private Menu endMenu;
 	private Menu currentMenu;
 
-	public PolylineGXTController(MapWidget mapWidget, Polyline polyline) {
-		super(mapWidget, polyline);
+	public PolylineGXTController(MapMenuController mapMenuController, Polyline polyline) {
+		super(mapMenuController, polyline);
 	}
 	
 	public Menu getCurrentMenu() {
@@ -84,23 +84,24 @@ public class PolylineGXTController extends PolylineMenuTipController {
 
 	@Override
 	protected void showOverlayTip() {
-		overlayTip.showAt(currentMousePosition.getX() + 20, currentMousePosition.getY()+20);
+		overlayTip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
+				mapMenuController.getCurrentMousePosition().getY()+20);
 		updateOverlayTip();
 	}
 	
 	@Override
 	protected void updateOverlayTip() {
-		int x = currentMousePosition.getX() + 20;
-		int y = currentMousePosition.getY() + 20;
+		int x = mapMenuController.getCurrentMousePosition().getX() + 20;
+		int y = mapMenuController.getCurrentMousePosition().getY() + 20;
 		
 		int width = overlayTip.getWidth();
 		int height = overlayTip.getHeight();
 
 		if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
-			x = currentMousePosition.getX() - 20 - width;
+			x = mapMenuController.getCurrentMousePosition().getX() - 20 - width;
 		}
 		if ((y + height) > Window.getClientHeight() + Window.getScrollTop() - 10) {
-			y = currentMousePosition.getY() - 20 - height;
+			y = mapMenuController.getCurrentMousePosition().getY() - 20 - height;
 		}
 
 		overlayTip.setPosition(x, y);
@@ -155,16 +156,16 @@ public class PolylineGXTController extends PolylineMenuTipController {
 		int currentVertex = getCurrentVertex();
 
 		if (currentVertex == -1) {
-			showStandardMenu(currentMousePosition);
+			showStandardMenu(mapMenuController.getCurrentMousePosition());
 		}
 		if ((currentVertex > 0) && (currentVertex < polyline.getVertexCount()-1)) {
-			showVertexMenu(currentMousePosition);
+			showVertexMenu(mapMenuController.getCurrentMousePosition());
 		}
 		if (currentVertex == 0) {
-			showStartMenu(currentMousePosition);
+			showStartMenu(mapMenuController.getCurrentMousePosition());
 		}
 		if (currentVertex == polyline.getVertexCount()-1) {
-			showEndMenu(currentMousePosition);
+			showEndMenu(mapMenuController.getCurrentMousePosition());
 		}
 	}
 
