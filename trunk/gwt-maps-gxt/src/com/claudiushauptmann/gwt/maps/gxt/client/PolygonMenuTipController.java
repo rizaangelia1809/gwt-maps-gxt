@@ -15,7 +15,6 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
-import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.PolygonClickHandler;
 import com.google.gwt.maps.client.event.PolygonLineUpdatedHandler;
 import com.google.gwt.maps.client.event.PolygonMouseOutHandler;
@@ -29,8 +28,8 @@ public abstract class PolygonMenuTipController extends PolyOverlayMenuTipControl
 	protected Polygon polygon;
 	private PolygonEventHandler polygonEventHandler;
 	
-	public PolygonMenuTipController(MapWidget mapWidget, Polygon polygon) {
-		super(mapWidget);
+	public PolygonMenuTipController(MapMenuController mapMenuController, Polygon polygon) {
+		super(mapMenuController);
 		
 		this.polygon = polygon;
 		
@@ -46,9 +45,9 @@ public abstract class PolygonMenuTipController extends PolyOverlayMenuTipControl
 	protected int getCurrentVertex() {
 		int temp = -1;
 		for (int i = 0; i < polygon.getVertexCount(); i++) {
-			Point vp = mapWidget.convertLatLngToContainerPixel(polygon.getVertex(i));
-			if ((Math.abs(vp.getX()-currentMouseDivPosition.getX())<7)
-						&& (Math.abs(vp.getY()-currentMouseDivPosition.getY())<7)) {
+			Point vp = mapMenuController.getMapWidget().convertLatLngToContainerPixel(polygon.getVertex(i));
+			if ((Math.abs(vp.getX()-mapMenuController.getCurrentMouseDivPosition().getX())<7)
+						&& (Math.abs(vp.getY()-mapMenuController.getCurrentMouseDivPosition().getY())<7)) {
 				temp = i;
 				break;
 			}

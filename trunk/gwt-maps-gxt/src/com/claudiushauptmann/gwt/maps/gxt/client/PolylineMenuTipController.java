@@ -15,7 +15,6 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
-import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.PolylineClickHandler;
 import com.google.gwt.maps.client.event.PolylineLineUpdatedHandler;
 import com.google.gwt.maps.client.event.PolylineMouseOutHandler;
@@ -28,8 +27,8 @@ public abstract class PolylineMenuTipController extends PolyOverlayMenuTipContro
 
 	protected Polyline polyline;
 	private PolylineEventHandler polylineEventHandler;
-	public PolylineMenuTipController(MapWidget mapWidget, Polyline polyline) {
-		super(mapWidget);
+	public PolylineMenuTipController(MapMenuController mapMenuController, Polyline polyline) {
+		super(mapMenuController);
 		
 		this.polyline = polyline;
 		
@@ -45,9 +44,9 @@ public abstract class PolylineMenuTipController extends PolyOverlayMenuTipContro
 	protected int getCurrentVertex() {
 		int temp = -1;
 		for (int i = 0; i < polyline.getVertexCount(); i++) {
-			Point vp = mapWidget.convertLatLngToContainerPixel(polyline.getVertex(i));
-			if ((Math.abs(vp.getX()-currentMouseDivPosition.getX())<7)
-						&& (Math.abs(vp.getY()-currentMouseDivPosition.getY())<7)) {
+			Point vp = mapMenuController.getMapWidget().convertLatLngToContainerPixel(polyline.getVertex(i));
+			if ((Math.abs(vp.getX()-mapMenuController.getCurrentMouseDivPosition().getX())<7)
+						&& (Math.abs(vp.getY()-mapMenuController.getCurrentMouseDivPosition().getY())<7)) {
 				temp = i;
 				break;
 			}
