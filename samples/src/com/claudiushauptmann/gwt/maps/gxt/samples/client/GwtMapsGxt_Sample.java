@@ -48,12 +48,9 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		mapWidget.setScrollWheelZoomEnabled(true);
 		RootPanel.get("map").add(mapWidget);
 		
-//		Menu mapMenu = new Menu();		
-//		MenuItem mapMenuItem = new MenuItem();
-//		mapMenuItem.setText("Map");
-//		mapMenu.add(mapMenuItem);		
+
+		//Necessary for the "OverlayGXTControllers"
 		MapGXTController mapGxtController = new MapGXTController(mapWidget);
-//		mapGxtController.setMenu(mapMenu);		
 		
 		
 		//Marker
