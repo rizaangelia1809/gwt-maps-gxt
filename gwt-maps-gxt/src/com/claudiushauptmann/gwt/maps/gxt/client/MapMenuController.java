@@ -15,6 +15,7 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
+import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.event.MapMouseMoveHandler;
 import com.google.gwt.maps.client.geom.LatLng;
@@ -26,6 +27,7 @@ public abstract class MapMenuController {
 	protected Point currentMousePosition;
 	protected Point currentMouseDivPosition;
 	protected MapEventHandler mapEventHandler;
+	private Menu currentMenu;
 
 	
 	public MapMenuController(MapWidget mapWidget) {
@@ -72,6 +74,21 @@ public abstract class MapMenuController {
 	}
 
 	
+	public Menu getCurrentMenu() {
+		return currentMenu;
+	}
+
+
+	public boolean isMenuVisible() {
+		return (currentMenu != null) && (currentMenu.isVisible());
+	}
+
+
+	public void setCurrentMenu(Menu currentMenu) {
+		this.currentMenu = currentMenu;
+	}
+
+
 	private class MapEventHandler implements MapMouseMoveHandler {
 
 		public void onMouseMove(MapMouseMoveEvent event) {
