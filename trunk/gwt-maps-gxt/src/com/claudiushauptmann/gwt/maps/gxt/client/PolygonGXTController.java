@@ -36,7 +36,7 @@ public class PolygonGXTController extends PolygonMenuTipController {
 
 	public void setCurrentMenu(Menu currentMenu) {
 		this.currentMenu = currentMenu;
-		GwtMapsGxt.get().setCurrentMenu(currentMenu);
+		mapMenuController.setCurrentMenu(currentMenu);
 	}
 
 	public OverlayTip getOverlayTip() {
@@ -95,14 +95,14 @@ public class PolygonGXTController extends PolygonMenuTipController {
 	
 	protected void showStandardMenu(Point position) {
 		if (standardMenu != null) {
-			GwtMapsGxt.MenuTimer.showMenu(standardMenu, position);
+			MapGXTController.MenuTimer.showMenu(standardMenu, position);
 			setCurrentMenu(standardMenu);
 		}
 	}
 	
 	protected void showVertexMenu(Point position) {
 		if (vertexMenu != null) {
-			GwtMapsGxt.MenuTimer.showMenu(vertexMenu, position);
+			MapGXTController.MenuTimer.showMenu(vertexMenu, position);
 			setCurrentMenu(vertexMenu);
 		} else {
 			showStandardMenu(position);

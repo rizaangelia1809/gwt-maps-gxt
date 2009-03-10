@@ -16,7 +16,6 @@
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.menu.Menu;
-import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Polyline;
 import com.google.gwt.user.client.Window;
@@ -39,7 +38,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 
 	public void setCurrentMenu(Menu currentMenu) {
 		this.currentMenu = currentMenu;
-		GwtMapsGxt.get().setCurrentMenu(currentMenu);
+		mapMenuController.setCurrentMenu(currentMenu);
 	}
 	
 	public OverlayTip getOverlayTip() {
@@ -114,14 +113,14 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showStandardMenu(Point position) {
 		if (standardMenu != null) {
-			GwtMapsGxt.MenuTimer.showMenu(standardMenu, position);
+			MapGXTController.MenuTimer.showMenu(standardMenu, position);
 			setCurrentMenu(standardMenu);
 		}
 	}
 	
 	protected void showVertexMenu(Point position) {
 		if (vertexMenu != null) {
-			GwtMapsGxt.MenuTimer.showMenu(vertexMenu, position);
+			MapGXTController.MenuTimer.showMenu(vertexMenu, position);
 			setCurrentMenu(vertexMenu);
 		} else {
 			showStandardMenu(position);
@@ -130,7 +129,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showStartMenu(Point position) {
 		if (startMenu != null) {
-			GwtMapsGxt.MenuTimer.showMenu(startMenu, position);
+			MapGXTController.MenuTimer.showMenu(startMenu, position);
 			setCurrentMenu(startMenu);
 		} else {
 			showVertexMenu(position);
@@ -139,7 +138,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showEndMenu(Point position) {
 		if (endMenu != null) {
-			GwtMapsGxt.MenuTimer.showMenu(endMenu, position);
+			MapGXTController.MenuTimer.showMenu(endMenu, position);
 			setCurrentMenu(endMenu);
 		} else {
 			showVertexMenu(position);

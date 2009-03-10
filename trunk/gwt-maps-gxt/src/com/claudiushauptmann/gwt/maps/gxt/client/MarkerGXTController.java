@@ -60,8 +60,8 @@ public class MarkerGXTController extends MarkerMenuTipController {
 
 	@Override
 	protected void showMenu() {
-		GwtMapsGxt.MenuTimer.showMenu(menu, mapMenuController.getCurrentMousePosition());
-		GwtMapsGxt.get().setCurrentMenu(menu);
+		MapGXTController.MenuTimer.showMenu(menu, mapMenuController.getCurrentMousePosition());
+		mapMenuController.setCurrentMenu(menu);
 	}
 
 	@Override
