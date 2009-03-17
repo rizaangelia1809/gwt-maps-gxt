@@ -87,11 +87,10 @@ public abstract class OverlayMenuTipController {
 		
 		detachMouseMoveHandler();
 		
-		hideOverlayTip() ;
+		hideOverlayTip();
 	}
 
 	protected void overlayClick() {
-		hideOverlayTip();
 		showMenu();
 	}
 	
