@@ -27,9 +27,12 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	private Menu startMenu;
 	private Menu endMenu;
 	private Menu currentMenu;
+	private MapGXTController mapGXTController;
 
-	public PolylineGXTController(MapMenuController mapMenuController, Polyline polyline) {
-		super(mapMenuController, polyline);
+	public PolylineGXTController(MapGXTController mapGXTController, Polyline polyline) {
+		super(mapGXTController, polyline);
+		
+		this.mapGXTController = mapGXTController;
 	}
 	
 	public Menu getCurrentMenu() {
@@ -38,7 +41,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 
 	public void setCurrentMenu(Menu currentMenu) {
 		this.currentMenu = currentMenu;
-		mapMenuController.setCurrentMenu(currentMenu);
+		mapGXTController.setCurrentMenu(currentMenu);
 	}
 	
 	public OverlayTip getOverlayTip() {
@@ -83,36 +86,43 @@ public class PolylineGXTController extends PolylineMenuTipController {
 
 	@Override
 	protected void showOverlayTip() {
-		overlayTip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
-				mapMenuController.getCurrentMousePosition().getY()+20);
-		updateOverlayTip();
+		if (overlayTip != null) {
+			overlayTip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
+					mapMenuController.getCurrentMousePosition().getY()+20);
+			updateOverlayTip();
+		}
 	}
 	
 	@Override
 	protected void updateOverlayTip() {
-		int x = mapMenuController.getCurrentMousePosition().getX() + 20;
-		int y = mapMenuController.getCurrentMousePosition().getY() + 20;
-		
-		int width = overlayTip.getWidth();
-		int height = overlayTip.getHeight();
-
-		if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
-			x = mapMenuController.getCurrentMousePosition().getX() - 20 - width;
+		if (overlayTip != null) {
+			int x = mapMenuController.getCurrentMousePosition().getX() + 20;
+			int y = mapMenuController.getCurrentMousePosition().getY() + 20;
+			
+			int width = overlayTip.getWidth();
+			int height = overlayTip.getHeight();
+	
+			if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
+				x = mapMenuController.getCurrentMousePosition().getX() - 20 - width;
+			}
+			if ((y + height) > Window.getClientHeight() + Window.getScrollTop() - 10) {
+				y = mapMenuController.getCurrentMousePosition().getY() - 20 - height;
+			}
+	
+			overlayTip.setPosition(x, y);
 		}
-		if ((y + height) > Window.getClientHeight() + Window.getScrollTop() - 10) {
-			y = mapMenuController.getCurrentMousePosition().getY() - 20 - height;
-		}
-
-		overlayTip.setPosition(x, y);
 	}
 	
 	@Override
 	protected void hideOverlayTip() {
-		overlayTip.hide();
+		if (overlayTip != null) {
+			overlayTip.hide();
+		}
 	}
 	
 	protected void showStandardMenu(Point position) {
 		if (standardMenu != null) {
+			hideOverlayTip();
 			MapGXTController.MenuTimer.showMenu(standardMenu, position);
 			setCurrentMenu(standardMenu);
 		}
@@ -120,6 +130,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showVertexMenu(Point position) {
 		if (vertexMenu != null) {
+			hideOverlayTip();
 			MapGXTController.MenuTimer.showMenu(vertexMenu, position);
 			setCurrentMenu(vertexMenu);
 		} else {
@@ -129,6 +140,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showStartMenu(Point position) {
 		if (startMenu != null) {
+			hideOverlayTip();
 			MapGXTController.MenuTimer.showMenu(startMenu, position);
 			setCurrentMenu(startMenu);
 		} else {
@@ -138,6 +150,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	
 	protected void showEndMenu(Point position) {
 		if (endMenu != null) {
+			hideOverlayTip();
 			MapGXTController.MenuTimer.showMenu(endMenu, position);
 			setCurrentMenu(endMenu);
 		} else {

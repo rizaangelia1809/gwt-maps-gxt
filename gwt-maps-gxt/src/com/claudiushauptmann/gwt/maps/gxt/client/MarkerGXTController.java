@@ -7,9 +7,12 @@ import com.google.gwt.user.client.Window;
 public class MarkerGXTController extends MarkerMenuTipController {
 	private OverlayTip overlayTip;
 	private Menu menu;
+	private MapGXTController mapGXTController;
 	
-	public MarkerGXTController(MapMenuController mapMenuController, Marker marker) {
-		super(mapMenuController, marker);
+	public MarkerGXTController(MapGXTController mapGXTController, Marker marker) {
+		super(mapGXTController, marker);
+		
+		this.mapGXTController = mapGXTController;
 	}
 
 	public OverlayTip getOverlayTip() {
@@ -30,43 +33,60 @@ public class MarkerGXTController extends MarkerMenuTipController {
 	
 	@Override
 	protected void showOverlayTip() {
-		overlayTip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
-				mapMenuController.getCurrentMousePosition().getY()+20);
-		updateOverlayTip();
+		if (overlayTip != null) {
+			overlayTip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
+					mapMenuController.getCurrentMousePosition().getY()+20);
+			updateOverlayTip();
+		}
 	}
 	
 	@Override
 	protected void updateOverlayTip() {
-		int x = mapMenuController.getCurrentMousePosition().getX() + 20;
-		int y = mapMenuController.getCurrentMousePosition().getY() + 20;
-		
-		int width = overlayTip.getWidth();
-		int height = overlayTip.getHeight();
-
-		if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
-			x = mapMenuController.getCurrentMousePosition().getX() - 20 - width;
+		if (overlayTip != null) {
+			int x = mapMenuController.getCurrentMousePosition().getX() + 20;
+			int y = mapMenuController.getCurrentMousePosition().getY() + 20;
+			
+			int width = overlayTip.getWidth();
+			int height = overlayTip.getHeight();
+	
+			if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
+				x = mapMenuController.getCurrentMousePosition().getX() - 20 - width;
+			}
+			if ((y + height) > Window.getClientHeight() + Window.getScrollTop() - 10) {
+				y = mapMenuController.getCurrentMousePosition().getY() - 20 - height;
+			}
+	
+			overlayTip.setPosition(x, y);
 		}
-		if ((y + height) > Window.getClientHeight() + Window.getScrollTop() - 10) {
-			y = mapMenuController.getCurrentMousePosition().getY() - 20 - height;
-		}
-
-		overlayTip.setPosition(x, y);
 	}
 	
 	@Override
 	protected void hideOverlayTip() {
-		overlayTip.hide();
+		if (overlayTip != null) {
+			overlayTip.hide();
+		}
 	}
 
 	@Override
 	protected void showMenu() {
-		MapGXTController.MenuTimer.showMenu(menu, mapMenuController.getCurrentMousePosition());
-		mapMenuController.setCurrentMenu(menu);
+		if (menu != null) {
+			hideOverlayTip();
+			MapGXTController.MenuTimer.showMenu(menu, mapMenuController.getCurrentMousePosition());
+			mapGXTController.setCurrentMenu(menu);
+		}
 	}
 
 	@Override
 	protected boolean isMenuVisible() {
-		return menu.isVisible();
+		boolean result;
+		
+		if (menu != null) {
+			result = menu.isVisible();
+		} else {
+			result = false;
+		}
+		
+		return result;
 	}
 
 	@Override

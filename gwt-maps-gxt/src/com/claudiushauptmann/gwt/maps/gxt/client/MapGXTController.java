@@ -21,9 +21,31 @@ import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.Window;
 
-
 public class MapGXTController extends MapMenuController {
+	private Menu currentMenu;
+	
+	
+	public MapGXTController(MapWidget mapWidget) {
+		super(mapWidget);
+	}
+	
+	
+	public Menu getCurrentMenu() {
+		return currentMenu;
+	}
 
+
+	@Override
+	public boolean isMenuVisible() {
+		return (currentMenu != null) && (currentMenu.isVisible());
+	}
+
+
+	public void setCurrentMenu(Menu currentMenu) {
+		this.currentMenu = currentMenu;
+	}
+
+	
 	public static class MenuTimer extends Timer{
 		private Menu menu;
 		private Point point;
@@ -58,8 +80,4 @@ public class MapGXTController extends MapMenuController {
 		}
 	}
 
-	public MapGXTController(MapWidget mapWidget) {
-		super(mapWidget);
-	}
-	
 }
