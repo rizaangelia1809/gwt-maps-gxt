@@ -43,11 +43,11 @@ public abstract class OverlayMenuTipController {
 	}
 
 	
-	protected abstract void showOverlayTip();
+	protected abstract void showTip();
 
-	protected abstract void updateOverlayTip();
+	protected abstract void updateTip();
 
-	protected abstract void hideOverlayTip();
+	protected abstract void hideTip();
 
 	protected abstract void showMenu();
 
@@ -76,7 +76,7 @@ public abstract class OverlayMenuTipController {
 		mouseOver = true;
 		
 		if (mouseOver && !mapMenuController.isMenuVisible()) {
-			showOverlayTip();
+			showTip();
 		}
 		
 		attachMouseMoveHandler();
@@ -87,7 +87,7 @@ public abstract class OverlayMenuTipController {
 		
 		detachMouseMoveHandler();
 		
-		hideOverlayTip();
+		hideTip();
 	}
 
 	protected void overlayClick() {
@@ -95,26 +95,26 @@ public abstract class OverlayMenuTipController {
 	}
 	
 	protected void overlayStartUpdate() {
-		hideOverlayTip();
+		hideTip();
 	}
 	
 	protected void overlayEndUpdate() {
-		showOverlayTip();
+		showTip();
 	}
 
 	protected void overlayRemove() {
-		hideOverlayTip();
+		hideTip();
 		detach();
 	}
 
 	protected void mapMouseMove(LatLng latlng) {
 		if (mouseOver && !mapMenuController.isMenuVisible()) {
-			updateOverlayTip();
+			updateTip();
 		}
 	}
 	
 	protected void mapMouseOut() {
-		hideOverlayTip();
+		hideTip();
 	}
 	
 	protected void mapClick() {
@@ -126,13 +126,13 @@ public abstract class OverlayMenuTipController {
 	}
 	
 	protected void mapDragStart() {
-		hideOverlayTip();
+		hideTip();
 		hideMenu();
 	}
 	
 	protected void mapDragEnd() {
 		if (mouseOver && !mapMenuController.isMenuVisible()) {
-			showOverlayTip();
+			showTip();
 		}
 	}
 

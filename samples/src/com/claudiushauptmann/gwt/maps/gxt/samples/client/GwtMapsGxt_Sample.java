@@ -74,7 +74,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		popupMenu.add(item1);		
 		
 		MarkerGXTController markerGXTController = new MarkerGXTController(mapGxtController, marker);
-		markerGXTController.setOverlayTip(overlayTip);
+		markerGXTController.setTip(overlayTip);
 		markerGXTController.setMenu(popupMenu);
 		
 		
@@ -113,7 +113,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		lineMenuEnd.add(lineMenuItemEnd);		
 		
 		PolylineGXTController ptc = new PolylineGXTController(mapGxtController, line);
-		ptc.setOverlayTip(polylineOverlayTip);
+		ptc.setTip(polylineOverlayTip);
 		ptc.setStandardMenu(lineStandardMenu);
 		ptc.setVertexMenu(lineMenuVertex);
 		ptc.setStartMenu(lineMenuStart);
@@ -146,7 +146,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		polygonMenuVertex.add(polylineMenuItemVertex);		
 		
 		PolygonGXTController pgc = new PolygonGXTController(mapGxtController, polygon);
-		pgc.setOverlayTip(polygonOverlayTip);
+		pgc.setTip(polygonOverlayTip);
 		pgc.setStandardMenu(polygonStandardMenu);
 		pgc.setVertexMenu(polygonMenuVertex);
 	}

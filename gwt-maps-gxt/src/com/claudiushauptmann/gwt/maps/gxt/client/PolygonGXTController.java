@@ -16,12 +16,13 @@
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.menu.Menu;
+import com.extjs.gxt.ui.client.widget.tips.Tip;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Polygon;
 import com.google.gwt.user.client.Window;
 
 public class PolygonGXTController extends PolygonMenuTipController {
-	private OverlayTip overlayTip;
+	private Tip tip;
 	private Menu standardMenu;
 	private Menu vertexMenu;
 	private Menu currentMenu;
@@ -42,12 +43,12 @@ public class PolygonGXTController extends PolygonMenuTipController {
 		mapGXTController.setCurrentMenu(currentMenu);
 	}
 
-	public OverlayTip getOverlayTip() {
-		return overlayTip;
+	public Tip getTip() {
+		return tip;
 	}
 
-	public void setOverlayTip(OverlayTip overlayTip) {
-		this.overlayTip = overlayTip;
+	public void setTip(Tip tip) {
+		this.tip = tip;
 	}
 	
 	public Menu getStandardMenu() {
@@ -67,22 +68,22 @@ public class PolygonGXTController extends PolygonMenuTipController {
 	}
 
 	@Override
-	protected void showOverlayTip() {
-		if (overlayTip != null) {
-			overlayTip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
+	protected void showTip() {
+		if (tip != null) {
+			tip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
 					mapMenuController.getCurrentMousePosition().getY()+20);
-			updateOverlayTip();
+			updateTip();
 		}
 	}
 	
 	@Override
-	protected void updateOverlayTip() {
-		if (overlayTip != null) {
+	protected void updateTip() {
+		if (tip != null) {
 			int x = mapMenuController.getCurrentMousePosition().getX() + 20;
 			int y = mapMenuController.getCurrentMousePosition().getY() + 20;
 			
-			int width = overlayTip.getWidth();
-			int height = overlayTip.getHeight();
+			int width = tip.getWidth();
+			int height = tip.getHeight();
 	
 			if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
 				x = mapMenuController.getCurrentMousePosition().getX() - 20 - width;
@@ -91,20 +92,20 @@ public class PolygonGXTController extends PolygonMenuTipController {
 				y = mapMenuController.getCurrentMousePosition().getY() - 20 - height;
 			}
 	
-			overlayTip.setPosition(x, y);
+			tip.setPosition(x, y);
 		}
 	}
 	
 	@Override
-	protected void hideOverlayTip() {
-		if (overlayTip != null) {
-			overlayTip.hide();
+	protected void hideTip() {
+		if (tip != null) {
+			tip.hide();
 		}
 	}
 	
 	protected void showStandardMenu(Point position) {
 		if (standardMenu != null) {
-			hideOverlayTip();
+			hideTip();
 			MapGXTController.MenuTimer.showMenu(standardMenu, position);
 			setCurrentMenu(standardMenu);
 		}
@@ -112,7 +113,7 @@ public class PolygonGXTController extends PolygonMenuTipController {
 	
 	protected void showVertexMenu(Point position) {
 		if (vertexMenu != null) {
-			hideOverlayTip();
+			hideTip();
 			MapGXTController.MenuTimer.showMenu(vertexMenu, position);
 			setCurrentMenu(vertexMenu);
 		} else {
