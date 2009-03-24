@@ -22,86 +22,113 @@ import com.google.gwt.maps.client.overlay.Polyline;
 import com.google.gwt.user.client.Window;
 
 public class PolylineGXTController extends PolylineMenuTipController {
-	private Tip tip;
-	private Menu standardMenu;
-	private Menu vertexMenu;
-	private Menu startMenu;
-	private Menu endMenu;
-	private Menu currentMenu;
 	private MapGXTController mapGXTController;
+	private ITipProvider tipProvider;
+	private Tip currentTip;
+	private IMenuProvider standardMenuProvider;
+	private IMenuProvider vertexMenuProvider;
+	private IMenuProvider startMenuProvider;
+	private IMenuProvider endMenuProvider;
+	private Menu currentMenu;
 
+	
 	public PolylineGXTController(MapGXTController mapGXTController, Polyline polyline) {
 		super(mapGXTController, polyline);
 		
 		this.mapGXTController = mapGXTController;
 	}
 	
+	
 	public Menu getCurrentMenu() {
 		return currentMenu;
 	}
 
+	
 	public void setCurrentMenu(Menu currentMenu) {
 		this.currentMenu = currentMenu;
 		mapGXTController.setCurrentMenu(currentMenu);
 	}
 	
-	public Tip getTip() {
-		return tip;
+	
+	public ITipProvider getTipProvider() {
+		return tipProvider;
 	}
 
-	public void setTip(Tip tip) {
-		this.tip = tip;
+	
+	public void setTipProvider(ITipProvider tipProvider) {
+		this.tipProvider = tipProvider;
+	}
+
+	
+	protected Tip getCurrentTip() {
+		return currentTip;
+	}
+
+	
+	protected void setCurrentTip(Tip currentTip) {
+		this.currentTip = currentTip;
 	}
 	
-	public Menu getStandardMenu() {
-		return standardMenu;
+
+	public IMenuProvider getStandardMenuProvider() {
+		return standardMenuProvider;
 	}
 
-	public void setStandardMenu(Menu menu) {
-		this.standardMenu = menu;
+
+	public void setStandardMenuProvider(IMenuProvider standardMenuProvider) {
+		this.standardMenuProvider = standardMenuProvider;
 	}
 
-	public Menu getVertexMenu() {
-		return vertexMenu;
+
+	public IMenuProvider getVertexMenuProvider() {
+		return vertexMenuProvider;
 	}
 
-	public void setVertexMenu(Menu vertexMenu) {
-		this.vertexMenu = vertexMenu;
+
+	public void setVertexMenuProvider(IMenuProvider vertexMenuProvider) {
+		this.vertexMenuProvider = vertexMenuProvider;
 	}
 
-	public Menu getStartMenu() {
-		return startMenu;
+
+	public IMenuProvider getStartMenuProvider() {
+		return startMenuProvider;
 	}
 
-	public void setStartMenu(Menu startMenu) {
-		this.startMenu = startMenu;
+
+	public void setStartMenuProvider(IMenuProvider startMenuProvider) {
+		this.startMenuProvider = startMenuProvider;
 	}
 
-	public Menu getEndMenu() {
-		return endMenu;
+
+	public IMenuProvider getEndMenuProvider() {
+		return endMenuProvider;
 	}
 
-	public void setEndMenu(Menu endMenu) {
-		this.endMenu = endMenu;
+
+	public void setEndMenuProvider(IMenuProvider endMenuProvider) {
+		this.endMenuProvider = endMenuProvider;
 	}
+
 
 	@Override
 	protected void showTip() {
-		if (tip != null) {
-			tip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
+		if (tipProvider != null) {
+			setCurrentTip(getTipProvider().getTip());
+			currentTip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
 					mapMenuController.getCurrentMousePosition().getY()+20);
 			updateTip();
 		}
 	}
 	
+	
 	@Override
 	protected void updateTip() {
-		if (tip != null) {
+		if (currentTip != null) {
 			int x = mapMenuController.getCurrentMousePosition().getX() + 20;
 			int y = mapMenuController.getCurrentMousePosition().getY() + 20;
 			
-			int width = tip.getWidth();
-			int height = tip.getHeight();
+			int width = currentTip.getWidth();
+			int height = currentTip.getHeight();
 	
 			if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
 				x = mapMenuController.getCurrentMousePosition().getX() - 20 - width;
@@ -110,60 +137,71 @@ public class PolylineGXTController extends PolylineMenuTipController {
 				y = mapMenuController.getCurrentMousePosition().getY() - 20 - height;
 			}
 	
-			tip.setPosition(x, y);
+			currentTip.setPosition(x, y);
 		}
 	}
+	
 	
 	@Override
 	protected void hideTip() {
-		if (tip != null) {
-			tip.hide();
+		if (currentTip != null) {
+			currentTip.hide();
 		}
 	}
+	
 	
 	protected void showStandardMenu(Point position) {
-		if (standardMenu != null) {
+		if (standardMenuProvider != null) {
+			setCurrentMenu(getStandardMenuProvider().getMenu());
 			hideTip();
-			MapGXTController.MenuTimer.showMenu(standardMenu, position);
-			setCurrentMenu(standardMenu);
+			setCurrentMenu(currentMenu);
+			MapGXTController.MenuTimer.showMenu(currentMenu, position);
 		}
 	}
 	
+	
 	protected void showVertexMenu(Point position) {
-		if (vertexMenu != null) {
+		if (vertexMenuProvider != null) {
+			setCurrentMenu(getVertexMenuProvider().getMenu());
 			hideTip();
-			MapGXTController.MenuTimer.showMenu(vertexMenu, position);
-			setCurrentMenu(vertexMenu);
+			setCurrentMenu(currentMenu);
+			MapGXTController.MenuTimer.showMenu(currentMenu, position);
 		} else {
 			showStandardMenu(position);
 		}
 	}
 	
+	
 	protected void showStartMenu(Point position) {
-		if (startMenu != null) {
+		if (startMenuProvider != null) {
+			setCurrentMenu(getStartMenuProvider().getMenu());
 			hideTip();
-			MapGXTController.MenuTimer.showMenu(startMenu, position);
-			setCurrentMenu(startMenu);
+			setCurrentMenu(currentMenu);
+			MapGXTController.MenuTimer.showMenu(currentMenu, position);
 		} else {
 			showVertexMenu(position);
 		}
 	}
 	
+	
 	protected void showEndMenu(Point position) {
-		if (endMenu != null) {
+		if (endMenuProvider != null) {
+			setCurrentMenu(getEndMenuProvider().getMenu());
 			hideTip();
-			MapGXTController.MenuTimer.showMenu(endMenu, position);
-			setCurrentMenu(endMenu);
+			setCurrentMenu(currentMenu);
+			MapGXTController.MenuTimer.showMenu(currentMenu, position);
 		} else {
 			showVertexMenu(position);
 		}
 	}
+	
 	
 	@Override
 	protected boolean isMenuVisible() {
 		return (currentMenu != null) && (currentMenu.isVisible());
 	}
 
+	
 	@Override
 	protected void showMenu() {
 		int currentVertex = getCurrentVertex();
@@ -182,6 +220,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 		}
 	}
 
+	
 	@Override
 	protected void hideMenu() {
 		if ((currentMenu != null) && (currentMenu.isVisible())) {

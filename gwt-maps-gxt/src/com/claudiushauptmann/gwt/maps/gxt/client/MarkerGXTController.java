@@ -6,9 +6,12 @@ import com.google.gwt.maps.client.overlay.Marker;
 import com.google.gwt.user.client.Window;
 
 public class MarkerGXTController extends MarkerMenuTipController {
-	private Tip tip;
-	private Menu menu;
 	private MapGXTController mapGXTController;
+	private ITipProvider tipProvider;
+	private Tip currentTip;
+	private IMenuProvider menuProvider;
+	private Menu currentMenu;
+	
 	
 	public MarkerGXTController(MapGXTController mapGXTController, Marker marker) {
 		super(mapGXTController, marker);
@@ -16,39 +19,67 @@ public class MarkerGXTController extends MarkerMenuTipController {
 		this.mapGXTController = mapGXTController;
 	}
 
-	public Tip getTip() {
-		return tip;
+	
+	public ITipProvider getTipProvider() {
+		return tipProvider;
 	}
 
-	public void setTip(Tip tip) {
-		this.tip = tip;
+	
+	public void setTipProvider(ITipProvider tipProvider) {
+		this.tipProvider = tipProvider;
+	}
+	
+	
+	protected Tip getCurrentTip() {
+		return this.currentTip;
+	}
+	
+	
+	protected void setCurrentTip(Tip currentTip) {
+		this.currentTip = currentTip;
+	}
+	
+	
+	public IMenuProvider getMenuProvider() {
+		return menuProvider;
 	}
 
-	public Menu getMenu() {
-		return menu;
+	
+	public void setMenuProvider(IMenuProvider menuProvider) {
+		this.menuProvider = menuProvider;
 	}
 
-	public void setMenu(Menu menu) {
-		this.menu = menu;
+	
+	protected Menu getCurrentMenu() {
+		return currentMenu;
 	}
+
+	
+	protected void setCurrentMenu(Menu currentMenu) {
+		this.currentMenu = currentMenu;
+	}
+
 	
 	@Override
 	protected void showTip() {
-		if (tip != null) {
-			tip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
+		setCurrentTip(getTipProvider().getTip());
+		
+		if (currentTip != null) {
+			currentTip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
 					mapMenuController.getCurrentMousePosition().getY()+20);
 			updateTip();
 		}
 	}
 	
+	
 	@Override
 	protected void updateTip() {
-		if (tip != null) {
+		if (currentTip != null) {
 			int x = mapMenuController.getCurrentMousePosition().getX() + 20;
 			int y = mapMenuController.getCurrentMousePosition().getY() + 20;
 			
-			int width = tip.getWidth();
-			int height = tip.getHeight();
+			int width = currentTip.getWidth();
+			int height = currentTip.getHeight();
 	
 			if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
 				x = mapMenuController.getCurrentMousePosition().getX() - 20 - width;
@@ -57,32 +88,37 @@ public class MarkerGXTController extends MarkerMenuTipController {
 				y = mapMenuController.getCurrentMousePosition().getY() - 20 - height;
 			}
 	
-			tip.setPosition(x, y);
+			currentTip.setPosition(x, y);
 		}
 	}
 	
+	
 	@Override
 	protected void hideTip() {
-		if (tip != null) {
-			tip.hide();
+		if (currentTip != null) {
+			currentTip.hide();
 		}
 	}
 
+	
 	@Override
 	protected void showMenu() {
-		if (menu != null) {
+		setCurrentMenu(getMenuProvider().getMenu());
+		
+		if (currentMenu != null) {
 			hideTip();
-			MapGXTController.MenuTimer.showMenu(menu, mapMenuController.getCurrentMousePosition());
-			mapGXTController.setCurrentMenu(menu);
+			MapGXTController.MenuTimer.showMenu(currentMenu, mapMenuController.getCurrentMousePosition());
+			mapGXTController.setCurrentMenu(currentMenu);
 		}
 	}
 
+	
 	@Override
 	protected boolean isMenuVisible() {
 		boolean result;
 		
-		if (menu != null) {
-			result = menu.isVisible();
+		if (currentMenu != null) {
+			result = currentMenu.isVisible();
 		} else {
 			result = false;
 		}
@@ -90,10 +126,11 @@ public class MarkerGXTController extends MarkerMenuTipController {
 		return result;
 	}
 
+	
 	@Override
 	protected void hideMenu() {
-		if ((menu != null) && (menu.isVisible())) {
-			menu.hide();
+		if ((currentMenu != null) && (currentMenu.isVisible())) {
+			currentMenu.hide();
 		}
 	}	
 }
