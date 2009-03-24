@@ -22,11 +22,13 @@ import com.google.gwt.maps.client.overlay.Polygon;
 import com.google.gwt.user.client.Window;
 
 public class PolygonGXTController extends PolygonMenuTipController {
-	private Tip tip;
-	private Menu standardMenu;
-	private Menu vertexMenu;
-	private Menu currentMenu;
 	private MapGXTController mapGXTController;
+	private ITipProvider tipProvider;
+	private Tip currentTip;
+	private IMenuProvider standardMenuProvider;
+	private IMenuProvider vertexMenuProvider;
+	private Menu currentMenu;
+	
 	
 	public PolygonGXTController(MapGXTController mapGXTController, Polygon polygon) {
 		super(mapGXTController, polygon);
@@ -34,43 +36,63 @@ public class PolygonGXTController extends PolygonMenuTipController {
 		this.mapGXTController = mapGXTController;
 	}
 	
-	public Menu getCurrentMenu() {
+	
+	public ITipProvider getTipProvider() {
+		return tipProvider;
+	}
+
+	
+	public void setTipProvider(ITipProvider tipProvider) {
+		this.tipProvider = tipProvider;
+	}
+
+	
+	protected Tip getCurrentTip() {
+		return currentTip;
+	}
+
+	
+	protected void setCurrentTip(Tip currentTip) {
+		this.currentTip = currentTip;
+	}
+	
+	
+	public IMenuProvider getStandardMenuProvider() {
+		return standardMenuProvider;
+	}
+
+	
+	public void setStandardMenuProvider(IMenuProvider standardMenuProvider) {
+		this.standardMenuProvider = standardMenuProvider;
+	}
+
+	
+	public IMenuProvider getVertexMenuProvider() {
+		return vertexMenuProvider;
+	}
+
+	
+	public void setVertexMenuProvider(IMenuProvider vertexMenuProvider) {
+		this.vertexMenuProvider = vertexMenuProvider;
+	}
+	
+	
+	protected Menu getCurrentMenu() {
 		return currentMenu;
 	}
 
-	public void setCurrentMenu(Menu currentMenu) {
+	
+	protected void setCurrentMenu(Menu currentMenu) {
 		this.currentMenu = currentMenu;
 		mapGXTController.setCurrentMenu(currentMenu);
 	}
 
-	public Tip getTip() {
-		return tip;
-	}
-
-	public void setTip(Tip tip) {
-		this.tip = tip;
-	}
 	
-	public Menu getStandardMenu() {
-		return standardMenu;
-	}
-
-	public void setStandardMenu(Menu menu) {
-		this.standardMenu = menu;
-	}
-
-	public Menu getVertexMenu() {
-		return vertexMenu;
-	}
-
-	public void setVertexMenu(Menu vertexMenu) {
-		this.vertexMenu = vertexMenu;
-	}
-
 	@Override
 	protected void showTip() {
-		if (tip != null) {
-			tip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
+		if (tipProvider != null) {
+			setCurrentTip(getTipProvider().getTip());
+			currentTip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
 					mapMenuController.getCurrentMousePosition().getY()+20);
 			updateTip();
 		}
@@ -78,12 +100,12 @@ public class PolygonGXTController extends PolygonMenuTipController {
 	
 	@Override
 	protected void updateTip() {
-		if (tip != null) {
+		if (currentTip != null) {
 			int x = mapMenuController.getCurrentMousePosition().getX() + 20;
 			int y = mapMenuController.getCurrentMousePosition().getY() + 20;
 			
-			int width = tip.getWidth();
-			int height = tip.getHeight();
+			int width = currentTip.getWidth();
+			int height = currentTip.getHeight();
 	
 			if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
 				x = mapMenuController.getCurrentMousePosition().getX() - 20 - width;
@@ -92,30 +114,32 @@ public class PolygonGXTController extends PolygonMenuTipController {
 				y = mapMenuController.getCurrentMousePosition().getY() - 20 - height;
 			}
 	
-			tip.setPosition(x, y);
+			currentTip.setPosition(x, y);
 		}
 	}
 	
 	@Override
 	protected void hideTip() {
-		if (tip != null) {
-			tip.hide();
+		if (currentTip != null) {
+			currentTip.hide();
 		}
 	}
 	
-	protected void showStandardMenu(Point position) {
-		if (standardMenu != null) {
+	protected void showStandardMenu(Point position) {		
+		if (standardMenuProvider != null) {
+			setCurrentMenu(getStandardMenuProvider().getMenu());
 			hideTip();
-			MapGXTController.MenuTimer.showMenu(standardMenu, position);
-			setCurrentMenu(standardMenu);
+			MapGXTController.MenuTimer.showMenu(currentMenu, position);
+			setCurrentMenu(currentMenu);
 		}
 	}
 	
 	protected void showVertexMenu(Point position) {
-		if (vertexMenu != null) {
+		if (vertexMenuProvider != null) {
+			setCurrentMenu(getVertexMenuProvider().getMenu());
 			hideTip();
-			MapGXTController.MenuTimer.showMenu(vertexMenu, position);
-			setCurrentMenu(vertexMenu);
+			MapGXTController.MenuTimer.showMenu(currentMenu, position);
+			setCurrentMenu(currentMenu);
 		} else {
 			showStandardMenu(position);
 		}
