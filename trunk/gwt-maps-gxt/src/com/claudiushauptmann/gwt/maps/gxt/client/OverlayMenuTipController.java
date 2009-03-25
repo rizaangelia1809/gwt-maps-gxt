@@ -99,7 +99,7 @@ public abstract class OverlayMenuTipController {
 	}
 	
 	protected void overlayEndUpdate() {
-		showTip();
+
 	}
 
 	protected void overlayRemove() {
