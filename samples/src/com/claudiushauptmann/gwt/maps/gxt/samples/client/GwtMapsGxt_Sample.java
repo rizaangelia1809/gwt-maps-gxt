@@ -35,11 +35,11 @@ import com.google.gwt.maps.client.overlay.Polygon;
 import com.google.gwt.maps.client.overlay.PolygonOptions;
 import com.google.gwt.maps.client.overlay.Polyline;
 import com.google.gwt.maps.client.overlay.PolylineOptions;
+import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.RootPanel;
 
 public class GwtMapsGxt_Sample implements EntryPoint {
 	private MapWidget mapWidget;
-	private OverlayTip overlayTip;
 
 	public void onModuleLoad() {
 		// Map
@@ -66,14 +66,18 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		
 		MarkerGXTController markerGXTController = new MarkerGXTController(mapGxtController, marker);
 		markerGXTController.setTipProvider(new ITipProvider() {
+			private OverlayTip overlayTip;
+			
 			public Tip getTip() {
-				overlayTip = new OverlayTip();
-				overlayTip.setTitle("Marienplatz");
-				overlayTip.setDescription("Marienplatz is a central square in the"
-						+ " city center of Munich, Germany since 1158.<br/>"
-						+ " In the Middle Ages markets and tournaments were held in this"
-						+ " city square. The Glockenspiel in the new city hall was inspired"
-						+ " by these tournaments, and draws millions of tourists a year.");
+				if (overlayTip == null) {
+					overlayTip = new OverlayTip();
+					overlayTip.setTitle("Marienplatz");
+					overlayTip.setDescription("Marienplatz is a central square in the"
+							+ " city center of Munich, Germany since 1158.<br/>"
+							+ " In the Middle Ages markets and tournaments were held in this"
+							+ " city square. The Glockenspiel in the new city hall was inspired"
+							+ " by these tournaments, and draws millions of tourists a year.");
+				}
 				return overlayTip;
 			}
 		});
@@ -100,11 +104,14 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				
 		PolylineGXTController ptc = new PolylineGXTController(mapGxtController, line);
 		ptc.setTipProvider(new ITipProvider() {
+			private OverlayTip polylineOverlayTip;
+			
 			public Tip getTip() {
-				OverlayTip polylineOverlayTip = new OverlayTip();
-				polylineOverlayTip.setTitle("Polyline");
-				polylineOverlayTip.setDescription("This is the description");
-				
+				if (polylineOverlayTip == null) {
+					polylineOverlayTip = new OverlayTip();
+					polylineOverlayTip.setTitle("Polyline");
+					polylineOverlayTip.setDescription("This is the description.");
+				}
 				return polylineOverlayTip;
 			}
 		});
@@ -159,11 +166,13 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				
 		PolygonGXTController pgc = new PolygonGXTController(mapGxtController, polygon);
 		pgc.setTipProvider(new ITipProvider() {
+			private int number;
+			
 			public Tip getTip() {
+				number++;
 				OverlayTip polygonOverlayTip = new OverlayTip();
-				polygonOverlayTip.setTitle("Polygon");
-				polygonOverlayTip.setDescription("This is the description");
-				
+				polygonOverlayTip.setTitle("Polygon " + number);
+				polygonOverlayTip.setDescription("Every mouseover event a new tooltip.");
 				return polygonOverlayTip;
 			}
 		});
