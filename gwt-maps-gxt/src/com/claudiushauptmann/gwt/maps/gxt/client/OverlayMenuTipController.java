@@ -15,6 +15,7 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.maps.client.event.MapClickHandler;
 import com.google.gwt.maps.client.event.MapDragEndHandler;
 import com.google.gwt.maps.client.event.MapDragStartHandler;
@@ -22,12 +23,17 @@ import com.google.gwt.maps.client.event.MapMouseMoveHandler;
 import com.google.gwt.maps.client.event.MapMouseOutHandler;
 import com.google.gwt.maps.client.event.MapZoomEndHandler;
 import com.google.gwt.maps.client.geom.LatLng;
+import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.Event.NativePreviewEvent;
+import com.google.gwt.user.client.Event.NativePreviewHandler;
 
 public abstract class OverlayMenuTipController {
 
 	protected boolean mouseOver;
 	protected MapMenuController mapMenuController;
 	protected MapEventHandler mapEventHandler;
+	
+	protected HandlerRegistration nativePreviewHandler;
 
 	public OverlayMenuTipController(MapMenuController mapWidget) {
 		this.mapMenuController = mapWidget;
@@ -43,9 +49,19 @@ public abstract class OverlayMenuTipController {
 	}
 
 	
-	protected abstract void showTip();
+	public void refreshTip() {
+		if (isTipVisible()) {
+			hideTip();
+			showTip();
+		}
+	}
 
-	protected abstract void updateTip();
+	
+	protected abstract void showTip();
+	
+	protected abstract boolean isTipVisible();
+
+	protected abstract void updateTipPosition();
 
 	protected abstract void hideTip();
 
@@ -63,11 +79,13 @@ public abstract class OverlayMenuTipController {
 		mapMenuController.getMapWidget().removeMapZoomEndHandler(mapEventHandler);
 	}
 	
-	protected void attachMouseMoveHandler() {
+	protected void attachMouseOverHandlers() {
 		mapMenuController.getMapWidget().addMapMouseMoveHandler(mapEventHandler);
+		nativePreviewHandler = Event.addNativePreviewHandler(mapEventHandler);
 	}
 	
-	protected void detachMouseMoveHandler() {
+	protected void detachMouseOverHandlers() {
+		nativePreviewHandler.removeHandler();
 		mapMenuController.getMapWidget().removeMapMouseMoveHandler(mapEventHandler);
 	}
 
@@ -79,27 +97,24 @@ public abstract class OverlayMenuTipController {
 			showTip();
 		}
 		
-		attachMouseMoveHandler();
+		attachMouseOverHandlers();
 	}
 	
 	protected void overlayMouseOut() {
 		mouseOver = false;
 		
-		detachMouseMoveHandler();
+		detachMouseOverHandlers();
 		
 		hideTip();
 	}
-
-	protected void overlayClick() {
+	
+	protected void overlayRightClick() {
+		mapMenuController.hideMenu();
 		showMenu();
 	}
 	
-	protected void overlayStartUpdate() {
-		hideTip();
-	}
-	
-	protected void overlayEndUpdate() {
-
+	protected void overlayMouseDown() {
+		hideTip();	
 	}
 
 	protected void overlayRemove() {
@@ -109,7 +124,7 @@ public abstract class OverlayMenuTipController {
 
 	protected void mapMouseMove(LatLng latlng) {
 		if (mouseOver && !mapMenuController.isMenuVisible()) {
-			updateTip();
+			updateTipPosition();
 		}
 	}
 	
@@ -138,7 +153,8 @@ public abstract class OverlayMenuTipController {
 
 	private class MapEventHandler implements MapMouseMoveHandler,
 				MapDragStartHandler, MapDragEndHandler,
-				MapMouseOutHandler, MapClickHandler, MapZoomEndHandler {
+				MapMouseOutHandler, MapClickHandler, MapZoomEndHandler,
+				NativePreviewHandler {
 
 		public void onMouseMove(MapMouseMoveEvent event) {
 			mapMouseMove(event.getLatLng());
@@ -163,5 +179,17 @@ public abstract class OverlayMenuTipController {
 		public void onZoomEnd(MapZoomEndEvent event) {
 			mapZoomEnd();
 		}
+
+		public void onPreviewNativeEvent(NativePreviewEvent event) {
+			if ((event.getTypeInt() == Event.ONMOUSEUP)
+					&& (event.getNativeEvent().getButton() == Event.BUTTON_RIGHT)) {
+				overlayRightClick();
+			}
+			if ((event.getTypeInt() == Event.ONMOUSEDOWN)
+					&& (event.getNativeEvent().getButton() == Event.BUTTON_LEFT)) {
+				overlayMouseDown();
+			}
+		}	
+		
 	}
 }

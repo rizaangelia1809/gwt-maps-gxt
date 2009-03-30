@@ -22,6 +22,9 @@ import com.claudiushauptmann.gwt.maps.gxt.client.MarkerGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.OverlayTip;
 import com.claudiushauptmann.gwt.maps.gxt.client.PolygonGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.PolylineGXTController;
+import com.extjs.gxt.ui.client.event.ComponentEvent;
+import com.extjs.gxt.ui.client.event.SelectionListener;
+import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.extjs.gxt.ui.client.widget.tips.Tip;
@@ -45,8 +48,8 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		// Map
 		mapWidget = new MapWidget();
 		mapWidget.setCenter(LatLng.newInstance(48.136559, 11.576318), 13);
-		mapWidget.setWidth("500px");
-		mapWidget.setHeight("300px");
+		mapWidget.setWidth("600px");
+		mapWidget.setHeight("400px");
 		mapWidget.addControl(new LargeMapControl());
 		mapWidget.setContinuousZoom(true);
 		mapWidget.setScrollWheelZoomEnabled(true);
@@ -64,7 +67,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		Marker marker = new Marker(mapWidget.getCenter(), mo);
 		mapWidget.addOverlay(marker);
 		
-		MarkerGXTController markerGXTController = new MarkerGXTController(mapGxtController, marker);
+		final MarkerGXTController markerGXTController = new MarkerGXTController(mapGxtController, marker);
 		markerGXTController.setTipProvider(new ITipProvider() {
 			private OverlayTip overlayTip;
 			
@@ -72,11 +75,21 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				if (overlayTip == null) {
 					overlayTip = new OverlayTip();
 					overlayTip.setTitle("Marienplatz");
-					overlayTip.setDescription("Marienplatz is a central square in the"
-							+ " city center of Munich, Germany since 1158.<br/>"
-							+ " In the Middle Ages markets and tournaments were held in this"
-							+ " city square. The Glockenspiel in the new city hall was inspired"
-							+ " by these tournaments, and draws millions of tourists a year.");
+					overlayTip.setDescription("loading...");
+				
+					new Timer() {
+						@Override
+						public void run() {
+							overlayTip = new OverlayTip();
+							overlayTip.setTitle("Marienplatz");
+							overlayTip.setDescription("Marienplatz is a central square in the"
+									+ " city center of Munich, Germany since 1158.<br/>"
+									+ " In the Middle Ages markets and tournaments were held in this"
+									+ " city square. The Glockenspiel in the new city hall was inspired"
+									+ " by these tournaments, and draws millions of tourists a year.");
+							markerGXTController.refreshTip();
+						}
+					}.schedule(1500);
 				}
 				return overlayTip;
 			}
@@ -86,6 +99,12 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				Menu popupMenu = new Menu();		
 				MenuItem item1 = new MenuItem();
 				item1.setText("Marker");
+				item1.addSelectionListener(new SelectionListener<ComponentEvent>() {  
+				      public void componentSelected(ComponentEvent ce) {  
+				          MessageBox.alert("Marker", "The marker was clicked.", null);  
+				        }  
+				      }
+				);
 				popupMenu.add(item1);						
 				return popupMenu;
 			}
@@ -120,6 +139,12 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				Menu lineStandardMenu = new Menu();		
 				MenuItem lineMenuItem = new MenuItem();
 				lineMenuItem.setText("Polyline");
+				lineMenuItem.addSelectionListener(new SelectionListener<ComponentEvent>() {  
+				      public void componentSelected(ComponentEvent ce) {  
+				          MessageBox.alert("Polyline", "The Polyline was clicked.", null);  
+				        }  
+				      }
+				);
 				lineStandardMenu.add(lineMenuItem);		
 				return lineStandardMenu;
 			}
@@ -129,6 +154,12 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				Menu lineMenuVertex = new Menu();		
 				MenuItem lineMenuItemVertex = new MenuItem();
 				lineMenuItemVertex.setText("PolylineVertex");
+				lineMenuItemVertex.addSelectionListener(new SelectionListener<ComponentEvent>() {  
+				      public void componentSelected(ComponentEvent ce) {  
+				          MessageBox.alert("PolylineVertex", "The PolylineVertex was clicked.", null);  
+				        }  
+				      }
+				);
 				lineMenuVertex.add(lineMenuItemVertex);		
 				return lineMenuVertex;
 			}
@@ -138,6 +169,12 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				Menu lineMenuStart = new Menu();		
 				MenuItem lineMenuItemStart = new MenuItem();
 				lineMenuItemStart.setText("PolylineStart");
+				lineMenuItemStart.addSelectionListener(new SelectionListener<ComponentEvent>() {  
+				      public void componentSelected(ComponentEvent ce) {  
+				          MessageBox.alert("PolylineStart", "The PolylineStart was clicked.", null);  
+				        }  
+				      }
+				);
 				lineMenuStart.add(lineMenuItemStart);		
 				return lineMenuStart;
 			}
@@ -147,6 +184,12 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				Menu lineMenuEnd = new Menu();		
 				MenuItem lineMenuItemEnd = new MenuItem();
 				lineMenuItemEnd.setText("PolylineEnd");
+				lineMenuItemEnd.addSelectionListener(new SelectionListener<ComponentEvent>() {  
+				      public void componentSelected(ComponentEvent ce) {  
+				          MessageBox.alert("PolylineEnd", "The PolylineEnd was clicked.", null);  
+				        }  
+				      }
+				);
 				lineMenuEnd.add(lineMenuItemEnd);		
 				return lineMenuEnd;
 			}
@@ -181,6 +224,12 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				Menu polygonStandardMenu = new Menu();		
 				MenuItem polygonMenuItem = new MenuItem();
 				polygonMenuItem.setText("Polygon");
+				polygonMenuItem.addSelectionListener(new SelectionListener<ComponentEvent>() {  
+				      public void componentSelected(ComponentEvent ce) {  
+				          MessageBox.alert("Polygon", "The Polygon was clicked.", null);  
+				        }  
+				      }
+				);
 				polygonStandardMenu.add(polygonMenuItem);		
 				return polygonStandardMenu;
 			}
@@ -190,6 +239,12 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				Menu polygonMenuVertex = new Menu();		
 				MenuItem polylineMenuItemVertex = new MenuItem();
 				polylineMenuItemVertex.setText("PolygonVertex");
+				polylineMenuItemVertex.addSelectionListener(new SelectionListener<ComponentEvent>() {  
+				      public void componentSelected(ComponentEvent ce) {  
+				          MessageBox.alert("PolygonVertex", "The PolygonVertex was clicked.", null);  
+				        }  
+				      }
+				);
 				polygonMenuVertex.add(polylineMenuItemVertex);		
 				return polygonMenuVertex;
 			}

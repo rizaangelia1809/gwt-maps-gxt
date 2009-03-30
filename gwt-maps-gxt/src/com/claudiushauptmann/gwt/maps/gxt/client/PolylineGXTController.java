@@ -116,13 +116,19 @@ public class PolylineGXTController extends PolylineMenuTipController {
 			setCurrentTip(getTipProvider().getTip());
 			currentTip.showAt(mapMenuController.getCurrentMousePosition().getX() + 20,
 					mapMenuController.getCurrentMousePosition().getY()+20);
-			updateTip();
+			updateTipPosition();
 		}
 	}
 	
 	
 	@Override
-	protected void updateTip() {
+	protected boolean isTipVisible() {
+		return ((currentTip != null) && currentTip.isVisible());
+	}
+
+	
+	@Override
+	protected void updateTipPosition() {
 		if (currentTip != null) {
 			int x = mapMenuController.getCurrentMousePosition().getX() + 20;
 			int y = mapMenuController.getCurrentMousePosition().getY() + 20;

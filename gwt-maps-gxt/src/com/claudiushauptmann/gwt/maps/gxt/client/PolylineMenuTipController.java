@@ -15,8 +15,6 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
-import com.google.gwt.maps.client.event.PolylineClickHandler;
-import com.google.gwt.maps.client.event.PolylineLineUpdatedHandler;
 import com.google.gwt.maps.client.event.PolylineMouseOutHandler;
 import com.google.gwt.maps.client.event.PolylineMouseOverHandler;
 import com.google.gwt.maps.client.event.PolylineRemoveHandler;
@@ -33,11 +31,9 @@ public abstract class PolylineMenuTipController extends PolyOverlayMenuTipContro
 		this.polyline = polyline;
 		
 		polylineEventHandler = new PolylineEventHandler();			
-		polyline.addPolylineClickHandler(polylineEventHandler);
 		polyline.addPolylineMouseOverHandler(polylineEventHandler);
 		polyline.addPolylineMouseOutHandler(polylineEventHandler);
 		polyline.addPolylineRemoveHandler(polylineEventHandler);
-		polyline.addPolylineLineUpdatedHandler(polylineEventHandler);
 	}
 	
 	@Override
@@ -58,15 +54,13 @@ public abstract class PolylineMenuTipController extends PolyOverlayMenuTipContro
 	protected void detach() {
 		super.detach();
 		
-		polyline.removePolylineClickHandler(polylineEventHandler);
 		polyline.removePolylineMouseOverHandler(polylineEventHandler);
 		polyline.removePolylineMouseOutHandler(polylineEventHandler);
 		polyline.removePolylineRemoveHandler(polylineEventHandler);
-		polyline.removePolylineLineUpdatedHandler(polylineEventHandler);
 	}
 	
-	private class PolylineEventHandler implements PolylineClickHandler,	PolylineMouseOverHandler,
-				PolylineMouseOutHandler, PolylineRemoveHandler, PolylineLineUpdatedHandler {
+	private class PolylineEventHandler implements PolylineMouseOverHandler,
+				PolylineMouseOutHandler, PolylineRemoveHandler {
 		
 		public void onMouseOver(PolylineMouseOverEvent event) {
 			overlayMouseOver();
@@ -76,16 +70,8 @@ public abstract class PolylineMenuTipController extends PolyOverlayMenuTipContro
 			overlayMouseOut();
 		}
 		
-		public void onClick(PolylineClickEvent event) {
-			overlayClick();
-		}
-		
 		public void onRemove(PolylineRemoveEvent event) {
 			overlayRemove();
-		}
-
-		public void onUpdate(PolylineLineUpdatedEvent event) {
-			overlayEndUpdate();
 		}
 	}
 }

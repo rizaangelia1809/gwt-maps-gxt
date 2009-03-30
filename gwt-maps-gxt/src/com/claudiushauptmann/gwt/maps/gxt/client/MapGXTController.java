@@ -39,6 +39,14 @@ public class MapGXTController extends MapMenuController {
 	public boolean isMenuVisible() {
 		return (currentMenu != null) && (currentMenu.isVisible());
 	}
+	
+	
+	@Override
+	public void hideMenu() {
+		if (isMenuVisible()) {
+			getCurrentMenu().hide();
+		}
+	}
 
 
 	public void setCurrentMenu(Menu currentMenu) {
