@@ -58,6 +58,9 @@ public abstract class MapMenuController {
 
 	public abstract boolean isMenuVisible();
 	
+	
+	public abstract void hideMenu();
+	
 
 	protected void detach() {
 		mapWidget.removeMapMouseMoveHandler(mapEventHandler);

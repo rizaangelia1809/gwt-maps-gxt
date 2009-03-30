@@ -15,8 +15,6 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
-import com.google.gwt.maps.client.event.PolygonClickHandler;
-import com.google.gwt.maps.client.event.PolygonLineUpdatedHandler;
 import com.google.gwt.maps.client.event.PolygonMouseOutHandler;
 import com.google.gwt.maps.client.event.PolygonMouseOverHandler;
 import com.google.gwt.maps.client.event.PolygonRemoveHandler;
@@ -34,11 +32,9 @@ public abstract class PolygonMenuTipController extends PolyOverlayMenuTipControl
 		this.polygon = polygon;
 		
 		polygonEventHandler = new PolygonEventHandler();			
-		polygon.addPolygonClickHandler(polygonEventHandler);
 		polygon.addPolygonMouseOverHandler(polygonEventHandler);
 		polygon.addPolygonMouseOutHandler(polygonEventHandler);
 		polygon.addPolygonRemoveHandler(polygonEventHandler);
-		polygon.addPolygonLineUpdatedHandler(polygonEventHandler);
 	}
 	
 	@Override
@@ -59,15 +55,13 @@ public abstract class PolygonMenuTipController extends PolyOverlayMenuTipControl
 	protected void detach() {
 		super.detach();
 		
-		polygon.removePolygonClickHandler(polygonEventHandler);
 		polygon.removePolygonMouseOverHandler(polygonEventHandler);
 		polygon.removePolygonMouseOutHandler(polygonEventHandler);
 		polygon.removePolygonRemoveHandler(polygonEventHandler);
-		polygon.removePolygonLineUpdatedHandler(polygonEventHandler);
 	}
 	
-	private class PolygonEventHandler implements PolygonClickHandler,	PolygonMouseOverHandler,
-				PolygonMouseOutHandler, PolygonRemoveHandler, PolygonLineUpdatedHandler {
+	private class PolygonEventHandler implements PolygonMouseOverHandler,
+				PolygonMouseOutHandler,	PolygonRemoveHandler {
 
 		public void onMouseOver(PolygonMouseOverEvent event) {
 			overlayMouseOver();
@@ -77,16 +71,8 @@ public abstract class PolygonMenuTipController extends PolyOverlayMenuTipControl
 			overlayMouseOut();
 		}
 		
-		public void onClick(PolygonClickEvent event) {
-			overlayClick();
-		}
-		
 		public void onRemove(PolygonRemoveEvent event) {
 			overlayRemove();
-		}
-
-		public void onUpdate(PolygonLineUpdatedEvent event) {
-			overlayEndUpdate();
 		}
 	}
 }

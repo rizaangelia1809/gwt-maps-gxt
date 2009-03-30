@@ -38,8 +38,8 @@ public abstract class PolyOverlayMenuTipController extends
 	protected abstract int getCurrentVertex();
 
 	@Override
-	protected void overlayClick() {
-		super.overlayClick();
+	protected void overlayRightClick() {
+		super.overlayRightClick();
 
 		setLastClickedVertex(getCurrentVertex());		
 	}
