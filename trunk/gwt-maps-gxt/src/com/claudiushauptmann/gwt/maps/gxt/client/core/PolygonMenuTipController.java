@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.claudiushauptmann.gwt.maps.gxt.client;
+package com.claudiushauptmann.gwt.maps.gxt.client.core;
 
 import com.google.gwt.maps.client.event.PolygonMouseOutHandler;
 import com.google.gwt.maps.client.event.PolygonMouseOverHandler;

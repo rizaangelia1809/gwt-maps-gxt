@@ -15,6 +15,7 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
+import com.claudiushauptmann.gwt.maps.gxt.client.core.MapMenuController;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.geom.Point;
