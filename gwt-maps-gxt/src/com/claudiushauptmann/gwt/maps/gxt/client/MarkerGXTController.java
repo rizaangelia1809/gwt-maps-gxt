@@ -15,6 +15,7 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client;
 
+import com.claudiushauptmann.gwt.maps.gxt.client.core.MarkerMenuTipController;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.extjs.gxt.ui.client.widget.tips.Tip;
 import com.google.gwt.maps.client.overlay.Marker;

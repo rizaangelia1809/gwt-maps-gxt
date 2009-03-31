@@ -13,7 +13,8 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.claudiushauptmann.gwt.maps.gxt.client;
+package com.claudiushauptmann.gwt.maps.gxt.client.core;
+
 
 
 public abstract class PolyOverlayMenuTipController extends
