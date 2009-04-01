@@ -7,7 +7,7 @@
 
 === General Changes & Enhancements ===
 
-  * Menus are now listening to right clicks
+  * Menus are now listening to right clicks. [http://code.google.com/p/gwt-maps-gxt/source/detail?r=35 r35]
 
 === API Changes ===
 
