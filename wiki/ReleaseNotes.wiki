@@ -3,7 +3,7 @@
 = gwt-maps-gxt Release Notes =
 
 
-== Release 1.0.0.Beta4 (not yet released) ==
+== Release 1.0.0.Beta4 (released April 2, 2009) ==
 
 
 === General Changes & Enhancements ===
