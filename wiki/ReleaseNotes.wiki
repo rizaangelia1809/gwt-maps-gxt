@@ -1,13 +1,15 @@
-#summary gwt-maps-gxt Release Notes
+#summary Release Notes
 
 = gwt-maps-gxt Release Notes =
 
 
 == Release 1.0.0.Beta4 (not yet released) ==
 
+
 === General Changes & Enhancements ===
 
   * Menus are now listening to right clicks. [http://code.google.com/p/gwt-maps-gxt/source/detail?r=35 r35]
+
 
 === API Changes ===
 
@@ -21,6 +23,7 @@
 
   * Adding default implementations for ITipProvider and IMenuProvider. [http://code.google.com/p/gwt-maps-gxt/source/detail?r=37 r37]
 
+
 === Bug fixes ===
 
   * The controllers now work with both menus and tooltips at a time and with only menus or only tooltips. [http://code.google.com/p/gwt-maps-gxt/source/detail?r=30 r30]
@@ -28,6 +31,7 @@
 
 
 == Release 1.0.0.Beta3 (released March 3, 2009) ==
+
 
 === API Changes ===
 
