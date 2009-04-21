@@ -17,7 +17,7 @@ package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.tips.Tip;
 
-public class DefaultTipProvider implements ITipProvider {
+public class DefaultTipProvider implements TipProvider {
 	private Tip tip;
 	
 	public DefaultTipProvider(Tip tip) {
