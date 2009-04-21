@@ -24,12 +24,12 @@ import com.google.gwt.user.client.Window;
 
 public class PolylineGXTController extends PolylineMenuTipController {
 	private MapGXTController mapGXTController;
-	private ITipProvider tipProvider;
+	private TipProvider tipProvider;
 	private Tip currentTip;
-	private IMenuProvider standardMenuProvider;
-	private IMenuProvider vertexMenuProvider;
-	private IMenuProvider startMenuProvider;
-	private IMenuProvider endMenuProvider;
+	private MenuProvider standardMenuProvider;
+	private MenuProvider vertexMenuProvider;
+	private MenuProvider startMenuProvider;
+	private MenuProvider endMenuProvider;
 	private Menu currentMenu;
 
 	
@@ -51,12 +51,12 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	}
 	
 	
-	public ITipProvider getTipProvider() {
+	public TipProvider getTipProvider() {
 		return tipProvider;
 	}
 
 	
-	public void setTipProvider(ITipProvider tipProvider) {
+	public void setTipProvider(TipProvider tipProvider) {
 		this.tipProvider = tipProvider;
 	}
 
@@ -71,42 +71,42 @@ public class PolylineGXTController extends PolylineMenuTipController {
 	}
 	
 
-	public IMenuProvider getStandardMenuProvider() {
+	public MenuProvider getStandardMenuProvider() {
 		return standardMenuProvider;
 	}
 
 
-	public void setStandardMenuProvider(IMenuProvider standardMenuProvider) {
+	public void setStandardMenuProvider(MenuProvider standardMenuProvider) {
 		this.standardMenuProvider = standardMenuProvider;
 	}
 
 
-	public IMenuProvider getVertexMenuProvider() {
+	public MenuProvider getVertexMenuProvider() {
 		return vertexMenuProvider;
 	}
 
 
-	public void setVertexMenuProvider(IMenuProvider vertexMenuProvider) {
+	public void setVertexMenuProvider(MenuProvider vertexMenuProvider) {
 		this.vertexMenuProvider = vertexMenuProvider;
 	}
 
 
-	public IMenuProvider getStartMenuProvider() {
+	public MenuProvider getStartMenuProvider() {
 		return startMenuProvider;
 	}
 
 
-	public void setStartMenuProvider(IMenuProvider startMenuProvider) {
+	public void setStartMenuProvider(MenuProvider startMenuProvider) {
 		this.startMenuProvider = startMenuProvider;
 	}
 
 
-	public IMenuProvider getEndMenuProvider() {
+	public MenuProvider getEndMenuProvider() {
 		return endMenuProvider;
 	}
 
 
-	public void setEndMenuProvider(IMenuProvider endMenuProvider) {
+	public void setEndMenuProvider(MenuProvider endMenuProvider) {
 		this.endMenuProvider = endMenuProvider;
 	}
 

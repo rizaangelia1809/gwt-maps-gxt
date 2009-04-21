@@ -24,10 +24,10 @@ import com.google.gwt.user.client.Window;
 
 public class PolygonGXTController extends PolygonMenuTipController {
 	private MapGXTController mapGXTController;
-	private ITipProvider tipProvider;
+	private TipProvider tipProvider;
 	private Tip currentTip;
-	private IMenuProvider standardMenuProvider;
-	private IMenuProvider vertexMenuProvider;
+	private MenuProvider standardMenuProvider;
+	private MenuProvider vertexMenuProvider;
 	private Menu currentMenu;
 	
 	
@@ -38,12 +38,12 @@ public class PolygonGXTController extends PolygonMenuTipController {
 	}
 	
 	
-	public ITipProvider getTipProvider() {
+	public TipProvider getTipProvider() {
 		return tipProvider;
 	}
 
 	
-	public void setTipProvider(ITipProvider tipProvider) {
+	public void setTipProvider(TipProvider tipProvider) {
 		this.tipProvider = tipProvider;
 	}
 
@@ -58,22 +58,22 @@ public class PolygonGXTController extends PolygonMenuTipController {
 	}
 	
 	
-	public IMenuProvider getStandardMenuProvider() {
+	public MenuProvider getStandardMenuProvider() {
 		return standardMenuProvider;
 	}
 
 	
-	public void setStandardMenuProvider(IMenuProvider standardMenuProvider) {
+	public void setStandardMenuProvider(MenuProvider standardMenuProvider) {
 		this.standardMenuProvider = standardMenuProvider;
 	}
 
 	
-	public IMenuProvider getVertexMenuProvider() {
+	public MenuProvider getVertexMenuProvider() {
 		return vertexMenuProvider;
 	}
 
 	
-	public void setVertexMenuProvider(IMenuProvider vertexMenuProvider) {
+	public void setVertexMenuProvider(MenuProvider vertexMenuProvider) {
 		this.vertexMenuProvider = vertexMenuProvider;
 	}
 	

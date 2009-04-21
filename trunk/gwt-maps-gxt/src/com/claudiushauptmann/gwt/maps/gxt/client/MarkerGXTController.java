@@ -23,9 +23,9 @@ import com.google.gwt.user.client.Window;
 
 public class MarkerGXTController extends MarkerMenuTipController {
 	private MapGXTController mapGXTController;
-	private ITipProvider tipProvider;
+	private TipProvider tipProvider;
 	private Tip currentTip;
-	private IMenuProvider menuProvider;
+	private MenuProvider menuProvider;
 	private Menu currentMenu;
 	
 	
@@ -36,12 +36,12 @@ public class MarkerGXTController extends MarkerMenuTipController {
 	}
 
 	
-	public ITipProvider getTipProvider() {
+	public TipProvider getTipProvider() {
 		return tipProvider;
 	}
 
 	
-	public void setTipProvider(ITipProvider tipProvider) {
+	public void setTipProvider(TipProvider tipProvider) {
 		this.tipProvider = tipProvider;
 	}
 	
@@ -56,12 +56,12 @@ public class MarkerGXTController extends MarkerMenuTipController {
 	}
 	
 	
-	public IMenuProvider getMenuProvider() {
+	public MenuProvider getMenuProvider() {
 		return menuProvider;
 	}
 
 	
-	public void setMenuProvider(IMenuProvider menuProvider) {
+	public void setMenuProvider(MenuProvider menuProvider) {
 		this.menuProvider = menuProvider;
 	}
 

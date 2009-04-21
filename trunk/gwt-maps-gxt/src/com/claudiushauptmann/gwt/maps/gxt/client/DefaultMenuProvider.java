@@ -17,7 +17,7 @@ package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 
-public class DefaultMenuProvider implements IMenuProvider {
+public class DefaultMenuProvider implements MenuProvider {
 	private Menu menu;
 	
 	public DefaultMenuProvider(Menu menu) {

@@ -15,8 +15,8 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.samples.client;
 
-import com.claudiushauptmann.gwt.maps.gxt.client.IMenuProvider;
-import com.claudiushauptmann.gwt.maps.gxt.client.ITipProvider;
+import com.claudiushauptmann.gwt.maps.gxt.client.MenuProvider;
+import com.claudiushauptmann.gwt.maps.gxt.client.TipProvider;
 import com.claudiushauptmann.gwt.maps.gxt.client.MapGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.MarkerGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.OverlayTip;
@@ -41,7 +41,7 @@ import com.google.gwt.maps.client.overlay.PolylineOptions;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.RootPanel;
 
-public class GwtMapsGxt_Sample implements EntryPoint {
+public class OverlayEditor implements EntryPoint {
 	private MapWidget mapWidget;
 
 	public void onModuleLoad() {
@@ -68,7 +68,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		mapWidget.addOverlay(marker);
 		
 		final MarkerGXTController markerGXTController = new MarkerGXTController(mapGxtController, marker);
-		markerGXTController.setTipProvider(new ITipProvider() {
+		markerGXTController.setTipProvider(new TipProvider() {
 			private OverlayTip overlayTip;
 			
 			public Tip getTip() {
@@ -94,7 +94,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				return overlayTip;
 			}
 		});
-		markerGXTController.setMenuProvider(new IMenuProvider() {
+		markerGXTController.setMenuProvider(new MenuProvider() {
 			public Menu getMenu() {
 				Menu popupMenu = new Menu();		
 				MenuItem item1 = new MenuItem();
@@ -122,7 +122,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		mapWidget.addOverlay(line);
 				
 		PolylineGXTController ptc = new PolylineGXTController(mapGxtController, line);
-		ptc.setTipProvider(new ITipProvider() {
+		ptc.setTipProvider(new TipProvider() {
 			private OverlayTip polylineOverlayTip;
 			
 			public Tip getTip() {
@@ -134,7 +134,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				return polylineOverlayTip;
 			}
 		});
-		ptc.setStandardMenuProvider(new IMenuProvider() {
+		ptc.setStandardMenuProvider(new MenuProvider() {
 			public Menu getMenu() {
 				Menu lineStandardMenu = new Menu();		
 				MenuItem lineMenuItem = new MenuItem();
@@ -149,7 +149,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				return lineStandardMenu;
 			}
 		});
-		ptc.setVertexMenuProvider(new IMenuProvider() {
+		ptc.setVertexMenuProvider(new MenuProvider() {
 			public Menu getMenu() {
 				Menu lineMenuVertex = new Menu();		
 				MenuItem lineMenuItemVertex = new MenuItem();
@@ -164,7 +164,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				return lineMenuVertex;
 			}
 		});
-		ptc.setStartMenuProvider(new IMenuProvider() {
+		ptc.setStartMenuProvider(new MenuProvider() {
 			public Menu getMenu() {
 				Menu lineMenuStart = new Menu();		
 				MenuItem lineMenuItemStart = new MenuItem();
@@ -179,7 +179,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				return lineMenuStart;
 			}
 		});
-		ptc.setEndMenuProvider(new IMenuProvider() {
+		ptc.setEndMenuProvider(new MenuProvider() {
 			public Menu getMenu() {
 				Menu lineMenuEnd = new Menu();		
 				MenuItem lineMenuItemEnd = new MenuItem();
@@ -208,7 +208,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 		mapWidget.addOverlay(polygon);
 				
 		PolygonGXTController pgc = new PolygonGXTController(mapGxtController, polygon);
-		pgc.setTipProvider(new ITipProvider() {
+		pgc.setTipProvider(new TipProvider() {
 			private int number;
 			
 			public Tip getTip() {
@@ -219,7 +219,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				return polygonOverlayTip;
 			}
 		});
-		pgc.setStandardMenuProvider(new IMenuProvider() {
+		pgc.setStandardMenuProvider(new MenuProvider() {
 			public Menu getMenu() {
 				Menu polygonStandardMenu = new Menu();		
 				MenuItem polygonMenuItem = new MenuItem();
@@ -234,7 +234,7 @@ public class GwtMapsGxt_Sample implements EntryPoint {
 				return polygonStandardMenu;
 			}
 		});
-		pgc.setVertexMenuProvider(new IMenuProvider() {
+		pgc.setVertexMenuProvider(new MenuProvider() {
 			public Menu getMenu() {
 				Menu polygonMenuVertex = new Menu();		
 				MenuItem polylineMenuItemVertex = new MenuItem();
