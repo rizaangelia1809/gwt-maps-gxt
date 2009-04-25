@@ -17,7 +17,7 @@
 	<inherits name='com.google.gwt.user.User'/>
 
 	<!-- Include Google Maps and Inherit the Wrapper Module -->
-	<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2" />
+	<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2.148" />
 	<inherits name="com.google.gwt.maps.GoogleMaps"/>
   
   	<!-- Inherit the GXT-Module -->
@@ -27,5 +27,5 @@
 	<inherits name="com.claudiushauptmann.gwt.maps.gxt.GwtMapsGxt"/>
 
 	<!-- Specify the app entry point class.                   -->
-	<entry-point class='com.claudiushauptmann.gwt.maps.gxt.samples.client.GwtMapsGxt_Sample'/>
+	<entry-point class='com.claudiushauptmann.gwt.maps.gxt.samples.client.OverlayEditor'/>
 </module>
