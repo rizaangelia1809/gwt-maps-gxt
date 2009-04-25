@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="GWT_HOME/gwt-user.jar"/>
+	<classpathentry kind="lib" path="/Users/hauptman/Documents/Java/Maps/gwt-maps-1.0.3/gwt-maps.jar"/>
+	<classpathentry kind="lib" path="/Users/hauptman/Documents/Java/GXT/gxt-1.2.3/gxt.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
