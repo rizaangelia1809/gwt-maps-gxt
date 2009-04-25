@@ -72,6 +72,7 @@ public abstract class OverlayMenuTipController {
 	protected abstract void hideMenu();
 
 	protected void detach() {
+		detachMouseOverHandlers();
 		mapMenuController.getMapWidget().removeMapDragStartHandler(mapEventHandler);
 		mapMenuController.getMapWidget().removeMapDragEndHandler(mapEventHandler);
 		mapMenuController.getMapWidget().removeMapMouseOutHandler(mapEventHandler);
@@ -85,7 +86,10 @@ public abstract class OverlayMenuTipController {
 	}
 	
 	protected void detachMouseOverHandlers() {
-		nativePreviewHandler.removeHandler();
+		if(nativePreviewHandler != null) {
+			nativePreviewHandler.removeHandler();
+			nativePreviewHandler = null;
+		}
 		mapMenuController.getMapWidget().removeMapMouseMoveHandler(mapEventHandler);
 	}
 
