@@ -16,6 +16,11 @@
 package com.claudiushauptmann.gwt.maps.gxt.samples.client;
 
 import com.claudiushauptmann.gwt.maps.gxt.client.MapGXTController;
+import com.claudiushauptmann.gwt.maps.gxt.client.MenuProvider;
+import com.extjs.gxt.ui.client.event.ComponentEvent;
+import com.extjs.gxt.ui.client.event.SelectionListener;
+import com.extjs.gxt.ui.client.widget.menu.Menu;
+import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.maps.client.MapWidget;
 import com.google.gwt.maps.client.control.LargeMapControl;
@@ -30,15 +35,16 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class OverlayEditor implements EntryPoint {
 	private MapWidget mapWidget;
-	
-	@SuppressWarnings("unused")
-	private MyMarkerEditController myMarkerEditController;
-	
-	@SuppressWarnings("unused")
-	private MyPolylineEditController myPolylineEditController;
-	
-	@SuppressWarnings("unused")
-	private MyPolygonEditController myPolygonEditController;
+	private MapGXTController mapGxtController;
+
+	private MapMenuProvider mapMenuProvider;
+	private Menu mapMenu;
+	private MenuItem addMarkerMenuItem;
+	private AddMarkerMenuItemHandler addMarkerMenuItemHandler;
+	private AddPolygonMenuItemHandler addPolygonMenuItemHandler;
+	private MenuItem addPolygonMenuItem;
+	private AddPolylineMenuItemHandler addPolylineMenuItemHandler;
+	private MenuItem addPolylineMenuItem;
 
 	public void onModuleLoad() {
 		// Map
@@ -51,8 +57,10 @@ public class OverlayEditor implements EntryPoint {
 		mapWidget.setScrollWheelZoomEnabled(true);
 		RootPanel.get().add(mapWidget);
 
-		// Necessary for the "OverlayGXTControllers"
-		MapGXTController mapGxtController = new MapGXTController(mapWidget);
+		// MapController
+		mapGxtController = new MapGXTController(mapWidget);
+		mapMenuProvider = new MapMenuProvider();
+		mapGxtController.setMenuProvider(mapMenuProvider);
 
 		// Marker
 		MarkerOptions mo = MarkerOptions.newInstance();
@@ -60,8 +68,15 @@ public class OverlayEditor implements EntryPoint {
 		mo.setDraggable(true);
 		Marker marker = new Marker(mapWidget.getCenter(), mo);
 		mapWidget.addOverlay(marker);
-		myMarkerEditController = new MyMarkerEditController(mapGxtController,
-				marker);
+		new MyMarkerEditController(
+				mapGxtController,
+				marker,
+				"Marienplatz",
+				"Marienplatz is a central square in the"
+						+ " city center of Munich, Germany since 1158.<br/>"
+						+ " In the Middle Ages markets and tournaments were held in this"
+						+ " city square. The Glockenspiel in the new city hall was inspired"
+						+ " by these tournaments, and draws millions of tourists a year.");
 
 		// Polyline
 		LatLng[] llline = new LatLng[3];
@@ -71,8 +86,8 @@ public class OverlayEditor implements EntryPoint {
 		PolylineOptions plo = PolylineOptions.newInstance(true, false);
 		Polyline line = new Polyline(llline, "#FF0000", 2, 1.0, plo);
 		mapWidget.addOverlay(line);
-		myPolylineEditController = new MyPolylineEditController(
-				mapGxtController, line);
+		new MyPolylineEditController(mapGxtController, line, "Polyline",
+				"This is a polyline.");
 
 		// Polygon
 		LatLng[] llpolygon = new LatLng[4];
@@ -84,7 +99,91 @@ public class OverlayEditor implements EntryPoint {
 		Polygon polygon = new Polygon(llpolygon, "#0000FF", 2, 1.0, "#0000FF",
 				0.3, pgo);
 		mapWidget.addOverlay(polygon);
-		myPolygonEditController = new MyPolygonEditController(mapGxtController,
-				polygon);
+		new MyPolygonEditController(mapGxtController, polygon, "Polygon",
+				"This is a polygon.");
+	}
+
+	private class MapMenuProvider implements MenuProvider {
+		public Menu getMenu() {
+			if (mapMenu == null) {
+				mapMenu = new Menu();
+
+				addMarkerMenuItem = new MenuItem();
+				addMarkerMenuItem.setText("add Marker");
+				addMarkerMenuItemHandler = new AddMarkerMenuItemHandler();
+				addMarkerMenuItem
+						.addSelectionListener(addMarkerMenuItemHandler);
+				mapMenu.add(addMarkerMenuItem);
+
+				addPolygonMenuItem = new MenuItem();
+				addPolygonMenuItem.setText("add Polygon");
+				addPolygonMenuItemHandler = new AddPolygonMenuItemHandler();
+				addPolygonMenuItem
+						.addSelectionListener(addPolygonMenuItemHandler);
+				mapMenu.add(addPolygonMenuItem);
+
+				addPolylineMenuItem = new MenuItem();
+				addPolylineMenuItem.setText("add Polyline");
+				addPolylineMenuItemHandler = new AddPolylineMenuItemHandler();
+				addPolylineMenuItem
+						.addSelectionListener(addPolylineMenuItemHandler);
+				mapMenu.add(addPolylineMenuItem);
+			}
+
+			return mapMenu;
+		}
+	}
+
+	private class AddMarkerMenuItemHandler extends
+			SelectionListener<ComponentEvent> {
+
+		@Override
+		public void componentSelected(ComponentEvent ce) {
+			MarkerOptions mo = MarkerOptions.newInstance();
+			mo.setClickable(true);
+			mo.setDraggable(true);
+			Marker newMarker = new Marker(mapGxtController
+					.getRightClickedLatLng(), mo);
+			mapWidget.addOverlay(newMarker);
+
+			new MyMarkerEditController(mapGxtController, newMarker, "Marker",
+					"This is a new marker.");
+		}
+	}
+
+	private class AddPolylineMenuItemHandler extends
+			SelectionListener<ComponentEvent> {
+
+		@Override
+		public void componentSelected(ComponentEvent ce) {
+			LatLng[] llline = new LatLng[1];
+			llline[0] = mapGxtController.getRightClickedLatLng();
+			PolylineOptions plo = PolylineOptions.newInstance(true, false);
+			Polyline line = new Polyline(llline, "#FF0000", 2, 1.0, plo);
+			mapWidget.addOverlay(line);
+			line.setDrawingEnabled();
+
+			new MyPolylineEditController(mapGxtController, line, "Polyline",
+					"This is a new polyline.");
+		}
+	}
+
+	private class AddPolygonMenuItemHandler extends
+			SelectionListener<ComponentEvent> {
+
+		@Override
+		public void componentSelected(ComponentEvent ce) {
+			LatLng[] llpolygon = new LatLng[1];
+			llpolygon[0] = mapGxtController.getRightClickedLatLng();
+			PolygonOptions pgo = PolygonOptions.newInstance(true);
+			Polygon polygon = new Polygon(llpolygon, "#0000FF", 2, 1.0,
+					"#0000FF", 0.3, pgo);
+			mapWidget.addOverlay(polygon);
+			polygon.setDrawingEnabled();
+
+			new MyPolygonEditController(mapGxtController, polygon, "Polygon",
+					"This is a new polygon.");
+
+		}
 	}
 }

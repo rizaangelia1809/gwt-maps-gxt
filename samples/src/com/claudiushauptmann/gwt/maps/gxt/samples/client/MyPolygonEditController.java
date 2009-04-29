@@ -15,9 +15,9 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.samples.client;
 
+import com.claudiushauptmann.gwt.maps.gxt.client.DefaultOverlayTip;
 import com.claudiushauptmann.gwt.maps.gxt.client.MapGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.MenuProvider;
-import com.claudiushauptmann.gwt.maps.gxt.client.OverlayTip;
 import com.claudiushauptmann.gwt.maps.gxt.client.PolygonGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.TipProvider;
 import com.extjs.gxt.ui.client.event.ComponentEvent;
@@ -36,7 +36,9 @@ public class MyPolygonEditController {
 	private PolygonGXTController polygonGXTController;
 
 	private MyTipProvider myTipProvider;
-	private OverlayTip overlayTip;
+	private DefaultOverlayTip overlayTip;
+	private String tipTitle;
+	private String tipText;
 
 	private PolygonMenuProvider polygonMenuProvider;
 	private Menu polygonMenu;
@@ -52,9 +54,11 @@ public class MyPolygonEditController {
 	private MyPolygonHandlers myPolygonHandlers;
 
 	public MyPolygonEditController(MapGXTController mapGxtController,
-			Polygon polygon) {
+			Polygon polygon, String tipTitle, String tipText) {
 		this.polygon = polygon;
 		this.mapGxtController = mapGxtController;
+		this.tipTitle = tipTitle;
+		this.tipText = tipText;
 
 		polygonGXTController = new PolygonGXTController(mapGxtController, polygon);
 
@@ -73,9 +77,9 @@ public class MyPolygonEditController {
 	private class MyTipProvider implements TipProvider {
 		public Tip getTip() {
 			if (overlayTip == null) {
-				overlayTip = new OverlayTip();
-				overlayTip.setTitle("Polygon");
-				overlayTip.setDescription("This is the tooltip.");
+				overlayTip = new DefaultOverlayTip();
+				overlayTip.setTitle(tipTitle);
+				overlayTip.setDescription(tipText);
 			}
 
 			return overlayTip;

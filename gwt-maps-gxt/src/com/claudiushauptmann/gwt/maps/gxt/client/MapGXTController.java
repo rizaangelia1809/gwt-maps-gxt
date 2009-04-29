@@ -24,24 +24,53 @@ import com.google.gwt.user.client.Window;
 
 public class MapGXTController extends MapMenuController {
 	private Menu currentMenu;
-	
-	
+	private MenuProvider menuProvider;
+
 	public MapGXTController(MapWidget mapWidget) {
 		super(mapWidget);
 	}
-	
-	
+
+	public MenuProvider getMenuProvider() {
+		return menuProvider;
+	}
+
+	public void setMenuProvider(MenuProvider menuProvider) {
+		this.menuProvider = menuProvider;
+	}
+
 	public Menu getCurrentMenu() {
 		return currentMenu;
 	}
 
+	protected void setCurrentMenu(Menu currentMenu) {
+		this.currentMenu = currentMenu;
+	}
+
+	/**
+	 * @param menu
+	 * @param point
+	 */
+	public void showMenu(Menu menu, Point point) {
+		MenuTimer.showMenu(menu, point);
+	}
+
+	@Override
+	protected void showMenu() {
+		if (getMenuProvider() != null) {
+			Menu tempMenu = getMenuProvider().getMenu();
+			
+			if (tempMenu != null) {
+				showMenu(tempMenu, getCurrentMousePosition());
+				setCurrentMenu(tempMenu);
+			}
+		}
+	}
 
 	@Override
 	public boolean isMenuVisible() {
 		return (currentMenu != null) && (currentMenu.isVisible());
 	}
-	
-	
+
 	@Override
 	public void hideMenu() {
 		if (isMenuVisible()) {
@@ -49,43 +78,42 @@ public class MapGXTController extends MapMenuController {
 		}
 	}
 
-
-	public void setCurrentMenu(Menu currentMenu) {
-		this.currentMenu = currentMenu;
-	}
-
-	
-	public static class MenuTimer extends Timer{
+	private static class MenuTimer extends Timer {
+		private static final int delayTime = 50;
 		private Menu menu;
 		private Point point;
-		
+
 		MenuTimer(Menu menu, Point point) {
 			this.menu = menu;
 			this.point = point;
 		}
-		
+
 		@Override
 		public void run() {
 			int x = point.getX();
 			int y = point.getY();
-	
+
 			menu.showAt(x, y);
-	
+
 			int width = menu.getWidth();
 			int height = menu.getHeight();
-	
-			if ((x + width) > Window.getClientWidth() + Window.getScrollLeft() - 10) {
-				x = Window.getClientWidth() + Window.getScrollLeft() - width -10;
+
+			if ((x + width) > Window.getClientWidth() + Window.getScrollLeft()
+					- 10) {
+				x = Window.getClientWidth() + Window.getScrollLeft() - width
+						- 10;
 			}
-			if ((y + height) > Window.getClientHeight() + Window.getScrollTop() - 10) {
-				y = Window.getClientHeight() + Window.getScrollTop() - height - 10;
+			if ((y + height) > Window.getClientHeight() + Window.getScrollTop()
+					- 10) {
+				y = Window.getClientHeight() + Window.getScrollTop() - height
+						- 10;
 			}
-			
+
 			menu.setPosition(x, y);
 		}
-		
-		public static void showMenu(Menu menu, Point point) {
-			new MenuTimer(menu, point).schedule(50);
+
+		static void showMenu(Menu menu, Point point) {
+			new MenuTimer(menu, point).schedule(delayTime);
 		}
 	}
 
