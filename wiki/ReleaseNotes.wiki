@@ -1,6 +1,31 @@
 #summary Release Notes
+#labels Featured
 
 = gwt-maps-gxt Release Notes =
+
+
+== Release 1.0.0.Beta5 (released April 29, 2009) ==
+
+
+=== General Changes & Enhancements ===
+
+  * Migrating to gwt-1.6.4 and gxt-1.2.4 [http://code.google.com/p/gwt-maps-gxt/source/detail?r=55 r55]
+
+  * MapMenuController supports menus. [http://code.google.com/p/gwt-maps-gxt/source/detail?r=55 r55]
+
+=== API Changes ===
+
+  * IMenuController renamed to MenuController, ITipProvider renamed to TipProvider. [http://code.google.com/p/gwt-maps-gxt/source/detail?r=51 r51]
+
+  * OverlayTip renamed to DefaultOverlayTip. [http://code.google.com/p/gwt-maps-gxt/source/detail?r=55 r55]
+
+
+=== Bug fixes ===
+
+  * OverlayMenuTipController did not call detachMouseOverHandlers, so these handlers where active, even when the overlay has been removed from the MapWidget. [http://code.google.com/p/gwt-maps-gxt/source/detail?r=52 r52]
+
+  * MarkerGXTController.showMenu() checks, if MenuProvider is null. [http://code.google.com/p/gwt-maps-gxt/source/detail?r=55 r55]
+
 
 
 == Release 1.0.0.Beta4 (released April 2, 2009) ==
