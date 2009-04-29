@@ -20,7 +20,7 @@ import com.extjs.gxt.ui.client.widget.tips.Tip;
 /**
  * Inherits {@link Tip} and stores title and description to display.
  */
-public class OverlayTip extends Tip  {
+public class DefaultOverlayTip extends Tip  {
 	private String title;
 	private String description;
 	

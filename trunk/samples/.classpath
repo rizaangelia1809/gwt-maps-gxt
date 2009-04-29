@@ -10,7 +10,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/hauptman/Documents/Java/GXT/gxt-1.2.3/gxt.jar"/>
+	<classpathentry kind="lib" path="/Users/hauptman/Documents/Java/GXT/gxt-1.2.4/gxt.jar"/>
 	<classpathentry kind="lib" path="/Users/hauptman/Documents/Java/Maps/gwt-maps-1.0.3/gwt-maps.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/gwt-maps-gxt"/>
 	<classpathentry kind="output" path="build/classes"/>

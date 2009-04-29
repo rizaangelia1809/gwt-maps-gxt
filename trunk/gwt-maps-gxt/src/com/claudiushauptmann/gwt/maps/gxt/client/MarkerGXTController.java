@@ -125,12 +125,14 @@ public class MarkerGXTController extends MarkerMenuTipController {
 	
 	@Override
 	protected void showMenu() {
-		setCurrentMenu(getMenuProvider().getMenu());
-		
-		if (currentMenu != null) {
-			hideTip();
-			MapGXTController.MenuTimer.showMenu(currentMenu, mapMenuController.getCurrentMousePosition());
-			mapGXTController.setCurrentMenu(currentMenu);
+		if (getMenuProvider() != null) {		
+			setCurrentMenu(getMenuProvider().getMenu());
+			
+			if (currentMenu != null) {
+				hideTip();
+				mapGXTController.showMenu(currentMenu, mapMenuController.getCurrentMousePosition());
+				mapGXTController.setCurrentMenu(currentMenu);
+			}
 		}
 	}
 

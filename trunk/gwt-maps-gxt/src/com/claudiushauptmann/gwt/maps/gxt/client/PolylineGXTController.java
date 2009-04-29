@@ -162,7 +162,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 			setCurrentMenu(getStandardMenuProvider().getMenu());
 			hideTip();
 			setCurrentMenu(currentMenu);
-			MapGXTController.MenuTimer.showMenu(currentMenu, position);
+			mapGXTController.showMenu(currentMenu, position);
 		}
 	}
 	
@@ -172,7 +172,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 			setCurrentMenu(getVertexMenuProvider().getMenu());
 			hideTip();
 			setCurrentMenu(currentMenu);
-			MapGXTController.MenuTimer.showMenu(currentMenu, position);
+			mapGXTController.showMenu(currentMenu, position);
 		} else {
 			showStandardMenu(position);
 		}
@@ -184,7 +184,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 			setCurrentMenu(getStartMenuProvider().getMenu());
 			hideTip();
 			setCurrentMenu(currentMenu);
-			MapGXTController.MenuTimer.showMenu(currentMenu, position);
+			mapGXTController.showMenu(currentMenu, position);
 		} else {
 			showVertexMenu(position);
 		}
@@ -196,7 +196,7 @@ public class PolylineGXTController extends PolylineMenuTipController {
 			setCurrentMenu(getEndMenuProvider().getMenu());
 			hideTip();
 			setCurrentMenu(currentMenu);
-			MapGXTController.MenuTimer.showMenu(currentMenu, position);
+			mapGXTController.showMenu(currentMenu, position);
 		} else {
 			showVertexMenu(position);
 		}

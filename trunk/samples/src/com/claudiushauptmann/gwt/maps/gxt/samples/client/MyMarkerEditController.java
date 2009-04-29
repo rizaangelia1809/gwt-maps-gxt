@@ -1,9 +1,9 @@
 package com.claudiushauptmann.gwt.maps.gxt.samples.client;
 
+import com.claudiushauptmann.gwt.maps.gxt.client.DefaultOverlayTip;
 import com.claudiushauptmann.gwt.maps.gxt.client.MapGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.MarkerGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.MenuProvider;
-import com.claudiushauptmann.gwt.maps.gxt.client.OverlayTip;
 import com.claudiushauptmann.gwt.maps.gxt.client.TipProvider;
 import com.extjs.gxt.ui.client.event.ComponentEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
@@ -19,7 +19,9 @@ public class MyMarkerEditController {
 	private MarkerGXTController markerGxtController;
 
 	private MyTipProvider myTipProvider;
-	private OverlayTip overlayTip;
+	private DefaultOverlayTip overlayTip;
+	private String tipTitle;
+	private String tipText;
 
 	private MarkerMenuProvider markerMenuProvider;
 	private Menu markerMenu;
@@ -27,9 +29,11 @@ public class MyMarkerEditController {
 	private MarkerDeleteMenuItemHandler markerDeleteMenuItemHandler;
 
 	public MyMarkerEditController(MapGXTController mapGxtController,
-			Marker marker) {
+			Marker marker, String tipTitle, String tipText) {
 		this.marker = marker;
 		this.mapGxtController = mapGxtController;
+		this.tipTitle = tipTitle;
+		this.tipText = tipText;
 
 		markerGxtController = new MarkerGXTController(mapGxtController, marker);
 
@@ -43,22 +47,17 @@ public class MyMarkerEditController {
 	private class MyTipProvider implements TipProvider {
 		public Tip getTip() {
 			if (overlayTip == null) {
-				overlayTip = new OverlayTip();
-				overlayTip.setTitle("Marienplatz");
+				overlayTip = new DefaultOverlayTip();
+				overlayTip.setTitle(tipTitle);
 				overlayTip
 						.setDescription("loading...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
 
 				new Timer() {
 					@Override
 					public void run() {
-						overlayTip = new OverlayTip();
-						overlayTip.setTitle("Marienplatz");
-						overlayTip
-								.setDescription("Marienplatz is a central square in the"
-										+ " city center of Munich, Germany since 1158.<br/>"
-										+ " In the Middle Ages markets and tournaments were held in this"
-										+ " city square. The Glockenspiel in the new city hall was inspired"
-										+ " by these tournaments, and draws millions of tourists a year.");
+						overlayTip = new DefaultOverlayTip();
+						overlayTip.setTitle(tipTitle);
+						overlayTip.setDescription(tipText);
 						markerGxtController.refreshTip();
 					}
 				}.schedule(1500);

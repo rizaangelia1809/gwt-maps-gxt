@@ -51,8 +51,8 @@ public abstract class PolylineMenuTipController extends PolyOverlayMenuTipContro
 	}
 
 	@Override
-	protected void detach() {
-		super.detach();
+	protected void detachHandlers() {
+		super.detachHandlers();
 		
 		polyline.removePolylineMouseOverHandler(polylineEventHandler);
 		polyline.removePolylineMouseOutHandler(polylineEventHandler);

@@ -136,7 +136,7 @@ public class PolygonGXTController extends PolygonMenuTipController {
 		if (standardMenuProvider != null) {
 			setCurrentMenu(getStandardMenuProvider().getMenu());
 			hideTip();
-			MapGXTController.MenuTimer.showMenu(currentMenu, position);
+			mapGXTController.showMenu(currentMenu, position);
 			setCurrentMenu(currentMenu);
 		}
 	}
@@ -145,7 +145,7 @@ public class PolygonGXTController extends PolygonMenuTipController {
 		if (vertexMenuProvider != null) {
 			setCurrentMenu(getVertexMenuProvider().getMenu());
 			hideTip();
-			MapGXTController.MenuTimer.showMenu(currentMenu, position);
+			mapGXTController.showMenu(currentMenu, position);
 			setCurrentMenu(currentMenu);
 		} else {
 			showStandardMenu(position);

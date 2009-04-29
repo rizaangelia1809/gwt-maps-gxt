@@ -1,8 +1,8 @@
 package com.claudiushauptmann.gwt.maps.gxt.samples.client;
 
+import com.claudiushauptmann.gwt.maps.gxt.client.DefaultOverlayTip;
 import com.claudiushauptmann.gwt.maps.gxt.client.MapGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.MenuProvider;
-import com.claudiushauptmann.gwt.maps.gxt.client.OverlayTip;
 import com.claudiushauptmann.gwt.maps.gxt.client.PolylineGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.TipProvider;
 import com.extjs.gxt.ui.client.event.ComponentEvent;
@@ -24,7 +24,9 @@ public class MyPolylineEditController {
 	private PolylineGXTController polylineGXTController;
 
 	private MyTipProvider myTipProvider;
-	private OverlayTip overlayTip;
+	private DefaultOverlayTip overlayTip;
+	private String tipTitle;
+	private String tipText;
 
 	private PolylineMenuProvider polylineMenuProvider;
 	private Menu polylineMenu;
@@ -47,9 +49,11 @@ public class MyPolylineEditController {
 	private MyPolylineHandlers myPolylineHandlers;
 
 	public MyPolylineEditController(MapGXTController mapGxtController,
-			Polyline polyline) {
+			Polyline polyline, String tipTitle, String tipText) {
 		this.polyline = polyline;
 		this.mapGxtController = mapGxtController;
+		this.tipTitle = tipTitle;
+		this.tipText = tipText;
 
 		polylineGXTController = new PolylineGXTController(mapGxtController,
 				polyline);
@@ -73,10 +77,9 @@ public class MyPolylineEditController {
 	private class MyTipProvider implements TipProvider {
 		public Tip getTip() {
 			if (overlayTip == null) {
-				overlayTip = new OverlayTip();
-				overlayTip.setTitle("Polyline");
-				overlayTip
-						.setDescription("Every mouseover event a new tooltip.");
+				overlayTip = new DefaultOverlayTip();
+				overlayTip.setTitle(tipTitle);
+				overlayTip.setDescription(tipText);
 			}
 
 			return overlayTip;

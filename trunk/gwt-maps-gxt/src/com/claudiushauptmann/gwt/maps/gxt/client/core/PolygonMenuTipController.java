@@ -52,8 +52,8 @@ public abstract class PolygonMenuTipController extends PolyOverlayMenuTipControl
 	}
 	
 	@Override
-	protected void detach() {
-		super.detach();
+	protected void detachHandlers() {
+		super.detachHandlers();
 		
 		polygon.removePolygonMouseOverHandler(polygonEventHandler);
 		polygon.removePolygonMouseOutHandler(polygonEventHandler);
