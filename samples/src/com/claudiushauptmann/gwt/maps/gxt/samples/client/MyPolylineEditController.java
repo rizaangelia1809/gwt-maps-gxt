@@ -5,7 +5,7 @@ import com.claudiushauptmann.gwt.maps.gxt.client.MapGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.MenuProvider;
 import com.claudiushauptmann.gwt.maps.gxt.client.PolylineGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.TipProvider;
-import com.extjs.gxt.ui.client.event.ComponentEvent;
+import com.extjs.gxt.ui.client.event.MenuEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
@@ -148,31 +148,30 @@ public class MyPolylineEditController {
 		}
 	}
 
-	private class MyDeletePolylineHandler extends
-			SelectionListener<ComponentEvent> {
+	private class MyDeletePolylineHandler extends SelectionListener<MenuEvent> {
 
 		@Override
-		public void componentSelected(ComponentEvent ce) {
+		public void componentSelected(MenuEvent me) {
 			mapGxtController.getMapWidget().removeOverlay(polyline);
 		}
 
 	}
 
 	private class VertexDeleteMenuItemHandler extends
-			SelectionListener<ComponentEvent> {
+			SelectionListener<MenuEvent> {
 
 		@Override
-		public void componentSelected(ComponentEvent ce) {
+		public void componentSelected(MenuEvent me) {
 			polyline.deleteVertex(polylineGXTController.getLastClickedVertex());
 		}
 
 	}
 
 	private class EndVertexAddMenuItemHandler extends
-			SelectionListener<ComponentEvent> {
+			SelectionListener<MenuEvent> {
 
 		@Override
-		public void componentSelected(ComponentEvent ce) {
+		public void componentSelected(MenuEvent ce) {
 			PolyEditingOptions peo = PolyEditingOptions
 					.newInstance(polylineGXTController.getLastClickedVertex() == 0);
 			polyline.setDrawingEnabled(peo);

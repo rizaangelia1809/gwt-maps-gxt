@@ -17,7 +17,7 @@ package com.claudiushauptmann.gwt.maps.gxt.samples.client;
 
 import com.claudiushauptmann.gwt.maps.gxt.client.MapGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.MenuProvider;
-import com.extjs.gxt.ui.client.event.ComponentEvent;
+import com.extjs.gxt.ui.client.event.MenuEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
@@ -134,11 +134,10 @@ public class OverlayEditor implements EntryPoint {
 		}
 	}
 
-	private class AddMarkerMenuItemHandler extends
-			SelectionListener<ComponentEvent> {
+	private class AddMarkerMenuItemHandler extends SelectionListener<MenuEvent> {
 
 		@Override
-		public void componentSelected(ComponentEvent ce) {
+		public void componentSelected(MenuEvent me) {
 			MarkerOptions mo = MarkerOptions.newInstance();
 			mo.setClickable(true);
 			mo.setDraggable(true);
@@ -152,10 +151,10 @@ public class OverlayEditor implements EntryPoint {
 	}
 
 	private class AddPolylineMenuItemHandler extends
-			SelectionListener<ComponentEvent> {
+			SelectionListener<MenuEvent> {
 
 		@Override
-		public void componentSelected(ComponentEvent ce) {
+		public void componentSelected(MenuEvent ce) {
 			LatLng[] llline = new LatLng[1];
 			llline[0] = mapGxtController.getRightClickedLatLng();
 			PolylineOptions plo = PolylineOptions.newInstance(true, false);
@@ -169,10 +168,10 @@ public class OverlayEditor implements EntryPoint {
 	}
 
 	private class AddPolygonMenuItemHandler extends
-			SelectionListener<ComponentEvent> {
+			SelectionListener<MenuEvent> {
 
 		@Override
-		public void componentSelected(ComponentEvent ce) {
+		public void componentSelected(MenuEvent me) {
 			LatLng[] llpolygon = new LatLng[1];
 			llpolygon[0] = mapGxtController.getRightClickedLatLng();
 			PolygonOptions pgo = PolygonOptions.newInstance(true);

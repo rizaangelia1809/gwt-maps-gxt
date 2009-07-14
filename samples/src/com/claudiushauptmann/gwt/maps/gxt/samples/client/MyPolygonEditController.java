@@ -20,7 +20,7 @@ import com.claudiushauptmann.gwt.maps.gxt.client.MapGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.MenuProvider;
 import com.claudiushauptmann.gwt.maps.gxt.client.PolygonGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.TipProvider;
-import com.extjs.gxt.ui.client.event.ComponentEvent;
+import com.extjs.gxt.ui.client.event.MenuEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
@@ -60,7 +60,8 @@ public class MyPolygonEditController {
 		this.tipTitle = tipTitle;
 		this.tipText = tipText;
 
-		polygonGXTController = new PolygonGXTController(mapGxtController, polygon);
+		polygonGXTController = new PolygonGXTController(mapGxtController,
+				polygon);
 
 		myTipProvider = new MyTipProvider();
 		polygonGXTController.setTipProvider(myTipProvider);
@@ -94,7 +95,8 @@ public class MyPolygonEditController {
 				polygonDeleteMenuItem = new MenuItem();
 				polygonDeleteMenuItem.setText("Delete Polygon");
 				polygonDeleteMenuItemHandler = new MyDeletePolygonHandler();
-				polygonDeleteMenuItem.addSelectionListener(polygonDeleteMenuItemHandler);
+				polygonDeleteMenuItem
+						.addSelectionListener(polygonDeleteMenuItemHandler);
 				polygonMenu.add(polygonDeleteMenuItem);
 			}
 
@@ -121,21 +123,20 @@ public class MyPolygonEditController {
 		}
 	}
 
-	private class MyDeletePolygonHandler extends
-			SelectionListener<ComponentEvent> {
+	private class MyDeletePolygonHandler extends SelectionListener<MenuEvent> {
 
 		@Override
-		public void componentSelected(ComponentEvent ce) {
+		public void componentSelected(MenuEvent ce) {
 			mapGxtController.getMapWidget().removeOverlay(polygon);
 		}
 
 	}
 
 	private class VertexDeleteMenuItemHandler extends
-			SelectionListener<ComponentEvent> {
+			SelectionListener<MenuEvent> {
 
 		@Override
-		public void componentSelected(ComponentEvent ce) {
+		public void componentSelected(MenuEvent me) {
 			polygon.deleteVertex(polygonGXTController.getLastClickedVertex());
 		}
 
