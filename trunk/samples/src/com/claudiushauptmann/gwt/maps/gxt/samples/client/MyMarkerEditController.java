@@ -5,7 +5,7 @@ import com.claudiushauptmann.gwt.maps.gxt.client.MapGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.MarkerGXTController;
 import com.claudiushauptmann.gwt.maps.gxt.client.MenuProvider;
 import com.claudiushauptmann.gwt.maps.gxt.client.TipProvider;
-import com.extjs.gxt.ui.client.event.ComponentEvent;
+import com.extjs.gxt.ui.client.event.MenuEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
@@ -85,10 +85,10 @@ public class MyMarkerEditController {
 	}
 
 	private class MarkerDeleteMenuItemHandler extends
-			SelectionListener<ComponentEvent> {
+			SelectionListener<MenuEvent> {
 
 		@Override
-		public void componentSelected(ComponentEvent ce) {
+		public void componentSelected(MenuEvent me) {
 			mapGxtController.getMapWidget().removeOverlay(marker);
 		}
 
