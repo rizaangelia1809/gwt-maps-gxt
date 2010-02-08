@@ -7,7 +7,7 @@
 	<!-- The Basics -->
 
 	<groupId>com.claudiushauptmann</groupId>
-	<artifactId>gwt-maps-gxt-parent</artifactId>
+	<artifactId>gwt-maps-gxt-all</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
@@ -59,7 +59,7 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>2.0-beta-9</version>
 				<configuration>
-					<tagBase>scm:svn:http://gwt-maps-gxt.googlecode.com/svn/tags</tagBase>
+					<tagBase>https://gwt-maps-gxt.googlecode.com/svn/tags</tagBase>
 				</configuration>
 			</plugin>
 			<plugin>
