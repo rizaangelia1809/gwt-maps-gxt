@@ -4,13 +4,13 @@
 	<parent>
 		<groupId>com.claudiushauptmann</groupId>
 		<artifactId>gwt-maps-gxt-all</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.claudiushauptmann</groupId>
 	<artifactId>gwt-maps-gxt</artifactId>
 	<name>gwt-maps-gxt</name>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 
 	<dependencies>
 		<dependency>
