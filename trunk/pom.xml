@@ -43,6 +43,9 @@
 		<gwt.version>1.7.0</gwt.version>
 		<gwt-maps.version>1.0.4</gwt-maps.version>
 		<gxt.version>2.0.1</gxt.version>
+		
+		<gwt-maven-plugin.version>1.2</gwt-maven-plugin.version>
+		
 		<maven.compiler.source>1.5</maven.compiler.source>
 		<maven.compiler.target>1.5</maven.compiler.target>
 	</properties>
@@ -57,7 +60,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.0-beta-9</version>
 				<configuration>
 					<tagBase>https://gwt-maps-gxt.googlecode.com/svn/tags</tagBase>
 				</configuration>
@@ -65,7 +67,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
-				<version>2.0-beta-5</version>
 			</plugin>
 		</plugins>
 
@@ -82,12 +83,11 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>gwt-maven-plugin</artifactId>
-					<version>1.2</version>
+					<version>${gwt-maven-plugin.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>2.0.2</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -98,7 +98,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.6.1</version>
 			</plugin>
 		</plugins>
 	</reporting>
@@ -122,9 +121,9 @@
 
 	<developers>
 		<developer>
-			<id>hauptmac</id>
+			<id>claudiushauptmann.com</id>
 			<name>Claudius Hauptmann</name>
-			<email>hauptmac@cs.tum.edu</email>
+			<email>claudiushauptmann.com@gmail.com</email>
 			<url>http://claudiushauptmann.com/</url>
 			<roles>
 				<role>developer</role>
@@ -178,7 +177,6 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.0-alpha-4</version>
 						<executions>
 							<execution>
 								<id>sign-artifacts</id>
