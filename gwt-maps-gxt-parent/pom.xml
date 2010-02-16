@@ -10,12 +10,11 @@
 	<artifactId>gwt-maps-gxt-parent</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
+	
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-            <scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -128,8 +127,8 @@
 
 	<!-- More Project Information -->
 
-	<name>gwt-maps-gxt Parent POM</name>
-	<description>Integration of Ext GWT's Tool Tips and Popup Menus into the google web toolkit-version of google maps.</description>
+	<name>gwt-maps-gxt-parent</name>
+	<description>Reactor and Parent POM for gwt-maps-gxt and gwt-maps-gxt-sample.</description>
 	<url>http://code.google.com/p/gwt-maps-gxt/</url>
 	<inceptionYear>2008</inceptionYear>
 
@@ -160,7 +159,7 @@
 
 	<issueManagement>
 		<system>Google Code</system>
-		<url>http://code.google.com/p/gwt-maps-gxt/issues/</url>
+		<url>http://code.google.com/p/gwt-maps-gxt/issues/list</url>
 	</issueManagement>
 
 	<mailingLists>
@@ -174,7 +173,7 @@
 	<scm>
 		<connection>scm:svn:http://gwt-maps-gxt.googlecode.com/svn/trunk/</connection>
 		<developerConnection>scm:svn:https://gwt-maps-gxt.googlecode.com/svn/trunk/</developerConnection>
-		<url>http://code.google.com/p/gwt-maps-gxt/source/</url>
+		<url>http://code.google.com/p/gwt-maps-gxt/source/browse/#svn/trunk/gwt-maps-gxt-parent</url>
 		<tag>HEAD</tag>
 	</scm>
 

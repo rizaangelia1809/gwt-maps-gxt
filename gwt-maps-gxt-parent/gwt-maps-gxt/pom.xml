@@ -1,17 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.claudiushauptmann</groupId>
-		<artifactId>gwt-maps-gxt-parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-	</parent>
+
+	<!-- The Basics -->
 
 	<groupId>com.claudiushauptmann</groupId>
 	<artifactId>gwt-maps-gxt</artifactId>
-	<name>gwt-maps-gxt</name>
 	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
 
 	<dependencies>
 		<dependency>
@@ -32,6 +30,15 @@
 			<artifactId>gwt-maps</artifactId>
 		</dependency>
 	</dependencies>
+
+	<parent>
+		<groupId>com.claudiushauptmann</groupId>
+		<artifactId>gwt-maps-gxt-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+
+
+	<!-- Build Settings -->
 
 	<build>
 		<resources>
@@ -64,7 +71,18 @@
 						<phase>test</phase>
 					</execution>
 				</executions>
+				<configuration>
+					<runTarget>com.claudiushauptmann.gwt.maps.gxt.samples.OverlayEditor/index.html</runTarget>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
+
+
+	<!-- More Project Information -->
+
+	<name>gwt-maps-gxt</name>
+	<description>Integration of Ext GWT's Tool Tips and Popup Menus into the google web toolkit-version of google maps.</description>
+	<url>http://code.google.com/p/gwt-maps-gxt/</url>
+
 </project>
