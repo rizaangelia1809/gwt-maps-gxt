@@ -1,0 +1,31 @@
+<!--                                                                        -->
+<!-- Copyright 2008 Claudius Hauptmann                                      -->
+<!-- Licensed under the Apache License, Version 2.0 (the "License"); you    -->
+<!-- may not use this file except in compliance with the License. You may   -->
+<!-- may obtain a copy of the License at                                    -->
+<!--                                                                        -->
+<!-- http://www.apache.org/licenses/LICENSE-2.0                             -->
+<!--                                                                        -->
+<!-- Unless required by applicable law or agreed to in writing, software    -->
+<!-- distributed under the License is distributed on an "AS IS" BASIS,      -->
+<!-- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or        -->
+<!-- implied. License for the specific language governing permissions and   -->
+<!-- limitations under the License.                                         -->
+<!--                                                                        -->
+<module>
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User'/>
+
+	<!-- Include Google Maps and Inherit the Wrapper Module -->
+	<script src="http://maps.google.com/maps?gwt=1&amp;file=api&amp;v=2.148" />
+	<inherits name="com.google.gwt.maps.GoogleMaps"/>
+  
+  	<!-- Inherit the GXT-Module -->
+ 	<inherits name="com.extjs.gxt.ui.GXT"/>
+
+	<!-- Inherit the gwt-maps-gxt Module -->
+	<inherits name="com.claudiushauptmann.gwt.maps.gxt.GwtMapsGxt"/>
+
+	<!-- Specify the app entry point class.                   -->
+	<entry-point class='com.claudiushauptmann.gwt.maps.gxt.samples.client.OverlayEditor'/>
+</module>
