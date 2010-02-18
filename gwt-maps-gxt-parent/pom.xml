@@ -129,7 +129,7 @@
 
 	<name>gwt-maps-gxt-parent</name>
 	<description>Reactor and Parent POM for gwt-maps-gxt and gwt-maps-gxt-sample.</description>
-	<url>http://code.google.com/p/gwt-maps-gxt/</url>
+	<url>http://claudiushauptmann.com/gwt-maps-gxt/</url>
 	<inceptionYear>2008</inceptionYear>
 
 	<licenses>
