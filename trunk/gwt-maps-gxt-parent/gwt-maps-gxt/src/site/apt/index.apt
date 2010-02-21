@@ -1,15 +1,17 @@
  -----
- Title
+ Home
  -----
- Author
+ Claudius Hauptmann
  -----
  Date
  -----
 
 ~~ http://maven.apache.org/doxia/references/apt-format.html
 
-Section title
+gwt-maps-gxt
 
-*Sub\-section title
+ Integration of Ext GWT's Tool Tips and Popup Menus into the google web toolkit-version of google maps.
+ 
+ Check out this {{{http://gwt-maps-gxt.appspot.com} demo}} running on Google App Engine.
 
- Paragraph 1.
+[images/tooltipmapsgxt.png] Screenshot of tooltip

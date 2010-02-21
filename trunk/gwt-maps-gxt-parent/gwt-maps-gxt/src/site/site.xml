@@ -8,14 +8,16 @@
 
 	<body>
 		<links>
-			<item name="Google Web Toolkit (GWT)" href="http://code.google.com/p/google-web-toolkit/" />
+			<item name="Google Web Toolkit (GWT)" href="http://code.google.com/webtoolkit/" />
 			<item name="Google Maps Library for GWT" href="http://code.google.com/p/gwt-google-apis/" />
 			<item name="Ext GWT (GXT)" href="http://www.extjs.com/products/gxt/" />
 		</links>
 		
-		<menu name="gwt-maps-gxt">
+		<menu name="Overview">
 			<item name="Home" href="index.html"></item>
 			<item name="Getting Started" href="getting-started.html"></item>
+			<item name="Release Notes" href="release-notes.html"></item>
+			<item name="Demo" href="http://gwt-maps-gxt.appspot.com/"></item>			
 		</menu>
 		
 		<menu name="Project Information">
