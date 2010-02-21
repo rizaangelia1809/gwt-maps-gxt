@@ -17,6 +17,13 @@ gwt-maps-gxt
 [images/tooltipmapsgxt.png] Screenshot of tooltip
 
 
+*Project Hosting
+
+ Source code, issues and downloads are hosted at Google Code:
+ 
+ {{{http://code.google.com/p/gwt-maps-gxt/} http://code.google.com/p/gwt-maps-gxt/}}
+
+
 *Development Snapshots
 
  Development snapshots will be deployed to the sonatype oss snapshots repository:
@@ -44,4 +51,6 @@ gwt-maps-gxt
 
 *Projects using gwt-maps-gxt
 
-  * {{{http://alpspasses.appspot.com/} Cycling the Apls}}
+ The following projects are using gwt-maps-gxt. Please notifiy me about your projects using gwt-maps-gxt.
+
+  * {{{http://alpspasses.appspot.com/} Cycling the Alps}}

@@ -8,6 +8,8 @@
 
 	<body>
 		<links>
+			<item name="Demo" href="http://gwt-maps-gxt.appspot.com/"></item>	
+			<item name="Project Hosting" href="http://code.google.com/p/gwt-maps-gxt/"></item>		
 			<item name="Google Web Toolkit (GWT)" href="http://code.google.com/webtoolkit/" />
 			<item name="Google Maps Library for GWT" href="http://code.google.com/p/gwt-google-apis/" />
 			<item name="Ext GWT (GXT)" href="http://www.extjs.com/products/gxt/" />
@@ -17,7 +19,6 @@
 			<item name="Home" href="index.html"></item>
 			<item name="Getting Started" href="getting-started.html"></item>
 			<item name="Release Notes" href="release-notes.html"></item>
-			<item name="Demo" href="http://gwt-maps-gxt.appspot.com/"></item>			
 		</menu>
 		
 		<menu name="Project Information">
