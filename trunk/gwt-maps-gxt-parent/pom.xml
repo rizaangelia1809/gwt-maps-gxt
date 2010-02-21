@@ -30,7 +30,6 @@
 				<groupId>com.google.gwt</groupId>
 				<artifactId>gwt-dev</artifactId>
 				<version>${gwt.version}</version>
-				<classifier>mac</classifier>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -43,6 +42,12 @@
 				<groupId>com.google.gwt.google-apis</groupId>
 				<artifactId>gwt-maps</artifactId>
 				<version>${gwt-maps.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.claudiushauptmann</groupId>
+				<artifactId>gwt-maps-gxt</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
 			<dependency>
@@ -60,14 +65,17 @@
 	</modules>
 
 	<properties>
-		<gwt.version>1.7.1</gwt.version>
-		<gwt-maps.version>1.0.4</gwt-maps.version>
-		<gxt.version>2.0.1</gxt.version>
-
-		<gwt-maven-plugin.version>1.2</gwt-maven-plugin.version>
-
 		<maven.compiler.source>1.5</maven.compiler.source>
 		<maven.compiler.target>1.5</maven.compiler.target>
+
+		<gwt.version>2.0.2</gwt.version>
+		<gwt-maps.version>1.0.4</gwt-maps.version>
+		<gxt.version>2.1.1</gxt.version>
+
+		<gae.version>1.3.1</gae.version>
+
+		<maven-gae-plugin.version>0.5.3</maven-gae-plugin.version>
+		<gwt-maven-plugin.version>1.2</gwt-maven-plugin.version>
 
 		<junit.version>3.8</junit.version>
 	</properties>
@@ -111,6 +119,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
 				</plugin>
+			<plugin>
+				<groupId>net.kindleit</groupId>
+				<artifactId>maven-gae-plugin</artifactId>
+				<version>${maven-gae-plugin.version}</version>
+			</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -176,6 +189,22 @@
 		<url>http://code.google.com/p/gwt-maps-gxt/source/browse/#svn/trunk/gwt-maps-gxt-parent</url>
 		<tag>HEAD</tag>
 	</scm>
+
+	<repositories>
+		<repository>
+			<id>maven-gae-plugin-repo</id>
+			<name>maven-gae-plugin repository</name>
+			<url>http://maven-gae-plugin.googlecode.com/svn/repository</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven-gae-plugin-repo</id>
+			<name>maven-gae-plugin repository</name>
+			<url>http://maven-gae-plugin.googlecode.com/svn/repository</url>
+		</pluginRepository>
+	</pluginRepositories>
 
 	<distributionManagement>
 		<repository>
