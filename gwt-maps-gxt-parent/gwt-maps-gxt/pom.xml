@@ -19,7 +19,6 @@
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-dev</artifactId>
-			<classifier>mac</classifier>
 		</dependency>
 		<dependency>
 			<groupId>com.extjs</groupId>
