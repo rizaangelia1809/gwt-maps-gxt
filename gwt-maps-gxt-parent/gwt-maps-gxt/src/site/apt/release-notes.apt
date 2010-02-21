@@ -1,0 +1,74 @@
+ -----
+ Release Notes
+ -----
+ Claudius Hauptmann
+ -----
+ Date
+ -----
+
+~~ http://maven.apache.org/doxia/references/apt-format.html
+
+Release Notes
+
+ Check out what's new about the latest version of gwt-maps-gxt. As always, you're encouraged to tell us what you think, either using a {{{mail-lists.html} mailing list}} or by filing an {{{issue-tracking.html} issue}}.
+
+ 
+*Release 1.0.0.Beta5 (released April 29, 2009)
+
+ General Changes & Enhancements
+
+  * Migrating to gwt-1.6.4 and gxt-1.2.4 {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=55} r55}}
+
+  * MapMenuController supports menus. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=55} r55}}
+
+ API Changes
+
+  * IMenuController renamed to MenuController, ITipProvider renamed to TipProvider. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=51} r51}}
+
+  * OverlayTip renamed to DefaultOverlayTip. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=55} r55}}
+
+ Bug fixes
+
+  * OverlayMenuTipController did not call detachMouseOverHandlers, so these handlers where active, even when the overlay has been removed from the MapWidget. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=52} r52}}
+
+  * MarkerGXTController.showMenu() checks, if MenuProvider is null. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=55} r55}}
+
+
+*Release 1.0.0.Beta4 (released April 2, 2009)
+
+ General Changes & Enhancements
+
+  * Menus are now listening to right clicks. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=35} r35}}
+
+ API Changes
+
+  * Adding support for lazy loading tips and menus via ITipProvider and IMenuProvider. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=32} r32}}
+
+  * Controllers are now using the base class Tip instead of OverlayTip. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=31} r31}}
+
+  * tool tips can be refreshed (e.g. after a rpc callback when the data to be displayed is loaded) {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=35} r35}}
+
+  * Base classes moved to package com.claudiushauptmann.gwt.maps.gxt.client.core. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=36} r36}}
+
+  * Adding default implementations for ITipProvider and IMenuProvider. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=37} r37}}
+
+ Bug fixes
+
+  * The controllers now work with both menus and tooltips at a time and with only menus or only tooltips. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=30} r30}}
+
+
+*Release 1.0.0.Beta3 (released March 3, 2009) 
+
+ API Changes
+
+  * The current position is stored in the MapMenuController, thus, every OverlayMenuTipController needs a reference to this class instead of a reference to the MapWidget {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=26} r26}}
+
+ Bug fixes
+
+  * OverlayMenuTipController is only listening to MapMouseMove if Mouse is over the Overlay. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=26} r26}}
+
+  * Tool tips and menus were visible at the same time. {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=21} r21}}
+
+  * mapDragStart now hides Menu (did not work on IE) {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=20} r20}}
+
+  * MarkerMenuTipController.detach() did not call super.detach() {{{http://code.google.com/p/gwt-maps-gxt/source/detail?r=25} r25}}
