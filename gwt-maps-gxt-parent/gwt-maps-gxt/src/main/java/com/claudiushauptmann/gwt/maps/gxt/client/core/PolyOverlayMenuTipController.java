@@ -15,34 +15,65 @@
  */
 package com.claudiushauptmann.gwt.maps.gxt.client.core;
 
-
-
+/**
+ * Base class for 2D overlay controller. Calculates and stores the last clicked
+ * Vertex.
+ */
 public abstract class PolyOverlayMenuTipController extends
 		OverlayMenuTipController {
 
+	/**
+	 * The index of the vertex that was clicked.
+	 */
 	private int lastClickedVertex;
 
+	/**
+	 * Creates a PolyOverlayMenuTipController
+	 * 
+	 * @param mapMenuController
+	 *            The MapMenuController of the map the overlay is attached to.
+	 */
 	public PolyOverlayMenuTipController(MapMenuController mapMenuController) {
 		super(mapMenuController);
-		
+
 		lastClickedVertex = -1;
 	}
 
+	/**
+	 * Returns the index of the vertex that was clicked.
+	 * 
+	 * @return The index of the vertex that was clicked.
+	 */
 	public int getLastClickedVertex() {
 		return lastClickedVertex;
 	}
 
+	/**
+	 * Sets the index of the vertex that was clicked.
+	 * 
+	 * @param lastClickedVertex
+	 *            The index of the vertex that was clicked.
+	 */
 	protected void setLastClickedVertex(int lastClickedVertex) {
 		this.lastClickedVertex = lastClickedVertex;
 	}
 
+	/**
+	 * Has to return the current vertex.
+	 * 
+	 * @return The current vertex.
+	 */
 	protected abstract int getCurrentVertex();
 
+	/**
+	 * Is called when the overlay is right clicked and stores the current
+	 * vertex.
+	 */
 	@Override
 	protected void overlayRightClick() {
 		super.overlayRightClick();
 
-		setLastClickedVertex(getCurrentVertex());		
+		setLastClickedVertex(getCurrentVertex());
 	}
 
 }

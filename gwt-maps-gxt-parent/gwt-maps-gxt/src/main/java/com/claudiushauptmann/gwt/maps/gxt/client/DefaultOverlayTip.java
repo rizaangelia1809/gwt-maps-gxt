@@ -20,43 +20,64 @@ import com.extjs.gxt.ui.client.widget.tips.Tip;
 /**
  * Inherits {@link Tip} and stores title and description to display.
  */
-public class DefaultOverlayTip extends Tip  {
-	private String title;
-	private String description;
-	
+public class DefaultOverlayTip extends Tip {
+
 	/**
-	 * @return returns the title.
+	 * The title.
+	 */
+	private String title;
+
+	/**
+	 * The description.
+	 */
+	private String description;
+
+	/**
+	 * Returns the title.
+	 * 
+	 * @return The title.
 	 */
 	public String getTitle() {
 		return title;
 	}
 
 	/**
-	 * @param title the new title.
+	 * Sets the title.
+	 * 
+	 * @param title
+	 *            The title.
 	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
+
 	/**
-	 * @return the current description.
+	 * Returns the description.
+	 * 
+	 * @return The description.
 	 */
 	public String getDescription() {
 		return description;
 	}
 
 	/**
-	 * @param description the new description.
+	 * Sets the description.
+	 * 
+	 * @param The
+	 *            description.
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * Updates the content of the tip.
+	 */
 	@Override
 	protected void updateContent() {
-	      getHeader().setText(title == null ? "" : title);
-	      if (description != null) {
-	        getBody().update(description);
-	      }
-	}	
+		getHeader().setText(title == null ? "" : title);
+		if (description != null) {
+			getBody().update(description);
+		}
+	}
 }

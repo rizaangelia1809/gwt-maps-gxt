@@ -17,8 +17,18 @@ package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.tips.Tip;
 
+/**
+ * TipProviders are queried by Controllers for the current Tip. Thus, the Tip
+ * can be created in a lazy way and be replaced at further calls.
+ */
 public interface TipProvider {
-	
+
+	/**
+	 * This method will be called by the controller when the tip has to be
+	 * shown.
+	 * 
+	 * @return The tip to be shown.
+	 */
 	public Tip getTip();
-	
+
 }

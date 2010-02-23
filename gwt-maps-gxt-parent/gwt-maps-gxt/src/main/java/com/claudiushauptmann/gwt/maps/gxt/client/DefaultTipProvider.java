@@ -17,14 +17,33 @@ package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.tips.Tip;
 
+/**
+ * Default implementation of TipProvider. Does not use lazy initialization of
+ * the tip.
+ */
 public class DefaultTipProvider implements TipProvider {
+
+	/**
+	 * The tip provided.
+	 */
 	private Tip tip;
-	
+
+	/**
+	 * Creates a DefaultTipProvider.
+	 * 
+	 * @param tip
+	 *            the tip that will be provided.
+	 */
 	public DefaultTipProvider(Tip tip) {
 		this.tip = tip;
 	}
 
+	/**
+	 * Returns the tip to be provided.
+	 * 
+	 * @return The tip to be provided.
+	 */
 	public Tip getTip() {
 		return tip;
-	}		
+	}
 }
