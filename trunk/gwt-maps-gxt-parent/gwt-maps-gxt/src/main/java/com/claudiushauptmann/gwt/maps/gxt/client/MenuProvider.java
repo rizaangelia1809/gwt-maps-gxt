@@ -17,8 +17,18 @@ package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 
+/**
+ * MenuProviders are queried by Controllers for the current Menu. Thus, the menu
+ * can be created in a lazy way and be replaced at further calls.
+ */
 public interface MenuProvider {
-	
+
+	/**
+	 * This method will be called by the controller when the popup menu has to
+	 * be shown.
+	 * 
+	 * @return The menu to be shown.
+	 */
 	public Menu getMenu();
 
 }

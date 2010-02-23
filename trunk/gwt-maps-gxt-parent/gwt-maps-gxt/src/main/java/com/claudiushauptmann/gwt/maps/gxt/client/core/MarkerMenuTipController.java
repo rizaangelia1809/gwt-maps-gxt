@@ -20,38 +20,64 @@ import com.google.gwt.maps.client.event.MarkerMouseOverHandler;
 import com.google.gwt.maps.client.event.MarkerRemoveHandler;
 import com.google.gwt.maps.client.overlay.Marker;
 
+/**
+ * Base controller for Markers that derives from OverlayMenuTipController.
+ * Handles the marker events and calls the handlers of OverlayMenuTipController.
+ */
 public abstract class MarkerMenuTipController extends OverlayMenuTipController {
-	
+
+	/**
+	 * The marker to be observed.
+	 */
 	protected Marker marker;
+
+	/**
+	 * The observer attached the marker.
+	 */
 	private MarkerEventHandler markerEventHandler;
-	
-	public MarkerMenuTipController(MapMenuController mapMenuController, Marker marker) {
+
+	/**
+	 * Creates a MarkerMenuTipController.
+	 * 
+	 * @param mapMenuController
+	 *            The MapMenuController attached to the map.
+	 * @param marker
+	 *            The marker that has to be observed.
+	 */
+	public MarkerMenuTipController(MapMenuController mapMenuController,
+			Marker marker) {
 		super(mapMenuController);
-		
+
 		this.marker = marker;
-		
+
 		markerEventHandler = new MarkerEventHandler();
 		marker.addMarkerMouseOverHandler(markerEventHandler);
 		marker.addMarkerMouseOutHandler(markerEventHandler);
 		marker.addMarkerRemoveHandler(markerEventHandler);
 	}
 
+	/**
+	 * Overrides the base method to detach it's observer from the marker.
+	 */
 	@Override
 	protected void detachHandlers() {
 		super.detachHandlers();
-		
+
 		marker.removeMarkerMouseOverHandler(markerEventHandler);
 		marker.removeMarkerMouseOutHandler(markerEventHandler);
 		marker.removeMarkerRemoveHandler(markerEventHandler);
 	}
 
+	/**
+	 * Observer class for marker events.
+	 */
 	private class MarkerEventHandler implements MarkerMouseOverHandler,
-				MarkerMouseOutHandler, MarkerRemoveHandler {
+			MarkerMouseOutHandler, MarkerRemoveHandler {
 
 		public void onMouseOver(MarkerMouseOverEvent event) {
 			overlayMouseOver();
 		}
-		
+
 		public void onMouseOut(MarkerMouseOutEvent event) {
 			overlayMouseOut();
 		}

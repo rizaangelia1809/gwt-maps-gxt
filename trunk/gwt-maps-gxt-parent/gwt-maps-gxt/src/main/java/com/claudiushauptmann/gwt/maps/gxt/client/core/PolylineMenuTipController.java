@@ -21,28 +21,58 @@ import com.google.gwt.maps.client.event.PolylineRemoveHandler;
 import com.google.gwt.maps.client.geom.Point;
 import com.google.gwt.maps.client.overlay.Polyline;
 
-public abstract class PolylineMenuTipController extends PolyOverlayMenuTipController {
+/**
+ * Base class for controllers for polylines. Extends
+ * PolyOverlayMenuTipController with logic that calculates the current clicked
+ * vertex.
+ */
+public abstract class PolylineMenuTipController extends
+		PolyOverlayMenuTipController {
 
+	/**
+	 * The polyline the controller is attached to.
+	 */
 	protected Polyline polyline;
+
+	/**
+	 * The observer attached to the polyline.
+	 */
 	private PolylineEventHandler polylineEventHandler;
-	public PolylineMenuTipController(MapMenuController mapMenuController, Polyline polyline) {
+
+	/**
+	 * Creates a PolylineMenuTipController
+	 * 
+	 * @param mapMenuController
+	 *            The controller of the map the polyline is attached to.
+	 * @param polyline
+	 *            The polyline to be observed.
+	 */
+	public PolylineMenuTipController(MapMenuController mapMenuController,
+			Polyline polyline) {
 		super(mapMenuController);
-		
+
 		this.polyline = polyline;
-		
-		polylineEventHandler = new PolylineEventHandler();			
+
+		polylineEventHandler = new PolylineEventHandler();
 		polyline.addPolylineMouseOverHandler(polylineEventHandler);
 		polyline.addPolylineMouseOutHandler(polylineEventHandler);
 		polyline.addPolylineRemoveHandler(polylineEventHandler);
 	}
-	
+
+	/**
+	 * Calculates the current vertex.
+	 */
 	@Override
 	protected int getCurrentVertex() {
 		int temp = -1;
 		for (int i = 0; i < polyline.getVertexCount(); i++) {
-			Point vp = mapMenuController.getMapWidget().convertLatLngToContainerPixel(polyline.getVertex(i));
-			if ((Math.abs(vp.getX()-mapMenuController.getCurrentMouseDivPosition().getX())<7)
-						&& (Math.abs(vp.getY()-mapMenuController.getCurrentMouseDivPosition().getY())<7)) {
+			Point vp = mapMenuController.getMapWidget()
+					.convertLatLngToContainerPixel(polyline.getVertex(i));
+			if ((Math.abs(vp.getX()
+					- mapMenuController.getCurrentMouseDivPosition().getX()) < 7)
+					&& (Math.abs(vp.getY()
+							- mapMenuController.getCurrentMouseDivPosition()
+									.getY()) < 7)) {
 				temp = i;
 				break;
 			}
@@ -50,26 +80,32 @@ public abstract class PolylineMenuTipController extends PolyOverlayMenuTipContro
 		return temp;
 	}
 
+	/**
+	 * Detaches the observer from the polygon.
+	 */
 	@Override
 	protected void detachHandlers() {
 		super.detachHandlers();
-		
+
 		polyline.removePolylineMouseOverHandler(polylineEventHandler);
 		polyline.removePolylineMouseOutHandler(polylineEventHandler);
 		polyline.removePolylineRemoveHandler(polylineEventHandler);
 	}
-	
+
+	/**
+	 * Observer for the polyline events.
+	 */
 	private class PolylineEventHandler implements PolylineMouseOverHandler,
-				PolylineMouseOutHandler, PolylineRemoveHandler {
-		
+			PolylineMouseOutHandler, PolylineRemoveHandler {
+
 		public void onMouseOver(PolylineMouseOverEvent event) {
 			overlayMouseOver();
 		}
-		
+
 		public void onMouseOut(PolylineMouseOutEvent event) {
 			overlayMouseOut();
 		}
-		
+
 		public void onRemove(PolylineRemoveEvent event) {
 			overlayRemove();
 		}

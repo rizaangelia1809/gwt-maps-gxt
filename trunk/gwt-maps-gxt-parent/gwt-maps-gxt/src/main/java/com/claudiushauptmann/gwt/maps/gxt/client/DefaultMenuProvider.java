@@ -17,13 +17,32 @@ package com.claudiushauptmann.gwt.maps.gxt.client;
 
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 
+/**
+ * Default implementation of MenuProvider that does not use a lazy creation of
+ * the menu.
+ */
 public class DefaultMenuProvider implements MenuProvider {
+
+	/**
+	 * The menu.
+	 */
 	private Menu menu;
-	
+
+	/**
+	 * Sets the menu.
+	 * 
+	 * @param menu
+	 *            The menu.
+	 */
 	public DefaultMenuProvider(Menu menu) {
 		this.menu = menu;
 	}
-	
+
+	/**
+	 * Returns the menu.
+	 * 
+	 * @return The menu.
+	 */
 	public Menu getMenu() {
 		return menu;
 	}
