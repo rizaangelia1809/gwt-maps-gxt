@@ -75,6 +75,13 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ftp</artifactId>
+			</extension>
+		</extensions>
 	</build>
 
 
@@ -83,5 +90,13 @@
 	<name>gwt-maps-gxt</name>
 	<description>Integration of Ext GWT's Tool Tips and Popup Menus into the google web toolkit-version of google maps.</description>
 	<url>http://claudiushauptmann.com/gwt-maps-gxt/</url>
+
+
+	<distributionManagement>
+		<site>
+			<id>claudiushauptmann.com</id>
+			<url>ftp://claudiushauptmann.com/gwt-maps-gxt/</url>
+		</site>
+	</distributionManagement>
 
 </project>
