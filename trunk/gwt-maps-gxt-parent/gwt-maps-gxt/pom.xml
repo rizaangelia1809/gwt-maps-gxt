@@ -51,14 +51,6 @@
 		</resources>
 		<plugins>
 			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>**/*GwtTest.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
 				<executions>
@@ -74,8 +66,24 @@
 					<runTarget>com.claudiushauptmann.gwt.maps.gxt.samples.OverlayEditor/index.html</runTarget>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*GwtTest.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<inherited>false</inherited>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>bin</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
 		</plugins>
-
 		<extensions>
 			<extension>
 				<groupId>org.apache.maven.wagon</groupId>
