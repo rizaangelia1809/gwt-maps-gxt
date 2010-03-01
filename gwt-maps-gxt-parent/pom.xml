@@ -7,7 +7,7 @@
 
 	<groupId>com.claudiushauptmann</groupId>
 	<artifactId>gwt-maps-gxt-parent</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<dependencies>
@@ -172,10 +172,9 @@
 	</mailingLists>
 
 	<scm>
-		<connection>scm:svn:http://gwt-maps-gxt.googlecode.com/svn/tags/gwt-maps-gxt-parent-1.0.0</connection>
-		<developerConnection>scm:svn:https://gwt-maps-gxt.googlecode.com/svn/tags/gwt-maps-gxt-parent-1.0.0</developerConnection>
-		<url>http://code.google.com/p/gwt-maps-gxt/source/browse/#svn/tags/gwt-maps-gxt-parent-1.0.0</url>
-		<tag>HEAD</tag>
+		<connection>scm:svn:http://gwt-maps-gxt.googlecode.com/svn/trunk/gwt-maps-gxt-parent/</connection>
+		<developerConnection>scm:svn:https://gwt-maps-gxt.googlecode.com/svn/trunk/gwt-maps-gxt-parent/</developerConnection>
+		<url>http://code.google.com/p/gwt-maps-gxt/source/browse/#svn/trunk/gwt-maps-gxt-parent</url>
 	</scm>
 
 	<distributionManagement>
