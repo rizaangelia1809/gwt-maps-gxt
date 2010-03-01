@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+
+	<!-- The Basics -->
+
+	<groupId>com.claudiushauptmann</groupId>
+	<artifactId>gwt-maps-gxt</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.extjs</groupId>
+			<artifactId>gxt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt.google-apis</groupId>
+			<artifactId>gwt-maps</artifactId>
+		</dependency>
+	</dependencies>
+
+	<parent>
+		<groupId>com.claudiushauptmann</groupId>
+		<artifactId>gwt-maps-gxt-parent</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+
+	<!-- Build Settings -->
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.java</include>
+					<include>**/*.gwt.xml</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>test</id>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<phase>test</phase>
+					</execution>
+				</executions>
+				<configuration>
+					<runTarget>com.claudiushauptmann.gwt.maps.gxt.samples.OverlayEditor/index.html</runTarget>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*GwtTest.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<inherited>false</inherited>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>bin</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+		</plugins>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ftp</artifactId>
+			</extension>
+		</extensions>
+	</build>
+
+
+	<!-- More Project Information -->
+
+	<name>gwt-maps-gxt</name>
+	<description>Integration of Ext GWT's Tool Tips and Popup Menus into the google web toolkit-version of google maps.</description>
+	<url>http://claudiushauptmann.com/gwt-maps-gxt/</url>
+
+
+	<distributionManagement>
+		<site>
+			<id>claudiushauptmann.com</id>
+			<url>ftp://claudiushauptmann.com/gwt-maps-gxt/</url>
+		</site>
+	</distributionManagement>
+
+</project>

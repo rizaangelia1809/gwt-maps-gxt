@@ -1,0 +1,227 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+
+	<!-- The Basics -->
+
+	<groupId>com.claudiushauptmann</groupId>
+	<artifactId>gwt-maps-gxt-parent</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt-user</artifactId>
+				<version>${gwt.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.google.gwt</groupId>
+				<artifactId>gwt-dev</artifactId>
+				<version>${gwt.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.extjs</groupId>
+				<artifactId>gxt</artifactId>
+				<version>${gxt.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.google.gwt.google-apis</groupId>
+				<artifactId>gwt-maps</artifactId>
+				<version>${gwt-maps.version}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<modules>
+		<module>gwt-maps-gxt</module>
+		<module>gwt-maps-gxt-sample</module>
+	</modules>
+
+	<properties>
+		<maven.compiler.source>1.5</maven.compiler.source>
+		<maven.compiler.target>1.5</maven.compiler.target>
+
+		<gwt.version>2.0.2</gwt.version>
+		<gwt-maps.version>1.0.4</gwt-maps.version>
+		<gxt.version>2.1.1</gxt.version>
+
+		<gwt-maven-plugin.version>1.2</gwt-maven-plugin.version>
+
+		<junit.version>3.8</junit.version>
+	</properties>
+
+
+	<!-- Build Settings -->
+
+	<build>
+		<defaultGoal>install</defaultGoal>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<tagBase>https://gwt-maps-gxt.googlecode.com/svn/tags</tagBase>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-site-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<inherited>false</inherited>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>project</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>${maven.compiler.source}</source>
+						<target>${maven.compiler.target}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>gwt-maven-plugin</artifactId>
+					<version>${gwt-maven-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</reporting>
+
+
+	<!-- More Project Information -->
+
+	<name>gwt-maps-gxt-parent</name>
+	<description>Reactor and Parent POM for gwt-maps-gxt and gwt-maps-gxt-sample.</description>
+	<url>http://claudiushauptmann.com/gwt-maps-gxt-parent/</url>
+	<inceptionYear>2008</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>Apache 2</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>hauptmac</id>
+			<name>Claudius Hauptmann</name>
+			<email>hauptmac@cs.tum.edu</email>
+			<url>http://claudiushauptmann.com/</url>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>1</timezone>
+		</developer>
+	</developers>
+
+
+	<!-- Environment Settings -->
+
+	<issueManagement>
+		<system>Google Code</system>
+		<url>http://code.google.com/p/gwt-maps-gxt/issues/list</url>
+	</issueManagement>
+
+	<mailingLists>
+		<mailingList>
+			<name>gwt-maps-gxt</name>
+			<post>gwt-maps-gxt@googlegroups.com</post>
+			<archive>http://groups.google.com/group/gwt-maps-gxt/</archive>
+		</mailingList>
+	</mailingLists>
+
+	<scm>
+		<connection>scm:svn:http://gwt-maps-gxt.googlecode.com/svn/tags/gwt-maps-gxt-parent-1.0.0</connection>
+		<developerConnection>scm:svn:https://gwt-maps-gxt.googlecode.com/svn/tags/gwt-maps-gxt-parent-1.0.0</developerConnection>
+		<url>http://code.google.com/p/gwt-maps-gxt/source/browse/#svn/tags/gwt-maps-gxt-parent-1.0.0</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>sonatype-nexus-staging</id>
+			<name>Nexus Release Repository</name>
+			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<snapshotRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<name>Sonatype Nexus Snapshots</name>
+			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<site>
+			<id>claudiushauptmann.com</id>
+			<url>ftp://claudiushauptmann.com/gwt-maps-gxt-parent/</url>
+		</site>
+	</distributionManagement>
+
+	<profiles>
+		<profile>
+			<id>release-sign-artifacts</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>
