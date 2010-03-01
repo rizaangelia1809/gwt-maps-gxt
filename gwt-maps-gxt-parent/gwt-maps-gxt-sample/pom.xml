@@ -115,8 +115,7 @@
 
 	<name>gwt-maps-gxt-sample</name>
 	<description>Sample project for gwt-maps-gxt.</description>
-	<url>http://claudiushauptmann.com/gwt-maps-gxt/</url>
-
+	<url>http://claudiushauptmann.com/gwt-maps-gxt-sample/</url>
 
 	<!-- Environment Settings -->
 
@@ -135,5 +134,12 @@
 			<url>http://maven-gae-plugin.googlecode.com/svn/repository</url>
 		</pluginRepository>
 	</pluginRepositories>
+
+	<distributionManagement>
+		<site>
+			<id>claudiushauptmann.com</id>
+			<url>ftp://claudiushauptmann.com/gwt-maps-gxt-sample/</url>
+		</site>
+	</distributionManagement>
 
 </project>

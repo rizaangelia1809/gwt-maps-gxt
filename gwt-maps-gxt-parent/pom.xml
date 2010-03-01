@@ -79,14 +79,12 @@
 
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
 					<tagBase>https://gwt-maps-gxt.googlecode.com/svn/tags</tagBase>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 			</plugin>
 		</plugins>
@@ -124,7 +122,7 @@
 
 	<name>gwt-maps-gxt-parent</name>
 	<description>Reactor and Parent POM for gwt-maps-gxt and gwt-maps-gxt-sample.</description>
-	<url>http://claudiushauptmann.com/gwt-maps-gxt/</url>
+	<url>http://claudiushauptmann.com/gwt-maps-gxt-parent/</url>
 	<inceptionYear>2008</inceptionYear>
 
 	<licenses>
@@ -183,6 +181,10 @@
 			<name>Sonatype Nexus Snapshots</name>
 			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
+		<site>
+			<id>claudiushauptmann.com</id>
+			<url>ftp://claudiushauptmann.com/gwt-maps-gxt-parent/</url>
+		</site>
 	</distributionManagement>
 
 	<profiles>
