@@ -12,6 +12,16 @@ Release Notes
 
  Check out what's new about the latest version of gwt-maps-gxt. As always, you're encouraged to tell us what you think, either using a {{{mail-lists.html} mailing list}} or by filing an {{{issue-tracking.html} issue}}.
 
+*Release 1.0.0 (released March 1, 2010)
+
+ General Changes & Enhancements
+
+  * Google Web Toolkit 2.0.2 and GXT 2.1.1.
+  
+  * Maven Project site.
+  
+  * Simple unit test.
+ 
  
 *Release 1.0.0.Beta5 (released April 29, 2009)
 
