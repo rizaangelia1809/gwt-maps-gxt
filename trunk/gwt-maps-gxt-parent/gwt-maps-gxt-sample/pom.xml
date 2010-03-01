@@ -6,7 +6,7 @@
 
 	<groupId>com.claudiushauptmann</groupId>
 	<artifactId>gwt-maps-gxt-sample</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<dependencies>
@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>com.claudiushauptmann</groupId>
 			<artifactId>gwt-maps-gxt</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
@@ -33,7 +33,7 @@
 	<parent>
 		<groupId>com.claudiushauptmann</groupId>
 		<artifactId>gwt-maps-gxt-parent</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 
 

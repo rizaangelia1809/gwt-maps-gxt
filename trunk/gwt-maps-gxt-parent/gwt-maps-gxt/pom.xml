@@ -7,7 +7,7 @@
 
 	<groupId>com.claudiushauptmann</groupId>
 	<artifactId>gwt-maps-gxt</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<dependencies>
@@ -32,7 +32,7 @@
 	<parent>
 		<groupId>com.claudiushauptmann</groupId>
 		<artifactId>gwt-maps-gxt-parent</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 
 
