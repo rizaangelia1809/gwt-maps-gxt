@@ -52,7 +52,9 @@
 					</execution>
 				</executions>
 				<configuration>
-					<runTarget>com.claudiushauptmann.gwt.maps.gxt.samples.OverlayEditor/index.html</runTarget>
+					<warSourceDirectory>war</warSourceDirectory>
+					<inplace>true</inplace>
+					<runTarget>index.html</runTarget>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -60,7 +62,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<warSourceDirectory>war</warSourceDirectory>
-					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+					<!-- <webXml>src/main/webapp/WEB-INF/web.xml</webXml> -->
 					<webResources>
 						<webResource>
 							<directory>src/main/webapp</directory>
