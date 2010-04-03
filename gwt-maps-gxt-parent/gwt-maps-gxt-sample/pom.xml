@@ -65,7 +65,7 @@
 					<!-- <webXml>src/main/webapp/WEB-INF/web.xml</webXml> -->
 					<webResources>
 						<webResource>
-							<directory>src/main/webapp</directory>
+							<directory>war</directory>
 							<filtering>true</filtering>
 						</webResource>
 					</webResources>
